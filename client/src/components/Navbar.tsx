@@ -31,11 +31,11 @@ export default function Navbar() {
             <div className="hidden md:flex space-x-6">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a className={`text-lumier-gray hover:text-lumier-gold transition-colors ${
+                  <span className={`text-lumier-gray hover:text-lumier-gold transition-colors cursor-pointer ${
                     location === item.href ? 'text-lumier-gold' : ''
                   }`}>
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </div>
@@ -77,14 +77,14 @@ export default function Navbar() {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a
-                    className={`block px-3 py-2 text-lumier-gray hover:text-lumier-gold transition-colors ${
+                  <span
+                    className={`block px-3 py-2 text-lumier-gray hover:text-lumier-gold transition-colors cursor-pointer ${
                       location === item.href ? 'text-lumier-gold' : ''
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </div>
