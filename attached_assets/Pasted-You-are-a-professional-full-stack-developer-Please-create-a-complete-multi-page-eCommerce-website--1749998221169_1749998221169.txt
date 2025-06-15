@@ -1,0 +1,66 @@
+You are a professional full-stack developer. Please create a complete, multi-page eCommerce website called Lumier Furniture, optimized for the Nigerian market. The website allows users to rent or buy furniture, with installment plans, Paystack integration, and a full product catalog.
+🏠 GENERAL INFO:
+* Brand Name: Lumier Furniture
+* Style: Clean, modern, elegant (bohemian + hotel luxury)
+* Website should be mobile-first and responsive
+* Font: Inter or clean sans-serif
+* Brand Color: Gold (#f4c430) on black and white
+* Use HTML, CSS, and JavaScript (no framework required unless necessary)
+🔧 WEBSITE PAGES TO INCLUDE:
+1. Home (index.html)
+   * Header with logo and nav links (Explore, Cart, Login)
+   * Highlight categories and featured products
+2. Explore (explore.html)
+   * Show 20+ furniture items
+   * Each item has:
+      * Name, image, description, price
+      * Rent or Buy toggle
+      * Optional color selection (up to 6)
+      * Add to Cart button
+3. Product Detail (product.html)
+   * Large preview image + image thumbnails (gallery effect)
+   * Color selection (boxes)
+   * Dimensions/specs
+   * Rent/Buy toggle
+   * Related furniture suggestions banner
+4. Cart (cart.html)
+   * List of all items in cart
+   * Rent/buy label
+   * Monthly installment (based on plan selected)
+   * Option to remove/edit items
+5. Checkout (checkout.html)
+   * Collect user info: name, email, phone, delivery address, state
+   * Add:
+      * BVN field (identity verification)
+      * Next of kin + phone
+   * Choose payment plan (1, 3, 6, 9, 12, 24 months)
+   * Auto-calculate:
+      * VAT (7.5% of subtotal)
+      * Delivery fee based on state (editable from backend)
+   * Display monthly payment if plan > 1
+   * Paystack inline payment (use test public key)
+6. Thank You Page (thankyou.html)
+   * Simple confirmation message with summary
+7. Login (login.html) & Signup (signup.html)
+   * Include Google/Apple login buttons (UI only)
+🛒 FUNCTIONALITY:
+* Store cart in localStorage
+* Pass data between pages using localStorage
+* Toggle between rent and buy per product
+* VAT & delivery auto-calculate
+* Paystack payment triggers on "Confirm & Pay"
+* Delivery fee should vary by location (editable in backend)
+* Future setup: Add Strapi as backend CMS
+* Future setup: Add Paystack identity API + recurring billing
+📦 STRUCTURE:
+* /index.html
+* /explore.html
+* /product.html
+* /cart.html
+* /checkout.html
+* /thankyou.html
+* /login.html, /signup.html
+* /images/ folder with product images and logo
+* /scripts/ folder (JS for cart, checkout, navigation)
+* /styles/ folder (modular CSS)
+✅ Ensure navigation works across all pages ✅ Include 2–3 sample products with dummy images ✅ All components should simulate working store behavior ✅ No backend needed (for now)
