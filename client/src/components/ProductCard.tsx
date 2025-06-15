@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
 import { Product } from "@shared/schema";
+import { Minus, Plus } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
@@ -10,6 +12,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
   const monthlyPrice = Math.round(product.price / 12);
 
   const handleAddToCart = () => {
@@ -18,10 +21,19 @@ export default function ProductCard({ product }: ProductCardProps) {
       name: product.name,
       price: product.price,
       image: product.image,
-      quantity: 1,
+      quantity: quantity,
       type: 'buy',
       color: product.colors[0]
     });
+    setQuantity(1); // Reset quantity after adding to cart
+  };
+
+  const incrementQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prev => Math.max(1, prev - 1));
   };
 
   return (
@@ -45,11 +57,30 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Badge variant="secondary" className="mb-3">
           {product.category}
         </Badge>
+        <div className="flex items-center space-x-3 mb-3">
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8"
+            onClick={decrementQuantity}
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+          <span className="font-medium min-w-[2rem] text-center">{quantity}</span>
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8"
+            onClick={incrementQuantity}
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
         <Button
           onClick={handleAddToCart}
           className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
         >
-          Add to Cart
+          Add {quantity} to Cart
         </Button>
       </div>
     </div>
