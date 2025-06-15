@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(43, 89%, 57%);
+  --primary-foreground: hsl(26, 10%, 10%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(43, 89%, 57%);
+  --radius: 0.5rem;
+  
+  /* Lumier brand colors */
+  --lumier-gold: hsl(43, 89%, 57%);
+  --lumier-black: hsl(0, 0%, 10%);
+  --lumier-gray: hsl(0, 0%, 40%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(43, 89%, 57%);
+  --primary-foreground: hsl(26, 10%, 10%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-lumier-gold {
+    color: #F4C430;
+  }
+  
+  .bg-lumier-gold {
+    background-color: #F4C430;
+  }
+  
+  .text-lumier-black {
+    color: #1A1A1A;
+  }
+  
+  .bg-lumier-black {
+    background-color: #1A1A1A;
+  }
+  
+  .text-lumier-gray {
+    color: #666666;
+  }
+  
+  .bg-lumier-gray {
+    background-color: #666666;
+  }
+  
+  .border-lumier-gold {
+    border-color: #F4C430;
+  }
+  
+  .hover\:bg-lumier-gold:hover {
+    background-color: #E6B800;
+  }
+  
+  .hover\:text-lumier-gold:hover {
+    color: #F4C430;
+  }
+  
+  .rent-buy-toggle {
+    background: linear-gradient(45deg, #F4C430, #E6B800);
+  }
+  
+  .product-image-hover {
+    transition: transform 0.3s ease;
+  }
+  
+  .product-image-hover:hover {
+    transform: scale(1.05);
+  }
+  
+  .color-option {
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .color-option.selected {
+    border-color: #F4C430;
+    box-shadow: 0 0 0 2px rgba(244, 196, 48, 0.3);
+  }
+  
+  .cart-badge {
+    background: linear-gradient(45deg, #F4C430, #E6B800);
+  }
+}
