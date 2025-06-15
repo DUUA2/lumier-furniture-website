@@ -113,6 +113,7 @@ The application uses three main entities:
 ## Changelog
 
 - June 15, 2025. Initial setup
+- June 15, 2025. Added PostgreSQL database with Drizzle ORM, replaced in-memory storage with DatabaseStorage, populated with 20 furniture products across 6 categories
 
 ## User Preferences
 
