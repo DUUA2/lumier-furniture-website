@@ -21,11 +21,11 @@ export function useCart() {
   const addToCart = useCallback((item: CartItem) => {
     setCart(currentCart => {
       const newCart = addItemToCart(item, currentCart);
-      toast({
-        title: "Added to cart",
-        description: `${item.name} has been added to your cart.`,
-      });
       return newCart;
+    });
+    toast({
+      title: "Added to cart",
+      description: `${item.name} has been added to your cart.`,
     });
   }, [toast]);
 
@@ -37,10 +37,12 @@ export function useCart() {
     setCart(currentCart => {
       const removedItem = currentCart[index];
       const newCart = removeItemFromCart(index, currentCart);
-      toast({
-        title: "Removed from cart",
-        description: `${removedItem?.name} has been removed from your cart.`,
-      });
+      if (removedItem) {
+        toast({
+          title: "Removed from cart",
+          description: `${removedItem.name} has been removed from your cart.`,
+        });
+      }
       return newCart;
     });
   }, [toast]);
