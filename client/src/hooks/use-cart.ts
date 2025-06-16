@@ -8,14 +8,15 @@ export function useCart() {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    setCart(getCartFromStorage());
+    const savedCart = getCartFromStorage();
+    console.log('Loading cart from storage on mount:', savedCart);
+    setCart(savedCart);
   }, []);
 
   // Save cart to localStorage whenever cart changes
   useEffect(() => {
-    if (cart.length >= 0) {
-      saveCartToStorage(cart);
-    }
+    console.log('Cart changed, saving to storage:', cart);
+    saveCartToStorage(cart);
   }, [cart]);
 
   const addToCart = useCallback((item: CartItem) => {

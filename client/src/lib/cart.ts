@@ -13,8 +13,11 @@ export const getCartFromStorage = (): CartItem[] => {
   
   try {
     const cart = localStorage.getItem('lumierCart');
-    return cart ? JSON.parse(cart) : [];
-  } catch {
+    const parsedCart = cart ? JSON.parse(cart) : [];
+    console.log('Retrieved cart from localStorage:', parsedCart);
+    return parsedCart;
+  } catch (error) {
+    console.error('Error retrieving cart from localStorage:', error);
     return [];
   }
 };
@@ -23,7 +26,9 @@ export const saveCartToStorage = (cart: CartItem[]): void => {
   if (typeof window === 'undefined') return;
   
   try {
+    console.log('Saving cart to localStorage:', cart);
     localStorage.setItem('lumierCart', JSON.stringify(cart));
+    console.log('Cart saved successfully');
   } catch (error) {
     console.error('Failed to save cart to localStorage:', error);
   }
