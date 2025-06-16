@@ -16,6 +16,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const monthlyPrice = Math.round(product.price / 12);
 
   const handleAddToCart = () => {
+    console.log('Adding to cart:', product.name, 'Quantity:', quantity);
+    console.log('Product colors:', product.colors);
+    
     addToCart({
       id: product.id,
       name: product.name,
@@ -23,7 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       image: product.image,
       quantity: quantity,
       type: 'buy',
-      color: product.colors[0]
+      color: Array.isArray(product.colors) ? product.colors[0] : product.colors
     });
     setQuantity(1); // Reset quantity after adding to cart
   };

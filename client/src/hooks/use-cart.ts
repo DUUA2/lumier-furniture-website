@@ -19,8 +19,11 @@ export function useCart() {
   }, [cart]);
 
   const addToCart = useCallback((item: CartItem) => {
+    console.log('useCart: Adding item to cart:', item);
     setCart(currentCart => {
+      console.log('useCart: Current cart before adding:', currentCart);
       const newCart = addItemToCart(item, currentCart);
+      console.log('useCart: New cart after adding:', newCart);
       return newCart;
     });
     toast({
