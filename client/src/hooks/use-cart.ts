@@ -3,15 +3,14 @@ import { CartItem, getCartFromStorage, saveCartToStorage, addToCart as addItemTo
 import { useToast } from '@/hooks/use-toast';
 
 export function useCart() {
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    // Initialize cart from localStorage if available
-    return getCartFromStorage();
-  });
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const { toast } = useToast();
 
-  // Mark as initialized after first render
+  // Initialize cart from localStorage once
   useEffect(() => {
+    const savedCart = getCartFromStorage();
+    setCart(savedCart);
     setIsInitialized(true);
   }, []);
 

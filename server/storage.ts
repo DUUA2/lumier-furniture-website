@@ -22,10 +22,8 @@ export class MemStorage implements IStorage {
   private currentOrderId: number;
 
   constructor() {
-    this.users = new Map();
     this.products = new Map();
     this.orders = new Map();
-    this.currentUserId = 1;
     this.currentProductId = 1;
     this.currentOrderId = 1;
 
@@ -282,29 +280,7 @@ export class MemStorage implements IStorage {
     });
   }
 
-  // Users
-  async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async getUserByEmail(email: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.email === email,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentUserId++;
-    const user: User = { ...insertUser, id, createdAt: new Date() };
-    this.users.set(id, user);
-    return user;
-  }
+  // Removed user management for simplified system
 
   // Products
   async getProducts(): Promise<Product[]> {
@@ -331,7 +307,13 @@ export class MemStorage implements IStorage {
   // Orders
   async createOrder(insertOrder: InsertOrder): Promise<Order> {
     const id = this.currentOrderId++;
-    const order: Order = { ...insertOrder, id, createdAt: new Date() };
+    const order: Order = { 
+      ...insertOrder, 
+      id, 
+      createdAt: new Date(),
+      userId: insertOrder.userId || null,
+      paystackReference: insertOrder.paystackReference || null
+    };
     this.orders.set(id, order);
     return order;
   }
