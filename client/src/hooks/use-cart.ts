@@ -3,28 +3,28 @@ import { CartItem, getCartFromStorage, saveCartToStorage, addToCart as addItemTo
 import { useToast } from '@/hooks/use-toast';
 
 export function useCart() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    // Initialize cart from localStorage if available
+    return getCartFromStorage();
+  });
+  const [isInitialized, setIsInitialized] = useState(false);
   const { toast } = useToast();
 
-  // Load cart from localStorage on mount
+  // Mark as initialized after first render
   useEffect(() => {
-    const savedCart = getCartFromStorage();
-    console.log('Loading cart from storage on mount:', savedCart);
-    setCart(savedCart);
+    setIsInitialized(true);
   }, []);
 
-  // Save cart to localStorage whenever cart changes
+  // Save cart to localStorage whenever cart changes (but not on initial load)
   useEffect(() => {
-    console.log('Cart changed, saving to storage:', cart);
-    saveCartToStorage(cart);
-  }, [cart]);
+    if (isInitialized) {
+      saveCartToStorage(cart);
+    }
+  }, [cart, isInitialized]);
 
   const addToCart = useCallback((item: CartItem) => {
-    console.log('useCart: Adding item to cart:', item);
     setCart(currentCart => {
-      console.log('useCart: Current cart before adding:', currentCart);
       const newCart = addItemToCart(item, currentCart);
-      console.log('useCart: New cart after adding:', newCart);
       return newCart;
     });
     toast({
