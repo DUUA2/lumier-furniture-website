@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useAuth } from "@/hooks/useAuth";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Explore from "@/pages/Explore";
@@ -10,22 +11,27 @@ import ProductDetail from "@/pages/ProductDetail";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import ThankYou from "@/pages/ThankYou";
-import Login from "@/pages/Login";
-import Signup from "@/pages/Signup";
+import Landing from "@/pages/Landing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 function Router() {
+  const { isAuthenticated, isLoading } = useAuth();
+
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/explore" component={Explore} />
-      <Route path="/product/:id" component={ProductDetail} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/checkout" component={Checkout} />
-      <Route path="/thankyou" component={ThankYou} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
+      {isLoading || !isAuthenticated ? (
+        <Route path="/" component={Landing} />
+      ) : (
+        <>
+          <Route path="/" component={Home} />
+          <Route path="/explore" component={Explore} />
+          <Route path="/product/:id" component={ProductDetail} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/thankyou" component={ThankYou} />
+        </>
+      )}
       <Route component={NotFound} />
     </Switch>
   );
