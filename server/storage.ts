@@ -3,10 +3,6 @@ import { db } from "./db";
 import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  // Users (for Replit Auth)
-  getUser(id: string): Promise<User | undefined>;
-  upsertUser(user: UpsertUser): Promise<User>;
-
   // Products
   getProducts(): Promise<Product[]>;
   getProduct(id: number): Promise<Product | undefined>;
@@ -16,15 +12,12 @@ export interface IStorage {
   // Orders
   createOrder(order: InsertOrder): Promise<Order>;
   getOrder(id: number): Promise<Order | undefined>;
-  getOrdersByUser(userId: string): Promise<Order[]>;
   updateOrderPaymentStatus(id: number, status: string, reference?: string): Promise<Order | undefined>;
 }
 
 export class MemStorage implements IStorage {
-  private users: Map<number, User>;
   private products: Map<number, Product>;
   private orders: Map<number, Order>;
-  private currentUserId: number;
   private currentProductId: number;
   private currentOrderId: number;
 

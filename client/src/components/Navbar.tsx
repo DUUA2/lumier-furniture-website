@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useCart } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/useAuth";
 import {
@@ -18,7 +18,10 @@ export default function Navbar() {
   const { cart } = useCart();
   const { user, isAuthenticated } = useAuth();
 
-  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const cartItemsCount = useMemo(() => 
+    cart.reduce((total, item) => total + item.quantity, 0), 
+    [cart]
+  );
 
   const navigation = [
     { name: "Home", href: "/" },
