@@ -30,22 +30,22 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-400">
               <li>
                 <Link href="/explore">
-                  <a className="hover:text-lumier-gold transition-colors">Living Room</a>
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Living Room</span>
                 </Link>
               </li>
               <li>
                 <Link href="/explore">
-                  <a className="hover:text-lumier-gold transition-colors">Bedroom</a>
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Bedroom</span>
                 </Link>
               </li>
               <li>
                 <Link href="/explore">
-                  <a className="hover:text-lumier-gold transition-colors">Dining Room</a>
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Dining Room</span>
                 </Link>
               </li>
               <li>
                 <Link href="/explore">
-                  <a className="hover:text-lumier-gold transition-colors">Office</a>
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Office</span>
                 </Link>
               </li>
             </ul>

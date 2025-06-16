@@ -16,22 +16,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
-
   return (
     <Switch>
-      {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={Home} />
-          <Route path="/explore" component={Explore} />
-          <Route path="/product/:id" component={ProductDetail} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/thankyou" component={ThankYou} />
-        </>
-      )}
+      <Route path="/" component={Home} />
+      <Route path="/explore" component={Explore} />
+      <Route path="/product/:id" component={ProductDetail} />
+      <Route path="/cart" component={Cart} />
+      <Route path="/checkout" component={Checkout} />
+      <Route path="/thankyou" component={ThankYou} />
       <Route component={NotFound} />
     </Switch>
   );
