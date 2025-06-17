@@ -26,8 +26,10 @@ export default function Checkout() {
     street: "",
     city: "",
     state: "",
+    purchaseType: "buy", // "buy" or "installment"
     paymentPlan: "1",
-    insurance: false
+    insurance: false,
+    agreeToTerms: false
   });
 
   const [selectedState, setSelectedState] = useState("");
@@ -81,14 +83,14 @@ export default function Checkout() {
   const deliveryFee = (deliveryFeeData as any)?.fee || 5000;
   const paymentPlan = parseInt(formData.paymentPlan);
   
-  // Enhanced rent-to-own calculations
+  // Enhanced payment calculations
   const insurance = formData.insurance ? Math.round(subtotal * 0.02) : 0; // 2% insurance
   const baseTotal = subtotal + vat + deliveryFee + insurance;
   
-  // Rental fees: 1% per month total (e.g., 3 months = 3% total)
-  const rentalFees = paymentPlan > 1 ? Math.round(subtotal * (0.01 * paymentPlan)) : 0;
+  // Service fees: 5% per month for installment plans (only if installment selected)
+  const serviceFees = formData.purchaseType === "installment" ? Math.round(subtotal * (0.05 * paymentPlan)) : 0;
   
-  const total = baseTotal + rentalFees;
+  const total = baseTotal + serviceFees;
   const monthlyPayment = Math.round(total / paymentPlan);
 
   const handleInputChange = (field: string, value: string) => {
@@ -129,7 +131,7 @@ export default function Checkout() {
       subtotal,
       vat,
       insurance,
-      rentalFees,
+      serviceFees,
       deliveryFee,
       total,
       paymentPlan,
@@ -158,12 +160,11 @@ export default function Checkout() {
   ];
 
   const paymentPlans = [
-    { value: "1", label: "1 Month" },
+    { value: "2", label: "2 Months" },
     { value: "3", label: "3 Months" },
-    { value: "6", label: "6 Months" },
-    { value: "9", label: "9 Months" },
-    { value: "12", label: "12 Months" },
-    { value: "24", label: "24 Months" }
+    { value: "4", label: "4 Months" },
+    { value: "5", label: "5 Months" },
+    { value: "6", label: "6 Months" }
   ];
 
   return (
@@ -306,9 +307,58 @@ export default function Checkout() {
             </div>
           </div>
 
-          {/* Payment Plan */}
+          {/* Purchase Type */}
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Payment Plan</h3>
+            <h3 className="text-lg font-semibold mb-4">Purchase Options</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <label
+                className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+                  formData.purchaseType === "buy"
+                    ? 'border-lumier-gold bg-lumier-gold/10'
+                    : 'border-gray-300 hover:border-lumier-gold'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="purchaseType"
+                  value="buy"
+                  checked={formData.purchaseType === "buy"}
+                  onChange={(e) => setFormData(prev => ({ ...prev, purchaseType: e.target.value }))}
+                  className="sr-only"
+                />
+                <div>
+                  <span className="text-lg font-medium">Buy Outright</span>
+                  <p className="text-sm text-gray-600 mt-1">Pay full amount upfront with no additional fees</p>
+                </div>
+              </label>
+              
+              <label
+                className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+                  formData.purchaseType === "installment"
+                    ? 'border-lumier-gold bg-lumier-gold/10'
+                    : 'border-gray-300 hover:border-lumier-gold'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="purchaseType"
+                  value="installment"
+                  checked={formData.purchaseType === "installment"}
+                  onChange={(e) => setFormData(prev => ({ ...prev, purchaseType: e.target.value }))}
+                  className="sr-only"
+                />
+                <div>
+                  <span className="text-lg font-medium">Installment Plan</span>
+                  <p className="text-sm text-gray-600 mt-1">Flexible payment plans with 5% monthly service fee</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {/* Payment Plan - Only show for installment */}
+          {formData.purchaseType === "installment" && (
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold mb-4">Installment Period</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {paymentPlans.map((plan) => (
                 <label
@@ -351,7 +401,31 @@ export default function Checkout() {
                 </div>
               </label>
             </div>
+            
+            {/* Terms Agreement for Installment Plans */}
+            {formData.purchaseType === "installment" && (
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <label className="flex items-start space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.agreeToTerms}
+                    onChange={(e) => setFormData(prev => ({ ...prev, agreeToTerms: e.target.checked }))}
+                    className="mt-1 h-4 w-4 text-lumier-gold focus:ring-lumier-gold border-gray-300 rounded"
+                  />
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">
+                      I agree to the <Link href="/terms" className="text-lumier-gold hover:underline">installment payment terms and conditions</Link>
+                    </span>
+                    <p className="text-xs text-gray-600 mt-1">
+                      Required for installment purchases - includes credit check and payment schedule
+                    </p>
+                  </div>
+                </label>
+              </div>
+            )}
           </div>
+          )}
+        </div>
         </div>
 
         {/* Order Summary */}
