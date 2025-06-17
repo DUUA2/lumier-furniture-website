@@ -58,7 +58,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Living Room</h3>
               <p className="text-lumier-gray text-sm mb-3">Sofas, chairs, and entertainment units</p>
-              <Link href="/explore?category=Living Room">
+              <Link href="/category/Living Room">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
@@ -75,7 +75,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Bedroom</h3>
               <p className="text-lumier-gray text-sm mb-3">Beds, wardrobes, and bedside furniture</p>
-              <Link href="/explore?category=Bedroom">
+              <Link href="/category/Bedroom">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
@@ -92,7 +92,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Dining Room</h3>
               <p className="text-lumier-gray text-sm mb-3">Dining sets and bar stools</p>
-              <Link href="/explore?category=Dining Room">
+              <Link href="/category/Dining Room">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
@@ -109,7 +109,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Office</h3>
               <p className="text-lumier-gray text-sm mb-3">Desks, chairs, and storage solutions</p>
-              <Link href="/explore?category=Office">
+              <Link href="/category/Office">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
