@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useLocation, Link } from "wouter";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCart } from "@/hooks/use-cart";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Checkout() {
   const [, setLocation] = useLocation();
@@ -27,7 +27,7 @@ export default function Checkout() {
     city: "",
     state: "",
     purchaseType: "buy", // "buy" or "installment"
-    paymentPlan: "1",
+    paymentPlan: "2",
     insurance: false,
     agreeToTerms: false
   });
@@ -78,6 +78,12 @@ export default function Checkout() {
     );
   }
 
+  useEffect(() => {
+    if (formData.state) {
+      setSelectedState(formData.state);
+    }
+  }, [formData.state]);
+
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const vat = Math.round(subtotal * 0.075);
   const deliveryFee = (deliveryFeeData as any)?.fee || 5000;
@@ -97,13 +103,18 @@ export default function Checkout() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleStateChange = (value: string) => {
-    setSelectedState(value);
-    handleInputChange("state", value);
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate terms agreement for installment purchases
+    if (formData.purchaseType === "installment" && !formData.agreeToTerms) {
+      toast({
+        title: "Terms Required",
+        description: "Please agree to the installment payment terms and conditions.",
+        variant: "destructive",
+      });
+      return;
+    }
     
     const orderData = {
       customerEmail: formData.email,
@@ -136,7 +147,8 @@ export default function Checkout() {
       total,
       paymentPlan,
       monthlyPayment,
-      paymentStatus: "pending"
+      paymentStatus: "pending",
+      purchaseType: formData.purchaseType
     };
 
     // Simulate Paystack payment
@@ -216,35 +228,42 @@ export default function Checkout() {
                   onChange={(e) => handleInputChange("phone", e.target.value)}
                 />
               </div>
-              <div className="sm:col-span-2">
-                <Label htmlFor="bvn">BVN (Bank Verification Number) *</Label>
+            </div>
+          </div>
+
+          {/* Verification Information */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h3 className="text-lg font-semibold mb-4">Verification Information</h3>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="bvn">Bank Verification Number (BVN) *</Label>
                 <Input
                   id="bvn"
                   required
-                  maxLength={11}
                   value={formData.bvn}
                   onChange={(e) => handleInputChange("bvn", e.target.value)}
+                  placeholder="Enter your 11-digit BVN"
                 />
               </div>
-              <div className="sm:col-span-2">
-                <Label htmlFor="nin">NIN (National Identification Number) *</Label>
+              <div>
+                <Label htmlFor="nin">National Identification Number (NIN) *</Label>
                 <Input
                   id="nin"
                   required
-                  maxLength={11}
                   value={formData.nin}
                   onChange={(e) => handleInputChange("nin", e.target.value)}
+                  placeholder="Enter your 11-digit NIN"
                 />
               </div>
             </div>
           </div>
 
-          {/* Next of Kin */}
+          {/* Next of Kin Information */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Next of Kin Information</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="nextOfKinName">Next of Kin Name *</Label>
+                <Label htmlFor="nextOfKinName">Full Name *</Label>
                 <Input
                   id="nextOfKinName"
                   required
@@ -253,7 +272,7 @@ export default function Checkout() {
                 />
               </div>
               <div>
-                <Label htmlFor="nextOfKinPhone">Next of Kin Phone *</Label>
+                <Label htmlFor="nextOfKinPhone">Phone Number *</Label>
                 <Input
                   id="nextOfKinPhone"
                   type="tel"
@@ -276,6 +295,7 @@ export default function Checkout() {
                   required
                   value={formData.street}
                   onChange={(e) => handleInputChange("street", e.target.value)}
+                  placeholder="Enter your street address"
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -290,9 +310,12 @@ export default function Checkout() {
                 </div>
                 <div>
                   <Label htmlFor="state">State *</Label>
-                  <Select value={formData.state} onValueChange={handleStateChange} required>
+                  <Select
+                    value={formData.state}
+                    onValueChange={(value) => handleInputChange("state", value)}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select State" />
+                      <SelectValue placeholder="Select state" />
                     </SelectTrigger>
                     <SelectContent>
                       {nigerianStates.map((state) => (
@@ -359,51 +382,50 @@ export default function Checkout() {
           {formData.purchaseType === "installment" && (
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h3 className="text-lg font-semibold mb-4">Installment Period</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {paymentPlans.map((plan) => (
-                <label
-                  key={plan.value}
-                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                    formData.paymentPlan === plan.value
-                      ? 'border-lumier-gold bg-lumier-gold/10'
-                      : 'border-gray-300 hover:border-lumier-gold'
-                  }`}
-                >
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {paymentPlans.map((plan) => (
+                  <label
+                    key={plan.value}
+                    className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                      formData.paymentPlan === plan.value
+                        ? 'border-lumier-gold bg-lumier-gold/10'
+                        : 'border-gray-300 hover:border-lumier-gold'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="paymentPlan"
+                      value={plan.value}
+                      checked={formData.paymentPlan === plan.value}
+                      onChange={(e) => handleInputChange("paymentPlan", e.target.value)}
+                      className="sr-only"
+                    />
+                    <span className="text-sm font-medium">{plan.label}</span>
+                  </label>
+                ))}
+              </div>
+              
+              {/* Insurance Option */}
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <label className="flex items-start space-x-3 cursor-pointer">
                   <input
-                    type="radio"
-                    name="paymentPlan"
-                    value={plan.value}
-                    checked={formData.paymentPlan === plan.value}
-                    onChange={(e) => handleInputChange("paymentPlan", e.target.value)}
-                    className="sr-only"
+                    type="checkbox"
+                    checked={formData.insurance}
+                    onChange={(e) => setFormData(prev => ({ ...prev, insurance: e.target.checked }))}
+                    className="mt-1 h-4 w-4 text-lumier-gold focus:ring-lumier-gold border-gray-300 rounded"
                   />
-                  <span className="text-sm font-medium">{plan.label}</span>
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">
+                      Add Furniture Insurance (2% of item value)
+                    </span>
+                    <p className="text-xs text-gray-600 mt-1">
+                      Comprehensive protection against damage, theft, and accidental breakage
+                    </p>
+                  </div>
                 </label>
-              ))}
-            </div>
-            
-            {/* Insurance Option */}
-            <div className="mt-6 pt-4 border-t border-gray-200">
-              <label className="flex items-start space-x-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.insurance}
-                  onChange={(e) => setFormData(prev => ({ ...prev, insurance: e.target.checked }))}
-                  className="mt-1 h-4 w-4 text-lumier-gold focus:ring-lumier-gold border-gray-300 rounded"
-                />
-                <div>
-                  <span className="text-sm font-medium text-gray-900">
-                    Add Furniture Insurance (2% of item value)
-                  </span>
-                  <p className="text-xs text-gray-600 mt-1">
-                    Comprehensive protection against damage, theft, and accidental breakage
-                  </p>
-                </div>
-              </label>
-            </div>
-            
-            {/* Terms Agreement for Installment Plans */}
-            {formData.purchaseType === "installment" && (
+              </div>
+              
+              {/* Terms Agreement for Installment Plans */}
               <div className="mt-6 pt-4 border-t border-gray-200">
                 <label className="flex items-start space-x-3 cursor-pointer">
                   <input
@@ -422,10 +444,8 @@ export default function Checkout() {
                   </div>
                 </label>
               </div>
-            )}
-          </div>
+            </div>
           )}
-        </div>
         </div>
 
         {/* Order Summary */}
@@ -442,7 +462,9 @@ export default function Checkout() {
                   />
                   <div className="flex-1">
                     <h4 className="font-medium text-sm">{item.name}</h4>
-                    <p className="text-xs text-lumier-gray">Qty: {item.quantity}</p>
+                    <p className="text-xs text-gray-600">
+                      Color: {item.color} | Qty: {item.quantity}
+                    </p>
                   </div>
                   <span className="font-semibold text-sm">
                     ₦{(item.price * item.quantity).toLocaleString()}
@@ -472,10 +494,10 @@ export default function Checkout() {
                   <span>₦{insurance.toLocaleString()}</span>
                 </div>
               )}
-              {paymentPlan > 1 && (
+              {formData.purchaseType === "installment" && (
                 <div className="flex justify-between">
-                  <span>Rental Fee ({paymentPlan}% total):</span>
-                  <span>₦{rentalFees.toLocaleString()}</span>
+                  <span>Service Fee ({paymentPlan * 5}% total):</span>
+                  <span>₦{serviceFees.toLocaleString()}</span>
                 </div>
               )}
               <hr />
@@ -483,14 +505,16 @@ export default function Checkout() {
                 <span>Total:</span>
                 <span>₦{total.toLocaleString()}</span>
               </div>
-              <div className="bg-lumier-gold/20 p-3 rounded-lg mt-4">
-                <div className="text-center">
-                  <span className="text-sm">Monthly Payment:</span>
-                  <div className="text-lg font-bold text-lumier-gold">
-                    ₦{monthlyPayment.toLocaleString()}
+              {formData.purchaseType === "installment" && (
+                <div className="bg-lumier-gold/20 p-3 rounded-lg mt-4">
+                  <div className="text-center">
+                    <span className="text-sm">Monthly Payment:</span>
+                    <div className="text-lg font-bold text-lumier-gold">
+                      ₦{monthlyPayment.toLocaleString()}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
             
             <Button
