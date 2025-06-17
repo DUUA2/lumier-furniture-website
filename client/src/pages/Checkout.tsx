@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,13 +58,20 @@ export default function Checkout() {
     }
   });
 
-  // Debug: Log cart state
-  console.log('Checkout page - cart length:', cart.length, 'cart:', cart);
-
   if (cart.length === 0) {
-    console.log('Cart is empty, redirecting to cart page');
-    setLocation("/cart");
-    return null;
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-lumier-gray mb-2">Your cart is empty</h2>
+          <p className="text-lumier-gray mb-6">Add some furniture to get started</p>
+          <Link href="/explore">
+            <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+              Continue Shopping
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
