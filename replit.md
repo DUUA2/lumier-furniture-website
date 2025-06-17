@@ -123,6 +123,7 @@ The application uses three main entities:
 - June 17, 2025. Created comprehensive Privacy Policy (/privacy) and Terms of Service (/terms-of-service) pages tailored to furniture rental and sales business model, including BVN/NIN data handling, rental agreements, installment payment terms, and Nigerian legal compliance
 - June 17, 2025. Added order confirmation page (/confirm-order) that displays all order details before payment processing, includes customer info review, payment plan confirmation, order total breakdown, and required confirmation checkbox with terms agreement
 - June 17, 2025. Implemented user authentication system for checkout process, customers can sign in/create accounts during checkout or continue as guests, authenticated users get auto-filled personal information, navbar shows dynamic sign in/out options with user dropdown menu
+- June 17, 2025. Fixed React hooks error in checkout component by moving useEffect hooks before conditional returns, resolved authentication configuration issues, fixed "Learn More" button on home page to link to terms page with matching gold button styling
 
 ## User Preferences
 
