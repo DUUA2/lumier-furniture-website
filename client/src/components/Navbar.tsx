@@ -37,9 +37,9 @@ export default function Navbar() {
             <Link href="/">
               <div className="flex items-center cursor-pointer">
                 <img 
-                  src="/assets/LUMIERE LOGO_PSD_1750194691932.png" 
+                  src="/assets/lumiere-logo.svg" 
                   alt="Lumiere Furniture - RC 3662809" 
-                  className="h-16 w-auto"
+                  className="h-14 w-auto"
                 />
               </div>
             </Link>
