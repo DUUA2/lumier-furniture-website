@@ -22,10 +22,12 @@ export default function Checkout() {
     bvn: "",
     nin: "",
     nextOfKinName: "",
+    nextOfKinRelationship: "",
     nextOfKinPhone: "",
     street: "",
     city: "",
     state: "",
+    zipCode: "",
     purchaseType: "buy", // "buy" or "installment"
     paymentPlan: "2",
     insurance: false,
@@ -115,51 +117,39 @@ export default function Checkout() {
       });
       return;
     }
-    
+
+    // Prepare order data for confirmation page
     const orderData = {
-      customerEmail: formData.email,
-      customerName: `${formData.firstName} ${formData.lastName}`,
-      customerPhone: formData.phone,
+      customerInfo: {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        bvn: formData.bvn,
+        nin: formData.nin,
+      },
       deliveryAddress: {
-        street: formData.street,
+        address: formData.street,
         city: formData.city,
-        state: formData.state
+        state: formData.state,
+        zipCode: formData.zipCode,
       },
       nextOfKin: {
         name: formData.nextOfKinName,
-        phone: formData.nextOfKinPhone
+        relationship: formData.nextOfKinRelationship,
+        phone: formData.nextOfKinPhone,
       },
-      bvn: formData.bvn,
-      nin: formData.nin,
-      items: cart.map(item => ({
-        productId: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        type: item.type,
-        color: item.color
-      })),
-      subtotal,
-      vat,
-      insurance,
-      serviceFees,
-      deliveryFee,
-      total,
-      paymentPlan,
-      monthlyPayment,
-      paymentStatus: "pending",
-      purchaseType: formData.purchaseType
+      paymentPlan: {
+        type: formData.purchaseType,
+        months: formData.purchaseType === "installment" ? parseInt(formData.paymentPlan) : undefined,
+        insurance: formData.insurance,
+      },
+      deliveryFee: deliveryFee,
     };
 
-    // Simulate Paystack payment
-    toast({
-      title: "Processing Payment",
-      description: "Please wait while we process your payment...",
-    });
-
-    setTimeout(() => {
-      createOrderMutation.mutate(orderData);
-    }, 2000);
+    // Save order data to localStorage and redirect to confirmation page
+    localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+    setLocation('/confirm-order');
   };
 
   const nigerianStates = [
@@ -272,6 +262,16 @@ export default function Checkout() {
                 />
               </div>
               <div>
+                <Label htmlFor="nextOfKinRelationship">Relationship *</Label>
+                <Input
+                  id="nextOfKinRelationship"
+                  required
+                  value={formData.nextOfKinRelationship}
+                  onChange={(e) => handleInputChange("nextOfKinRelationship", e.target.value)}
+                  placeholder="e.g. Brother, Sister, Spouse"
+                />
+              </div>
+              <div className="sm:col-span-2">
                 <Label htmlFor="nextOfKinPhone">Phone Number *</Label>
                 <Input
                   id="nextOfKinPhone"
@@ -523,7 +523,7 @@ export default function Checkout() {
               size="lg"
               disabled={createOrderMutation.isPending}
             >
-              {createOrderMutation.isPending ? "Processing..." : "Confirm & Pay"}
+Review Order
             </Button>
             
             <p className="text-xs text-lumier-gray text-center mt-3">
