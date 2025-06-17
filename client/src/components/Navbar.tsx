@@ -32,14 +32,14 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center space-x-8">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
                 <img 
                   src="/assets/LUMIERE LOGO_PSD_1750194691932.png" 
                   alt="Lumiere Furniture - RC 3662809" 
-                  className="h-10 w-auto"
+                  className="h-16 w-auto"
                 />
               </div>
             </Link>
