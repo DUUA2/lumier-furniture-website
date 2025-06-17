@@ -104,14 +104,10 @@ export default function Terms() {
             <p className="text-gray-700 mb-3">
               Protect your furniture investment with our comprehensive insurance coverage at 2% of the item value.
             </p>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="text-center">
                 <div className="font-medium">Damage Protection</div>
                 <div className="text-sm text-gray-600">Accidental damage coverage</div>
-              </div>
-              <div className="text-center">
-                <div className="font-medium">Theft Protection</div>
-                <div className="text-sm text-gray-600">Full replacement value</div>
               </div>
               <div className="text-center">
                 <div className="font-medium">Maintenance</div>

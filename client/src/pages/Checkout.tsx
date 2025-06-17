@@ -419,7 +419,7 @@ export default function Checkout() {
                       Add Furniture Insurance (2% of item value)
                     </span>
                     <p className="text-xs text-gray-600 mt-1">
-                      Comprehensive protection against damage, theft, and accidental breakage
+                      Comprehensive protection against damage and professional maintenance
                     </p>
                   </div>
                 </label>
