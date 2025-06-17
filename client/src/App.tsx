@@ -17,6 +17,8 @@ import Terms from "@/pages/Terms";
 import HelpCenter from "@/pages/HelpCenter";
 import Returns from "@/pages/Returns";
 import Contact from "@/pages/Contact";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
 import Landing from "@/pages/Landing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -34,6 +36,8 @@ function Router() {
       <Route path="/help" component={HelpCenter} />
       <Route path="/returns" component={Returns} />
       <Route path="/contact" component={Contact} />
+      <Route path="/privacy" component={PrivacyPolicy} />
+      <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/thankyou" component={ThankYou} />
       <Route component={NotFound} />
     </Switch>

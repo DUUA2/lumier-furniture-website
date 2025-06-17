@@ -93,8 +93,12 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400">&copy; 2024 Lumier Furniture. All rights reserved.</p>
           <div className="flex space-x-6 text-gray-400 mt-4 md:mt-0">
-            <a href="#" className="hover:text-lumier-gold transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-lumier-gold transition-colors">Terms of Service</a>
+            <Link href="/privacy">
+              <span className="hover:text-lumier-gold transition-colors cursor-pointer">Privacy Policy</span>
+            </Link>
+            <Link href="/terms-of-service">
+              <span className="hover:text-lumier-gold transition-colors cursor-pointer">Terms of Service</span>
+            </Link>
           </div>
         </div>
       </div>
