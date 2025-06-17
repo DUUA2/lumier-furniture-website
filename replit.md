@@ -118,6 +118,7 @@ The application uses three main entities:
 - June 16, 2025. Added NIN (National Identification Number) field to checkout form alongside BVN for enhanced Nigerian market compliance
 - June 17, 2025. Implemented enhanced rent-to-own model with 1% monthly rental fees, insurance option (2% of item value), and backend configuration system for easy payment adjustments
 - June 17, 2025. Added dedicated terms and conditions page (/terms) with installment payment details, implemented 2-6 month payment plans with 5% monthly service fees, added buy/installment purchase options with terms agreement requirement
+- June 17, 2025. Created comprehensive category system with dedicated category pages (/category/:category), updated home page with 8 functional categories (Living Room, Bedroom, Dining Room, Office, Lighting, Decor, Storage, View All), implemented enhanced sorting options in explore page (Name A-Z/Z-A, Price Low/High), added expanded price range filters (Under ₦50k, ₦50k-100k, ₦100k-200k, Above ₦200k)
 
 ## User Preferences
 
