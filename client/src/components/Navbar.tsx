@@ -41,7 +41,7 @@ export default function Navbar() {
                   alt="Lumiere Furniture - RC 3662809" 
                   className="h-16 w-auto mix-blend-multiply object-cover object-center"
                   style={{ 
-                    transform: 'scale(3)', 
+                    transform: 'scale(2)', 
                     transformOrigin: 'center',
                     clipPath: 'inset(25% 0 25% 0)'
                   }}
