@@ -58,7 +58,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Living Room</h3>
               <p className="text-lumier-gray text-sm mb-3">Sofas, chairs, and entertainment units</p>
-              <Link href="/category/Living Room">
+              <Link href="/category/Living%20Room">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
@@ -92,7 +92,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Dining Room</h3>
               <p className="text-lumier-gray text-sm mb-3">Dining sets and bar stools</p>
-              <Link href="/category/Dining Room">
+              <Link href="/category/Dining%20Room">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
@@ -160,7 +160,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Storage</h3>
               <p className="text-lumier-gray text-sm mb-3">Bookcases, cabinets, and organizers</p>
-              <Link href="/category/Living Room">
+              <Link href="/category/Storage">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>

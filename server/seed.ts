@@ -241,6 +241,114 @@ const sampleProducts = [
     material: 'Engineered Wood',
     weight: '8kg',
     inStock: true
+  },
+  {
+    name: 'Executive Office Desk',
+    description: 'Large desk with built-in storage',
+    price: 78000,
+    category: 'Office',
+    image: 'https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#92400E', '#1F2937'],
+    dimensions: '150cm x 70cm x 75cm',
+    material: 'Engineered Wood',
+    weight: '40kg',
+    inStock: true
+  },
+  {
+    name: 'Ergonomic Office Chair',
+    description: 'Adjustable height with lumbar support',
+    price: 35000,
+    category: 'Office',
+    image: 'https://images.unsplash.com/photo-1541558869434-2840d308329a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#1F2937', '#6B7280'],
+    dimensions: '60cm x 60cm x 100-110cm',
+    material: 'Mesh and Plastic',
+    weight: '15kg',
+    inStock: true
+  },
+  {
+    name: 'Table Lamp Set',
+    description: 'Modern LED table lamps (set of 2)',
+    price: 18000,
+    category: 'Lighting',
+    image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#F4C430', '#1F2937', '#6B7280'],
+    dimensions: '25cm x 25cm x 40cm',
+    material: 'Metal and Fabric',
+    weight: '2kg (each)',
+    inStock: true
+  },
+  {
+    name: 'Ceiling Light Fixture',
+    description: 'Modern pendant light with dimmer',
+    price: 32000,
+    category: 'Lighting',
+    image: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#F4C430', '#1F2937'],
+    dimensions: '40cm x 40cm x 30cm',
+    material: 'Metal and Glass',
+    weight: '3kg',
+    inStock: true
+  },
+  {
+    name: 'Wall Art Collection',
+    description: 'Set of 4 framed abstract prints',
+    price: 22000,
+    category: 'Decor',
+    image: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#F4C430', '#1F2937', '#92400E'],
+    dimensions: '30cm x 40cm (each)',
+    material: 'Canvas and Frame',
+    weight: '1kg (each)',
+    inStock: true
+  },
+  {
+    name: 'Decorative Vase Set',
+    description: 'Ceramic vases in different sizes',
+    price: 12000,
+    category: 'Decor',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#6B7280', '#92400E', '#F4C430'],
+    dimensions: '15-25cm height',
+    material: 'Ceramic',
+    weight: '1.5kg (set)',
+    inStock: true
+  },
+  {
+    name: 'Bookshelf Unit',
+    description: '5-tier open bookshelf',
+    price: 38000,
+    category: 'Storage',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#92400E', '#1F2937'],
+    dimensions: '80cm x 30cm x 180cm',
+    material: 'Engineered Wood',
+    weight: '25kg',
+    inStock: true
+  },
+  {
+    name: 'Storage Cabinet',
+    description: '3-door cabinet with shelves',
+    price: 55000,
+    category: 'Storage',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#92400E', '#1F2937', '#6B7280'],
+    dimensions: '120cm x 40cm x 90cm',
+    material: 'Solid Wood',
+    weight: '35kg',
+    inStock: true
+  },
+  {
+    name: 'File Cabinet',
+    description: '4-drawer filing cabinet with lock',
+    price: 28000,
+    category: 'Office',
+    image: 'https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#1F2937', '#6B7280'],
+    dimensions: '40cm x 60cm x 130cm',
+    material: 'Metal',
+    weight: '20kg',
+    inStock: true
   }
 ];
 
