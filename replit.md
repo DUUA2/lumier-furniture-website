@@ -121,6 +121,7 @@ The application uses three main entities:
 - June 17, 2025. Created comprehensive category system with dedicated category pages (/category/:category), updated home page with 8 functional categories (Living Room, Bedroom, Dining Room, Office, Lighting, Decor, Storage, View All), implemented enhanced sorting options in explore page (Name A-Z/Z-A, Price Low/High), added expanded price range filters (Under ₦50k, ₦50k-100k, ₦100k-200k, Above ₦200k)
 - June 17, 2025. Added smooth hover animations to all category box images with scale-105 effects and smooth transitions, created comprehensive support section with Help Center (/help), Returns (/returns), and Contact Us (/contact) pages, removed delivery info from footer navigation
 - June 17, 2025. Created comprehensive Privacy Policy (/privacy) and Terms of Service (/terms-of-service) pages tailored to furniture rental and sales business model, including BVN/NIN data handling, rental agreements, installment payment terms, and Nigerian legal compliance
+- June 17, 2025. Added order confirmation page (/confirm-order) that displays all order details before payment processing, includes customer info review, payment plan confirmation, order total breakdown, and required confirmation checkbox with terms agreement
 
 ## User Preferences
 

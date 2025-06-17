@@ -298,7 +298,7 @@ export default function Checkout() {
                   placeholder="Enter your street address"
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="city">City *</Label>
                   <Input
@@ -325,6 +325,15 @@ export default function Checkout() {
                       ))}
                     </SelectContent>
                   </Select>
+                </div>
+                <div>
+                  <Label htmlFor="zipCode">Postal Code</Label>
+                  <Input
+                    id="zipCode"
+                    value={formData.zipCode}
+                    onChange={(e) => handleInputChange("zipCode", e.target.value)}
+                    placeholder="Optional"
+                  />
                 </div>
               </div>
             </div>
