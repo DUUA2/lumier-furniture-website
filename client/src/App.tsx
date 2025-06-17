@@ -14,6 +14,9 @@ import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import ThankYou from "@/pages/ThankYou";
 import Terms from "@/pages/Terms";
+import HelpCenter from "@/pages/HelpCenter";
+import Returns from "@/pages/Returns";
+import Contact from "@/pages/Contact";
 import Landing from "@/pages/Landing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -28,6 +31,9 @@ function Router() {
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/terms" component={Terms} />
+      <Route path="/help" component={HelpCenter} />
+      <Route path="/returns" component={Returns} />
+      <Route path="/contact" component={Contact} />
       <Route path="/thankyou" component={ThankYou} />
       <Route component={NotFound} />
     </Switch>

@@ -54,10 +54,21 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-lumier-gold transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-lumier-gold transition-colors">Delivery Info</a></li>
-              <li><a href="#" className="hover:text-lumier-gold transition-colors">Returns</a></li>
-              <li><a href="#" className="hover:text-lumier-gold transition-colors">Contact Us</a></li>
+              <li>
+                <Link href="/help">
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Help Center</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns">
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Returns</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact">
+                  <span className="hover:text-lumier-gold transition-colors cursor-pointer">Contact Us</span>
+                </Link>
+              </li>
             </ul>
           </div>
           
