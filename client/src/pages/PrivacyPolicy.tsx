@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-semibold text-lumier-black mb-4">1. Introduction</h2>
               <p className="text-lumier-gray mb-4">
-                Lumier Furniture ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, make a purchase, or use our furniture rental services.
+                Lumier Furniture (RC: 3662809) ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, make a purchase, or use our furniture rental services.
               </p>
               <p className="text-lumier-gray">
                 By using our services, you consent to the data practices described in this statement.
