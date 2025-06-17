@@ -5,14 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function Checkout() {
   const [, setLocation] = useLocation();
   const { cart, clearCart } = useCart();
   const { toast } = useToast();
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const [showAuthOptions, setShowAuthOptions] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -85,6 +89,19 @@ export default function Checkout() {
       setSelectedState(formData.state);
     }
   }, [formData.state]);
+
+  // Auto-populate form data if user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const userData = user as any;
+      setFormData(prev => ({
+        ...prev,
+        firstName: userData.firstName || "",
+        lastName: userData.lastName || "",
+        email: userData.email || "",
+      }));
+    }
+  }, [isAuthenticated, user]);
 
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const vat = Math.round(subtotal * 0.075);
@@ -176,6 +193,70 @@ export default function Checkout() {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Checkout Form */}
         <div className="space-y-6">
+          {/* Account Options */}
+          {!isAuthenticated && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Account Options</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <p className="text-sm text-lumier-gray mb-4">
+                    Create an account to save your information and track orders easily, or continue as guest.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => window.location.href = '/api/login'}
+                      className="w-full"
+                    >
+                      Sign In / Create Account
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setShowAuthOptions(false)}
+                      className="w-full"
+                    >
+                      Continue as Guest
+                    </Button>
+                  </div>
+                  
+                  <p className="text-xs text-lumier-gray text-center">
+                    Returning customer? Sign in to auto-fill your information
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Logged In User Info */}
+          {isAuthenticated && user && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Account Information</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Welcome back!</p>
+                    <p className="text-sm text-lumier-gray">{(user as any)?.email || 'User'}</p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.location.href = '/api/logout'}
+                  >
+                    Sign Out
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Personal Information */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Personal Information</h3>
