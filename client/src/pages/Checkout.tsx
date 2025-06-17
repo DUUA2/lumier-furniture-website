@@ -204,7 +204,7 @@ export default function Checkout() {
                   onChange={(e) => handleInputChange("phone", e.target.value)}
                 />
               </div>
-              <div>
+              <div className="sm:col-span-2">
                 <Label htmlFor="bvn">BVN (Bank Verification Number) *</Label>
                 <Input
                   id="bvn"
@@ -214,7 +214,7 @@ export default function Checkout() {
                   onChange={(e) => handleInputChange("bvn", e.target.value)}
                 />
               </div>
-              <div>
+              <div className="sm:col-span-2">
                 <Label htmlFor="nin">NIN (National Identification Number) *</Label>
                 <Input
                   id="nin"
