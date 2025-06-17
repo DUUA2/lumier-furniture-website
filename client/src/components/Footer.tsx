@@ -9,8 +9,11 @@ export default function Footer() {
             <div className="text-xl font-bold mb-4">
               Lumier <span className="text-lumier-gold">Furniture</span>
             </div>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-400 mb-2">
               Premium furniture for the modern Nigerian home. Rent or buy with flexible payment plans.
+            </p>
+            <p className="text-gray-500 text-sm mb-4">
+              RC: 3662809
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-lumier-gold transition-colors">

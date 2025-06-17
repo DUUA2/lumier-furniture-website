@@ -35,8 +35,12 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8">
             <Link href="/">
-              <div className="text-2xl font-bold text-lumier-black cursor-pointer">
-                Lumier <span className="text-lumier-gold">Furniture</span>
+              <div className="flex items-center cursor-pointer">
+                <img 
+                  src="/assets/LUMIERE LOGO_PSD_1750194691932.png" 
+                  alt="Lumiere Furniture - RC 3662809" 
+                  className="h-10 w-auto"
+                />
               </div>
             </Link>
             <div className="hidden md:flex space-x-6">

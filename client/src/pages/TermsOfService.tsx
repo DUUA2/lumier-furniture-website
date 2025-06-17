@@ -13,7 +13,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl font-semibold text-lumier-black mb-4">1. Agreement to Terms</h2>
               <p className="text-lumier-gray mb-4">
-                By accessing and using Lumier Furniture's website and services, you accept and agree to be bound by the terms and provision of this agreement. These Terms of Service ("Terms") govern your use of our furniture sales and rental services.
+                By accessing and using Lumier Furniture's website and services (RC: 3662809), you accept and agree to be bound by the terms and provision of this agreement. These Terms of Service ("Terms") govern your use of our furniture sales and rental services.
               </p>
               <p className="text-lumier-gray">
                 If you do not agree to abide by the above, please do not use this service.
