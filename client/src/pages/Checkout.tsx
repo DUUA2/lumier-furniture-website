@@ -85,8 +85,8 @@ export default function Checkout() {
   const insurance = formData.insurance ? Math.round(subtotal * 0.02) : 0; // 2% insurance
   const baseTotal = subtotal + vat + deliveryFee + insurance;
   
-  // Rental fees: 1% per month for installment plans
-  const rentalFees = paymentPlan > 1 ? Math.round(subtotal * 0.01 * paymentPlan) : 0;
+  // Rental fees: 1% per month total (e.g., 3 months = 3% total)
+  const rentalFees = paymentPlan > 1 ? Math.round(subtotal * (0.01 * paymentPlan)) : 0;
   
   const total = baseTotal + rentalFees;
   const monthlyPayment = Math.round(total / paymentPlan);
@@ -400,7 +400,7 @@ export default function Checkout() {
               )}
               {paymentPlan > 1 && (
                 <div className="flex justify-between">
-                  <span>Rental Fee ({paymentPlan} months @ 1%):</span>
+                  <span>Rental Fee ({paymentPlan}% total):</span>
                   <span>₦{rentalFees.toLocaleString()}</span>
                 </div>
               )}

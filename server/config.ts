@@ -56,7 +56,7 @@ export function calculatePaymentBreakdown(
   // Base total before rental fees
   const baseTotal = subtotal + vat + deliveryFee + insurance;
   
-  // Calculate rental fees for installment plans (1% per month)
+  // Calculate rental fees for installment plans (1% per month total, e.g., 3 months = 3%)
   const rentalFees = paymentPlan > 1 
     ? Math.round(subtotal * PAYMENT_CONFIG.RENTAL_FEE_RATE * paymentPlan)
     : 0;
