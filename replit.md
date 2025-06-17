@@ -117,6 +117,7 @@ The application uses three main entities:
 - June 16, 2025. Fixed cart functionality and React state management warnings, resolved checkout navigation issues
 - June 16, 2025. Added NIN (National Identification Number) field to checkout form alongside BVN for enhanced Nigerian market compliance
 - June 17, 2025. Implemented enhanced rent-to-own model with 1% monthly rental fees, insurance option (2% of item value), and backend configuration system for easy payment adjustments
+- June 17, 2025. Added dedicated terms and conditions page (/terms) with installment payment details, implemented 2-6 month payment plans with 5% monthly service fees, added buy/installment purchase options with terms agreement requirement
 
 ## User Preferences
 
