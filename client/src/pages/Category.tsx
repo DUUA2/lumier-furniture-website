@@ -12,7 +12,7 @@ export default function Category() {
   const params = useParams();
   const categoryName = decodeURIComponent(params.category || "");
   const [sortBy, setSortBy] = useState<string>("name");
-  const [priceRange, setPriceRange] = useState<string>("");
+  const [priceRange, setPriceRange] = useState<string>("all");
 
   const { data: products = [] } = useQuery<Product[]>({
     queryKey: ["/api/products"],
@@ -118,7 +118,7 @@ export default function Category() {
             variant="outline" 
             onClick={() => {
               setSortBy("name");
-              setPriceRange("");
+              setPriceRange("all");
             }}
           >
             Clear Filters
