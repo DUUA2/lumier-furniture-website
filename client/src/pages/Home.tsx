@@ -37,9 +37,11 @@ export default function Home() {
                   Explore Collection
                 </Button>
               </Link>
-              <Button size="lg" className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
-                Learn More
-              </Button>
+              <Link href="/terms">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-lumier-black">
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
