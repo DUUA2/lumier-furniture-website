@@ -1,0 +1,27 @@
+    at Route (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=4dc09609:323:16)
+    at Switch (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=4dc09609:379:17)
+    at Router
+    at main
+    at div
+    at Provider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-KPO4B3UQ.js?v=4dc09609:32:15)
+    at TooltipProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=4dc09609:57:5)
+    at CartProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/src/contexts/CartContext.tsx:22:32)
+    at QueryClientProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=4dc09609:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-WERSD76P.js?v=4dc09609:14032
+Show 1 more frame
+Show less
+chunk-WERSD76P.js?v=4dc09609:19413 Uncaught Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-WERSD76P.js?v=4dc09609:11678:21)
+    at updateEffectImpl (chunk-WERSD76P.js?v=4dc09609:12074:22)
+    at updateEffect (chunk-WERSD76P.js?v=4dc09609:12099:18)
+    at Object.useEffect (chunk-WERSD76P.js?v=4dc09609:12703:22)
+    at useEffect (chunk-3TFVT2CW.js?v=4dc09609:1078:29)
+    at Checkout (Checkout.tsx:87:3)
+    at renderWithHooks (chunk-WERSD76P.js?v=4dc09609:11548:26)
+    at updateFunctionComponent (chunk-WERSD76P.js?v=4dc09609:14582:28)
+    at beginWork (chunk-WERSD76P.js?v=4dc09609:15924:22)
+    at beginWork$1 (chunk-WERSD76P.js?v=4dc09609:19753:22)

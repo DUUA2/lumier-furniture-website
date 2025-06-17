@@ -45,6 +45,26 @@ export default function Checkout() {
     enabled: !!selectedState,
   });
 
+  // Move all hooks before any conditional returns
+  useEffect(() => {
+    if (formData.state) {
+      setSelectedState(formData.state);
+    }
+  }, [formData.state]);
+
+  // Auto-populate form data if user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const userData = user as any;
+      setFormData(prev => ({
+        ...prev,
+        firstName: userData.firstName || "",
+        lastName: userData.lastName || "",
+        email: userData.email || "",
+      }));
+    }
+  }, [isAuthenticated, user]);
+
   const createOrderMutation = useMutation({
     mutationFn: async (orderData: any) => {
       return apiRequest("POST", "/api/orders", orderData);
@@ -67,41 +87,6 @@ export default function Checkout() {
       });
     }
   });
-
-  if (cart.length === 0) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-lumier-gray mb-2">Your cart is empty</h2>
-          <p className="text-lumier-gray mb-6">Add some furniture to get started</p>
-          <Link href="/explore">
-            <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
-              Continue Shopping
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  useEffect(() => {
-    if (formData.state) {
-      setSelectedState(formData.state);
-    }
-  }, [formData.state]);
-
-  // Auto-populate form data if user is authenticated
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      const userData = user as any;
-      setFormData(prev => ({
-        ...prev,
-        firstName: userData.firstName || "",
-        lastName: userData.lastName || "",
-        email: userData.email || "",
-      }));
-    }
-  }, [isAuthenticated, user]);
 
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const vat = Math.round(subtotal * 0.075);
