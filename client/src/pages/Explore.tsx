@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Product } from "@shared/schema";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,19 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Explore() {
+  const [location] = useLocation();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("name");
+
+  // Check for category parameter in URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+      setSelectedCategories([categoryParam]);
+    }
+  }, [location]);
 
   const { data: products = [] } = useQuery<Product[]>({
     queryKey: ["/api/products"],

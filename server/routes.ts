@@ -30,6 +30,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get products by category
+  app.get("/api/products/category/:category", async (req, res) => {
+    try {
+      const category = decodeURIComponent(req.params.category);
+      const products = await storage.getProductsByCategory(category);
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch products by category" });
+    }
+  });
+
   app.get("/api/products/category/:category", async (req, res) => {
     try {
       const category = req.params.category;
