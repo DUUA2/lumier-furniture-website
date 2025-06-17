@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertOrderSchema } from "@shared/schema";
+import { PAYMENT_CONFIG } from "./config";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
@@ -84,19 +85,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Delivery fee calculation
   app.get("/api/delivery-fee/:state", async (req, res) => {
-    const deliveryFees: Record<string, number> = {
-      lagos: 3000,
-      abuja: 5000,
-      kano: 7000,
-      rivers: 6000,
-      ogun: 4000,
-      kaduna: 6500
-    };
+    const stateName = req.params.state
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
     
-    const state = req.params.state.toLowerCase();
-    const fee = deliveryFees[state] || 5000;
+    const fee = (PAYMENT_CONFIG.DELIVERY_FEES as any)[stateName] || PAYMENT_CONFIG.DELIVERY_FEES.DEFAULT;
     
     res.json({ fee });
+  });
+
+  // Payment configuration endpoint for frontend
+  app.get("/api/payment-config", async (req, res) => {
+    res.json(PAYMENT_CONFIG);
   });
 
   const httpServer = createServer(app);

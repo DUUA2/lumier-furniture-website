@@ -41,7 +41,7 @@ export default function Checkout() {
     mutationFn: async (orderData: any) => {
       return apiRequest("POST", "/api/orders", orderData);
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       localStorage.setItem('lastOrder', JSON.stringify({
         id: data.id,
         total: data.total,
@@ -78,7 +78,7 @@ export default function Checkout() {
 
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const vat = Math.round(subtotal * 0.075);
-  const deliveryFee = deliveryFeeData?.fee || 5000;
+  const deliveryFee = (deliveryFeeData as any)?.fee || 5000;
   const paymentPlan = parseInt(formData.paymentPlan);
   
   // Enhanced rent-to-own calculations
@@ -128,6 +128,8 @@ export default function Checkout() {
       })),
       subtotal,
       vat,
+      insurance,
+      rentalFees,
       deliveryFee,
       total,
       paymentPlan,
