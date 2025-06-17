@@ -24,14 +24,16 @@ export default function Category() {
 
   const filteredAndSortedProducts = categoryProducts
     .filter(product => {
-      if (priceRange) {
+      if (priceRange && priceRange !== "all") {
         switch (priceRange) {
           case "under-50k":
             return product.price < 50000;
           case "50k-100k":
             return product.price >= 50000 && product.price <= 100000;
-          case "above-100k":
-            return product.price > 100000;
+          case "100k-200k":
+            return product.price >= 100000 && product.price <= 200000;
+          case "above-200k":
+            return product.price > 200000;
           default:
             return true;
         }
@@ -102,10 +104,11 @@ export default function Category() {
               <SelectValue placeholder="All prices" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All prices</SelectItem>
+              <SelectItem value="all">All prices</SelectItem>
               <SelectItem value="under-50k">Under ₦50,000</SelectItem>
               <SelectItem value="50k-100k">₦50,000 - ₦100,000</SelectItem>
-              <SelectItem value="above-100k">Above ₦100,000</SelectItem>
+              <SelectItem value="100k-200k">₦100,000 - ₦200,000</SelectItem>
+              <SelectItem value="above-200k">Above ₦200,000</SelectItem>
             </SelectContent>
           </Select>
         </div>
