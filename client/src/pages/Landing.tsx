@@ -48,15 +48,15 @@ export default function Landing() {
             <div className="bg-lumier-gold rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <CreditCard className="h-8 w-8 text-lumier-black" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Flexible Payment</h3>
-            <p className="text-lumier-gray">Choose from 1-24 month payment plans that fit your budget</p>
+            <h3 className="text-xl font-semibold mb-2">Flexible Payment Options</h3>
+            <p className="text-lumier-gray">Buy outright or choose 2-6 month installment plans with transparent pricing</p>
           </div>
           <div className="text-center">
             <div className="bg-lumier-gold rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <Truck className="h-8 w-8 text-lumier-black" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Free Delivery</h3>
-            <p className="text-lumier-gray">Fast and secure delivery across Nigeria</p>
+            <h3 className="text-xl font-semibold mb-2">Reliable Delivery</h3>
+            <p className="text-lumier-gray">Professional delivery service across major Nigerian cities</p>
           </div>
           <div className="text-center">
             <div className="bg-lumier-gold rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">

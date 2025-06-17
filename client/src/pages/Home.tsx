@@ -122,16 +122,16 @@ export default function Home() {
             <div className="w-16 h-16 bg-lumier-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <CreditCard className="h-8 w-8 text-white" />
             </div>
-            <h3 className="text-xl font-semibold mb-3">Flexible Payment</h3>
-            <p className="text-lumier-gray">Choose from 1 to 24 months payment plans with competitive rates</p>
+            <h3 className="text-xl font-semibold mb-3">Flexible Payment Options</h3>
+            <p className="text-lumier-gray">Buy outright or choose 2-6 month installment plans with transparent pricing</p>
           </div>
           
           <div className="text-center">
             <div className="w-16 h-16 bg-lumier-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <Truck className="h-8 w-8 text-white" />
             </div>
-            <h3 className="text-xl font-semibold mb-3">Free Delivery</h3>
-            <p className="text-lumier-gray">Complimentary delivery across major Nigerian cities</p>
+            <h3 className="text-xl font-semibold mb-3">Reliable Delivery</h3>
+            <p className="text-lumier-gray">Professional delivery service across major Nigerian cities with tracking</p>
           </div>
           
           <div className="text-center">
