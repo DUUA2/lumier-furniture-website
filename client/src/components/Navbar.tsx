@@ -65,11 +65,29 @@ export default function Navbar() {
                 </Button>
               </div>
             </Link>
-            <Link href="/login">
-              <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
-                Login
+            {/* Authentication */}
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="relative">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => window.location.href = '/api/logout'}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button 
+                className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                onClick={() => window.location.href = '/api/login'}
+              >
+                Sign In
               </Button>
-            </Link>
+            )}
             
             {/* Mobile menu button */}
             <div className="md:hidden">
