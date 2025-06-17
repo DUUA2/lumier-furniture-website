@@ -49,141 +49,141 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-center mb-12">Shop by Category</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Living Room Furniture"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Living Room</h3>
-              <p className="text-lumier-gray text-sm mb-3">Sofas, chairs, and entertainment units</p>
-              <Link href="/category/Living%20Room">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Living%20Room" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Living Room Furniture"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Living Room</h3>
+                <p className="text-lumier-gray text-sm mb-3">Sofas, chairs, and entertainment units</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
           
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Bedroom Furniture"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Bedroom</h3>
-              <p className="text-lumier-gray text-sm mb-3">Beds, wardrobes, and bedside furniture</p>
-              <Link href="/category/Bedroom">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Bedroom" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Bedroom Furniture"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Bedroom</h3>
+                <p className="text-lumier-gray text-sm mb-3">Beds, wardrobes, and bedside furniture</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
           
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Dining Room Furniture"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Dining Room</h3>
-              <p className="text-lumier-gray text-sm mb-3">Dining sets and bar stools</p>
-              <Link href="/category/Dining%20Room">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Dining%20Room" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Dining Room Furniture"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Dining Room</h3>
+                <p className="text-lumier-gray text-sm mb-3">Dining sets and bar stools</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Office Furniture"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Office</h3>
-              <p className="text-lumier-gray text-sm mb-3">Desks, chairs, and storage solutions</p>
-              <Link href="/category/Office">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Office" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Office Furniture"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Office</h3>
+                <p className="text-lumier-gray text-sm mb-3">Desks, chairs, and storage solutions</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Lighting"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Lighting</h3>
-              <p className="text-lumier-gray text-sm mb-3">Floor lamps, table lamps, and fixtures</p>
-              <Link href="/category/Lighting">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Lighting" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Lighting"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Lighting</h3>
+                <p className="text-lumier-gray text-sm mb-3">Floor lamps, table lamps, and fixtures</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Decor"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Decor</h3>
-              <p className="text-lumier-gray text-sm mb-3">Mirrors, artwork, and accessories</p>
-              <Link href="/category/Decor">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Decor" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Decor"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Decor</h3>
+                <p className="text-lumier-gray text-sm mb-3">Mirrors, artwork, and accessories</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="Storage"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">Storage</h3>
-              <p className="text-lumier-gray text-sm mb-3">Bookcases, cabinets, and organizers</p>
-              <Link href="/category/Storage">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/category/Storage" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="Storage"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">Storage</h3>
+                <p className="text-lumier-gray text-sm mb-3">Bookcases, cabinets, and organizers</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src="https://images.unsplash.com/photo-1549497538-303791108f95?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
-              alt="All Categories"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">View All</h3>
-              <p className="text-lumier-gray text-sm mb-3">Browse our complete furniture collection</p>
-              <Link href="/explore">
-                <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
+          <Link href="/explore" className="block">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+              <img
+                src="https://images.unsplash.com/photo-1549497538-303791108f95?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt="All Categories"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">View All</h3>
+                <p className="text-lumier-gray text-sm mb-3">Browse our complete furniture collection</p>
+                <span className="text-lumier-gold text-sm font-medium">
                   Shop Now →
-                </Button>
-              </Link>
+                </span>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 
