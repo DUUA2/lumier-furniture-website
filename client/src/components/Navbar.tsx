@@ -54,14 +54,16 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-4">
             <Link href="/cart">
-              <Button variant="ghost" size="icon" className="relative">
-                <ShoppingCart className="h-5 w-5" />
-                {cartItemsCount > 0 && (
-                  <Badge className="cart-badge absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-white text-xs">
-                    {cartItemsCount}
-                  </Badge>
-                )}
-              </Button>
+              <div className="relative cursor-pointer">
+                <Button variant="ghost" size="icon" className="relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartItemsCount > 0 && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center bg-lumier-gold text-lumier-black text-xs">
+                      {cartItemsCount}
+                    </Badge>
+                  )}
+                </Button>
+              </div>
             </Link>
             <Link href="/login">
               <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">

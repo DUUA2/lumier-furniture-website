@@ -104,7 +104,7 @@ export default function Cart() {
             <span>₦{total.toLocaleString()}</span>
           </div>
         </div>
-        <Link href="/checkout">
+        <Link href="/checkout" className="block w-full">
           <Button 
             className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 mt-6" 
             size="lg"
