@@ -39,7 +39,12 @@ export default function Navbar() {
                 <img 
                   src="/assets/LUMIERE LOGO_PSD_1750194691932.png" 
                   alt="Lumiere Furniture - RC 3662809" 
-                  className="h-14 w-auto mix-blend-multiply"
+                  className="h-16 w-auto mix-blend-multiply object-cover object-center"
+                  style={{ 
+                    transform: 'scale(3)', 
+                    transformOrigin: 'center',
+                    clipPath: 'inset(25% 0 25% 0)'
+                  }}
                 />
               </div>
             </Link>
