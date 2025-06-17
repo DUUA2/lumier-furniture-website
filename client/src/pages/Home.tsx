@@ -54,7 +54,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Living Room Furniture"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Living Room</h3>
@@ -71,7 +71,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Bedroom Furniture"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Bedroom</h3>
@@ -88,7 +88,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Dining Room Furniture"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Dining Room</h3>
@@ -105,7 +105,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Office Furniture"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Office</h3>
@@ -122,7 +122,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Lighting"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Lighting</h3>
@@ -139,7 +139,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Decor"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Decor</h3>
@@ -156,7 +156,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="Storage"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Storage</h3>
