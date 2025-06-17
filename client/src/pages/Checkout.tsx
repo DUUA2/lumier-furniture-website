@@ -58,7 +58,11 @@ export default function Checkout() {
     }
   });
 
+  // Debug: Log cart state
+  console.log('Checkout page - cart length:', cart.length, 'cart:', cart);
+
   if (cart.length === 0) {
+    console.log('Cart is empty, redirecting to cart page');
     setLocation("/cart");
     return null;
   }

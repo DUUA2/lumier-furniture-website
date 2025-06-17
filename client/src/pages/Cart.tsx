@@ -105,7 +105,11 @@ export default function Cart() {
           </div>
         </div>
         <Link href="/checkout">
-          <Button className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 mt-6" size="lg">
+          <Button 
+            className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 mt-6" 
+            size="lg"
+            disabled={cart.length === 0}
+          >
             Proceed to Checkout
           </Button>
         </Link>
