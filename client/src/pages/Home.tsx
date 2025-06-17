@@ -173,7 +173,7 @@ export default function Home() {
               <img
                 src="https://images.unsplash.com/photo-1549497538-303791108f95?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
                 alt="All Categories"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">View All</h3>
