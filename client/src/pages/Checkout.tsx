@@ -26,7 +26,8 @@ export default function Checkout() {
     street: "",
     city: "",
     state: "",
-    paymentPlan: "1"
+    paymentPlan: "1",
+    insurance: false
   });
 
   const [selectedState, setSelectedState] = useState("");
@@ -78,8 +79,16 @@ export default function Checkout() {
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const vat = Math.round(subtotal * 0.075);
   const deliveryFee = deliveryFeeData?.fee || 5000;
-  const total = subtotal + vat + deliveryFee;
   const paymentPlan = parseInt(formData.paymentPlan);
+  
+  // Enhanced rent-to-own calculations
+  const insurance = formData.insurance ? Math.round(subtotal * 0.02) : 0; // 2% insurance
+  const baseTotal = subtotal + vat + deliveryFee + insurance;
+  
+  // Rental fees: 1% per month for installment plans
+  const rentalFees = paymentPlan > 1 ? Math.round(subtotal * 0.01 * paymentPlan) : 0;
+  
+  const total = baseTotal + rentalFees;
   const monthlyPayment = Math.round(total / paymentPlan);
 
   const handleInputChange = (field: string, value: string) => {
@@ -320,6 +329,26 @@ export default function Checkout() {
                 </label>
               ))}
             </div>
+            
+            {/* Insurance Option */}
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <label className="flex items-start space-x-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.insurance}
+                  onChange={(e) => setFormData(prev => ({ ...prev, insurance: e.target.checked }))}
+                  className="mt-1 h-4 w-4 text-lumier-gold focus:ring-lumier-gold border-gray-300 rounded"
+                />
+                <div>
+                  <span className="text-sm font-medium text-gray-900">
+                    Add Furniture Insurance (2% of item value)
+                  </span>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Comprehensive protection against damage, theft, and accidental breakage
+                  </p>
+                </div>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -361,6 +390,18 @@ export default function Checkout() {
                 <span>Delivery:</span>
                 <span>₦{deliveryFee.toLocaleString()}</span>
               </div>
+              {formData.insurance && (
+                <div className="flex justify-between">
+                  <span>Insurance (2%):</span>
+                  <span>₦{insurance.toLocaleString()}</span>
+                </div>
+              )}
+              {paymentPlan > 1 && (
+                <div className="flex justify-between">
+                  <span>Rental Fee ({paymentPlan} months @ 1%):</span>
+                  <span>₦{rentalFees.toLocaleString()}</span>
+                </div>
+              )}
               <hr />
               <div className="flex justify-between text-lg font-bold">
                 <span>Total:</span>

@@ -68,6 +68,8 @@ export const orders = pgTable("orders", {
   }>>().notNull(),
   subtotal: integer("subtotal").notNull(),
   vat: integer("vat").notNull(),
+  insurance: integer("insurance").default(0),
+  rentalFees: integer("rental_fees").default(0),
   deliveryFee: integer("delivery_fee").notNull(),
   total: integer("total").notNull(),
   paymentPlan: integer("payment_plan").notNull(),
