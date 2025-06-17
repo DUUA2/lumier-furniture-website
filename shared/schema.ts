@@ -57,6 +57,7 @@ export const orders = pgTable("orders", {
     phone: string;
   }>().notNull(),
   bvn: text("bvn").notNull(),
+  nin: text("nin").notNull(),
   items: jsonb("items").$type<Array<{
     productId: number;
     name: string;

@@ -20,6 +20,7 @@ export default function Checkout() {
     email: "",
     phone: "",
     bvn: "",
+    nin: "",
     nextOfKinName: "",
     nextOfKinPhone: "",
     street: "",
@@ -107,6 +108,7 @@ export default function Checkout() {
         phone: formData.nextOfKinPhone
       },
       bvn: formData.bvn,
+      nin: formData.nin,
       items: cart.map(item => ({
         productId: item.id,
         name: item.name,
@@ -202,7 +204,7 @@ export default function Checkout() {
                   onChange={(e) => handleInputChange("phone", e.target.value)}
                 />
               </div>
-              <div className="sm:col-span-2">
+              <div>
                 <Label htmlFor="bvn">BVN (Bank Verification Number) *</Label>
                 <Input
                   id="bvn"
@@ -210,6 +212,16 @@ export default function Checkout() {
                   maxLength={11}
                   value={formData.bvn}
                   onChange={(e) => handleInputChange("bvn", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="nin">NIN (National Identification Number) *</Label>
+                <Input
+                  id="nin"
+                  required
+                  maxLength={11}
+                  value={formData.nin}
+                  onChange={(e) => handleInputChange("nin", e.target.value)}
                 />
               </div>
             </div>

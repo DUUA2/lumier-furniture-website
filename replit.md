@@ -114,6 +114,8 @@ The application uses three main entities:
 
 - June 15, 2025. Initial setup
 - June 15, 2025. Added PostgreSQL database with Drizzle ORM, replaced in-memory storage with DatabaseStorage, populated with 20 furniture products across 6 categories
+- June 16, 2025. Fixed cart functionality and React state management warnings, resolved checkout navigation issues
+- June 16, 2025. Added NIN (National Identification Number) field to checkout form alongside BVN for enhanced Nigerian market compliance
 
 ## User Preferences
 
