@@ -41,8 +41,10 @@ export default function Explore() {
             return product.price < 50000;
           case "50k-100k":
             return product.price >= 50000 && product.price <= 100000;
-          case "above-100k":
-            return product.price > 100000;
+          case "100k-200k":
+            return product.price >= 100000 && product.price <= 200000;
+          case "above-200k":
+            return product.price > 200000;
           default:
             return true;
         }
@@ -56,6 +58,8 @@ export default function Explore() {
           return a.price - b.price;
         case "price-high":
           return b.price - a.price;
+        case "name-z":
+          return b.name.localeCompare(a.name);
         case "name":
         default:
           return a.name.localeCompare(b.name);
@@ -129,14 +133,27 @@ export default function Explore() {
                   <div className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      id="above-100k"
+                      id="100k-200k"
                       name="price"
-                      value="above-100k"
-                      checked={priceRange === "above-100k"}
+                      value="100k-200k"
+                      checked={priceRange === "100k-200k"}
                       onChange={(e) => setPriceRange(e.target.value)}
                     />
-                    <Label htmlFor="above-100k" className="text-sm">
-                      Above ₦100,000
+                    <Label htmlFor="100k-200k" className="text-sm">
+                      ₦100,000 - ₦200,000
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="above-200k"
+                      name="price"
+                      value="above-200k"
+                      checked={priceRange === "above-200k"}
+                      onChange={(e) => setPriceRange(e.target.value)}
+                    />
+                    <Label htmlFor="above-200k" className="text-sm">
+                      Above ₦200,000
                     </Label>
                   </div>
                 </div>

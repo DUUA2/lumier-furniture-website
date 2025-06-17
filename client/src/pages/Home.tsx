@@ -126,7 +126,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Lighting</h3>
               <p className="text-lumier-gray text-sm mb-3">Floor lamps, table lamps, and fixtures</p>
-              <Link href="/explore?category=Lighting">
+              <Link href="/category/Lighting">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
@@ -143,7 +143,7 @@ export default function Home() {
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">Decor</h3>
               <p className="text-lumier-gray text-sm mb-3">Mirrors, artwork, and accessories</p>
-              <Link href="/explore?category=Decor">
+              <Link href="/category/Decor">
                 <Button variant="link" className="text-lumier-gold p-0 hover:underline text-sm">
                   Shop Now →
                 </Button>
