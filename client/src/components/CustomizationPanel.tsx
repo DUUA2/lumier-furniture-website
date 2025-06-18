@@ -358,10 +358,13 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                     <span>+₦{fabricOptions.find(f => f.id === customization.fabric)?.price.toLocaleString()}</span>
                   </div>
                 )}
-                {customization.finish && finishOptions.find(f => f.id === customization.finish)?.price > 0 && (
+                {customization.finish && (() => {
+                  const finishOption = finishOptions.find(f => f.id === customization.finish);
+                  return finishOption?.price && finishOption.price > 0;
+                })() && (
                   <div className="flex justify-between">
                     <span>{finishOptions.find(f => f.id === customization.finish)?.name}:</span>
-                    <span>+₦{finishOptions.find(f => f.id === customization.finish)?.price.toLocaleString()}</span>
+                    <span>+₦{finishOptions.find(f => f.id === customization.finish)!.price.toLocaleString()}</span>
                   </div>
                 )}
                 <hr />

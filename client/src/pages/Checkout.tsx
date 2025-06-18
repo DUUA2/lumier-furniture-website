@@ -157,6 +157,16 @@ export default function Checkout() {
       return;
     }
 
+    // Validate subscription plan selection
+    if (formData.purchaseType === "subscription" && !formData.subscriptionPlan) {
+      toast({
+        title: "Plan Required",
+        description: "Please select a subscription plan.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Prepare order data for confirmation page
     const orderData = {
       customerInfo: {
@@ -181,6 +191,7 @@ export default function Checkout() {
       paymentPlan: {
         type: formData.purchaseType,
         months: formData.purchaseType === "installment" ? parseInt(formData.paymentPlan) : undefined,
+        subscriptionPlan: formData.purchaseType === "subscription" ? formData.subscriptionPlan : undefined,
         insurance: formData.insurance,
       },
       deliveryFee: deliveryFee,
