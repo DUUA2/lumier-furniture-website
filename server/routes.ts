@@ -271,7 +271,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create subscription order
   app.post("/api/subscription/create", isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user?.claims?.sub;
+      const userId = (req.user as any)?.claims?.sub;
       const { planType, refreshFrequency, customerInfo, deliveryAddress } = req.body;
 
       const subscription = await storage.createSubscription({
