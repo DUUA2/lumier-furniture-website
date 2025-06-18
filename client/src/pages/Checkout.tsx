@@ -405,10 +405,15 @@ export default function Checkout() {
             </div>
           </div>
 
-          {/* Purchase Type */}
+
+        </div>
+
+        {/* Order Summary */}
+        <div className="space-y-6">
+          {/* Purchase Options */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Purchase Options</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 gap-4 mb-6">
               <label
                 className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
                   formData.purchaseType === "buy"
@@ -490,11 +495,9 @@ export default function Checkout() {
                     className="mt-1 h-4 w-4 text-lumier-gold focus:ring-lumier-gold border-gray-300 rounded"
                   />
                   <div>
-                    <span className="text-sm font-medium text-gray-900">
-                      Add Furniture Insurance (2% of item value)
-                    </span>
+                    <span className="text-sm font-medium text-gray-900">Add Insurance Protection</span>
                     <p className="text-xs text-gray-600 mt-1">
-                      Comprehensive protection against damage and professional maintenance
+                      Protect your purchase with comprehensive coverage for 2% of item value
                     </p>
                   </div>
                 </label>
@@ -521,10 +524,7 @@ export default function Checkout() {
               </div>
             </div>
           )}
-        </div>
 
-        {/* Order Summary */}
-        <div>
           <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
             <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
             <div className="space-y-4 mb-6">

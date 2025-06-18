@@ -127,6 +127,7 @@ The application uses three main entities:
 - June 17, 2025. Integrated company logo with RC number 3662809 throughout website including navbar header, footer legal compliance section, Terms of Service and Privacy Policy pages, increased logo size for better visibility and professional branding
 - June 18, 2025. Added live chat support system with WebSocket-based real-time messaging, intelligent auto-reply support bot with furniture-specific responses, user authentication integration, persistent chat state with minimize/maximize functionality, and unread message notifications
 - June 18, 2025. Repositioned live chat button to navbar (0.5x size) and moved chat windows to top of page, prioritized purchase options throughout website with "Buy" appearing before "Rent" on product pages and "Buy Outright" before "Installment Plan" in checkout forms
+- June 18, 2025. Moved purchase options section on checkout page to right column next to order summary for better user experience and clearer payment method selection alongside order review
 
 ## User Preferences
 
