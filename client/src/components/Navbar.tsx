@@ -83,6 +83,12 @@ export default function Navbar() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    <Link href="/profile" className="flex items-center w-full">
+                      <User className="mr-2 h-4 w-4" />
+                      My Profile
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => window.location.href = '/api/logout'}>
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign Out
