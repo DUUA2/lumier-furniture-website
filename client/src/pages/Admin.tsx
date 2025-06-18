@@ -173,6 +173,7 @@ export default function Admin() {
       weight: product.weight || "",
       inStock: product.inStock !== false
     });
+    setShowAddForm(true); // Show the form when editing
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -207,6 +208,12 @@ export default function Admin() {
     } else {
       createProductMutation.mutate(formData);
     }
+  };
+
+  const handleCancel = () => {
+    setShowAddForm(false);
+    setEditingProduct(null);
+    resetForm();
   };
 
   const handleDeleteProduct = (id: number) => {
@@ -465,6 +472,27 @@ export default function Admin() {
                     </div>
                   </div>
 
+                  <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg mb-4">
+                    <Switch
+                      id="inStock"
+                      checked={formData.inStock}
+                      onCheckedChange={(checked) => setFormData(prev => ({ ...prev, inStock: checked }))}
+                    />
+                    <Label htmlFor="inStock" className="flex items-center gap-2 font-medium">
+                      {formData.inStock ? (
+                        <>
+                          <Eye className="w-4 h-4 text-green-600" />
+                          <span className="text-green-700">In Stock - Available for purchase</span>
+                        </>
+                      ) : (
+                        <>
+                          <EyeOff className="w-4 h-4 text-red-600" />
+                          <span className="text-red-700">Out of Stock - Hidden from customers</span>
+                        </>
+                      )}
+                    </Label>
+                  </div>
+
                   <div className="flex gap-4">
                     <Button
                       type="submit"
@@ -478,12 +506,9 @@ export default function Admin() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => {
-                        setEditingProduct(null);
-                        setShowAddForm(false);
-                        resetForm();
-                      }}
+                      onClick={handleCancel}
                     >
+                      <X className="w-4 h-4 mr-2" />
                       Cancel
                     </Button>
                   </div>
