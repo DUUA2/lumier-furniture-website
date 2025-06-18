@@ -13,7 +13,8 @@ const sampleProducts = [
     material: 'Premium Fabric',
     weight: '75kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Elegant Dining Table',
@@ -26,7 +27,8 @@ const sampleProducts = [
     material: 'Solid Wood',
     weight: '45kg',
     inStock: true,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Luxury King Bed',
@@ -39,7 +41,8 @@ const sampleProducts = [
     material: 'Upholstered Fabric',
     weight: '50kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Designer Coffee Table',
@@ -52,7 +55,8 @@ const sampleProducts = [
     material: 'Wood and Glass',
     weight: '25kg',
     inStock: false,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Designer Accent Chair',
@@ -78,7 +82,8 @@ const sampleProducts = [
     material: 'Engineered Wood',
     weight: '80kg',
     inStock: true,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Executive Office Desk',
@@ -117,7 +122,8 @@ const sampleProducts = [
     material: 'Wood and Fabric',
     weight: '8kg (each)',
     inStock: false,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Bedside Table',
@@ -130,7 +136,8 @@ const sampleProducts = [
     material: 'Engineered Wood',
     weight: '12kg',
     inStock: true,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Modern TV Stand',
@@ -169,7 +176,8 @@ const sampleProducts = [
     material: 'Metal and Fabric',
     weight: '5kg',
     inStock: false,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Bar Stool Set (2)',
@@ -182,7 +190,8 @@ const sampleProducts = [
     material: 'Metal and Leather',
     weight: '6kg (each)',
     inStock: true,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Decorative Mirror Set',
@@ -208,7 +217,8 @@ const sampleProducts = [
     material: 'Premium Leather',
     weight: '30kg',
     inStock: false,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Chest of Drawers',
@@ -234,7 +244,8 @@ const sampleProducts = [
     material: 'Solid Wood',
     weight: '18kg',
     inStock: true,
-    availableForPreOrder: true
+    availableForPreOrder: true,
+    availableForInstallment: true
   },
   {
     name: 'Classic Rocking Chair',

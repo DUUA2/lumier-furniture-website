@@ -130,9 +130,16 @@ export default function ProductDetail() {
               </div>
               <span className="ml-2 text-sm text-lumier-gray">(24 reviews)</span>
             </div>
-            <Badge variant={availability.variant}>
-              {availability.text}
-            </Badge>
+            <div className="flex gap-2">
+              <Badge variant={availability.variant}>
+                {availability.text}
+              </Badge>
+              {product.availableForInstallment && (
+                <Badge variant="outline" className="text-purple-700 border-purple-300">
+                  Installment Payment
+                </Badge>
+              )}
+            </div>
           </div>
 
           {/* Buy/Rent Toggle */}

@@ -67,13 +67,18 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
           <span className="text-sm text-lumier-gold">From ₦{monthlyPrice.toLocaleString()}/month</span>
         </div>
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex flex-wrap gap-2 mb-3">
           <Badge variant="secondary">
             {product.category}
           </Badge>
           <Badge variant={availability.variant}>
             {availability.text}
           </Badge>
+          {product.availableForInstallment && (
+            <Badge variant="outline" className="text-purple-700 border-purple-300">
+              Installment Available
+            </Badge>
+          )}
         </div>
         {canAddToCart && (
           <div className="flex items-center space-x-3 mb-3">
