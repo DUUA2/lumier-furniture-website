@@ -21,6 +21,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Profile update route
+  app.put('/api/profile', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const profileData = req.body;
+      
+      // Update user profile with new data
+      const updatedUser = await storage.updateUserProfile(userId, profileData);
+      res.json(updatedUser);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      res.status(500).json({ message: "Failed to update profile" });
+    }
+  });
+
   // Products routes
   app.get("/api/products", async (req, res) => {
     try {

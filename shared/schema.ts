@@ -22,6 +22,11 @@ export const users = pgTable("users", {
   profileImageUrl: varchar("profile_image_url"),
   phone: text("phone"),
   bvn: text("bvn"),
+  nin: text("nin"),
+  address: text("address"),
+  city: text("city"),
+  state: text("state"),
+  zipCode: text("zip_code"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

@@ -20,6 +20,7 @@ import Contact from "@/pages/Contact";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import OrderConfirmation from "@/pages/OrderConfirmation";
+import Profile from "@/pages/Profile";
 import Landing from "@/pages/Landing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/confirm-order" component={OrderConfirmation} />
+      <Route path="/profile" component={Profile} />
       <Route path="/terms" component={Terms} />
       <Route path="/help" component={HelpCenter} />
       <Route path="/returns" component={Returns} />
