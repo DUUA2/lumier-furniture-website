@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import { insertOrderSchema } from "@shared/schema";
 import { PAYMENT_CONFIG } from "./config";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { sendOrderConfirmationEmail, sendAdminNotificationEmail } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Setup authentication
