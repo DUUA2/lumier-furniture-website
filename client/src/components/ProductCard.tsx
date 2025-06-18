@@ -28,6 +28,19 @@ export default function ProductCard({ product }: ProductCardProps) {
     setQuantity(1); // Reset quantity after adding to cart
   };
 
+  const getAvailabilityStatus = () => {
+    if (product.inStock) {
+      return { text: 'In Stock', variant: 'default' as const };
+    } else if (product.availableForPreOrder) {
+      return { text: 'Available for Pre-order', variant: 'secondary' as const };
+    } else {
+      return { text: 'Out of Stock', variant: 'destructive' as const };
+    }
+  };
+
+  const availability = getAvailabilityStatus();
+  const canAddToCart = product.inStock || product.availableForPreOrder;
+
   const incrementQuantity = () => {
     setQuantity(prev => prev + 1);
   };
@@ -54,9 +67,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
           <span className="text-sm text-lumier-gold">From ₦{monthlyPrice.toLocaleString()}/month</span>
         </div>
-        <Badge variant="secondary" className="mb-3">
-          {product.category}
-        </Badge>
+        <div className="flex justify-between items-center mb-3">
+          <Badge variant="secondary">
+            {product.category}
+          </Badge>
+          <Badge variant={availability.variant}>
+            {availability.text}
+          </Badge>
+        </div>
         <div className="flex items-center space-x-3 mb-3">
           <Button
             variant="outline"
