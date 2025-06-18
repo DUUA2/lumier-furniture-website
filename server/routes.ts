@@ -120,8 +120,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedOrder = insertOrderSchema.parse(req.body);
       const order = await storage.createOrder(validatedOrder);
+      
+      // Send email notifications (async, don't block response)
+      Promise.all([
+        sendOrderConfirmationEmail(order),
+        sendAdminNotificationEmail(order)
+      ]).catch(error => {
+        console.error("Failed to send email notifications:", error);
+      });
+      
       res.status(201).json(order);
     } catch (error) {
+      console.error("Order creation error:", error);
       res.status(400).json({ error: "Invalid order data" });
     }
   });

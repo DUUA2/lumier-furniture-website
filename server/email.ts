@@ -154,7 +154,7 @@ RC: 3662809
 
   return await sendEmail({
     to: order.customerEmail,
-    from: 'orders@lumierfurniture.com', // You can customize this sender email
+    from: 'orders@lumierfurniture.com',
     subject: `Order Confirmation - LUM-${order.id.toString().padStart(6, '0')} - Lumier Furniture`,
     text: textContent,
     html: htmlContent
@@ -163,7 +163,7 @@ RC: 3662809
 
 export async function sendAdminNotificationEmail(order: Order): Promise<boolean> {
   const orderItems = Array.isArray(order.items) ? order.items : [];
-  const deliveryAddress = typeof order.deliveryAddress === 'object' ? order.deliveryAddress : {};
+  const deliveryAddress = order.deliveryAddress || { street: '', city: '', state: '' };
   
   const paymentPlanText = order.paymentPlan === 1 ? 'Full Payment' : `${order.paymentPlan} Month Installment`;
   
@@ -234,7 +234,7 @@ export async function sendAdminNotificationEmail(order: Order): Promise<boolean>
   return await sendEmail({
     to: 'admin@lumierfurniture.com', // Admin email - you can customize this
     from: 'system@lumierfurniture.com',
-    subject: `🛒 NEW ORDER: LUM-${order.id.toString().padStart(6, '0')} - ₦${order.totalAmount.toLocaleString()}`,
+    subject: `🛒 NEW ORDER: LUM-${order.id.toString().padStart(6, '0')} - ₦${order.total.toLocaleString()}`,
     html: htmlContent
   });
 }
