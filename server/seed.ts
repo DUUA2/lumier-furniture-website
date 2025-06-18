@@ -69,7 +69,8 @@ const sampleProducts = [
     material: 'Upholstered',
     weight: '15kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Modern Wardrobe Set',
@@ -96,7 +97,8 @@ const sampleProducts = [
     material: 'Wood Veneer',
     weight: '35kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Modern Bookshelf',
@@ -109,7 +111,8 @@ const sampleProducts = [
     material: 'Engineered Wood',
     weight: '25kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Dining Chair Set (4)',
@@ -150,7 +153,8 @@ const sampleProducts = [
     material: 'Engineered Wood',
     weight: '20kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Storage Ottoman',
@@ -163,7 +167,8 @@ const sampleProducts = [
     material: 'Upholstered',
     weight: '8kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Contemporary Floor Lamp',
@@ -204,7 +209,8 @@ const sampleProducts = [
     material: 'Glass and Frame',
     weight: '3kg (set)',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Luxury Lounge Chair',
@@ -231,7 +237,8 @@ const sampleProducts = [
     material: 'Engineered Wood',
     weight: '40kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Entryway Console Table',
@@ -258,7 +265,8 @@ const sampleProducts = [
     material: 'Wood and Cushion',
     weight: '22kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   },
   {
     name: 'Elegant Side Table',
@@ -271,7 +279,8 @@ const sampleProducts = [
     material: 'Wood',
     weight: '8kg',
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   }
 ];
 
