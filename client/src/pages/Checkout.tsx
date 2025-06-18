@@ -455,8 +455,106 @@ export default function Checkout() {
                   <p className="text-sm text-gray-600 mt-1">Flexible payment plans with 5% monthly service fee</p>
                 </div>
               </label>
+
+              <label
+                className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+                  formData.purchaseType === "subscription"
+                    ? 'border-lumier-gold bg-lumier-gold/10'
+                    : 'border-gray-300 hover:border-lumier-gold'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="purchaseType"
+                  value="subscription"
+                  checked={formData.purchaseType === "subscription"}
+                  onChange={(e) => setFormData(prev => ({ ...prev, purchaseType: e.target.value }))}
+                  className="sr-only"
+                />
+                <div>
+                  <span className="text-lg font-medium">Subscription Plan</span>
+                  <p className="text-sm text-gray-600 mt-1">Monthly rental with flexible terms and easy returns</p>
+                </div>
+              </label>
             </div>
           </div>
+
+          {/* Subscription Plan Selection - Only show for subscription */}
+          {formData.purchaseType === "subscription" && (
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold mb-4">Choose Subscription Plan</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <label className={`flex flex-col p-4 border rounded-lg cursor-pointer transition-colors ${
+                  formData.subscriptionPlan === "basic" ? 'border-lumier-gold bg-lumier-gold/10' : 'border-gray-300 hover:border-lumier-gold'
+                }`}>
+                  <input
+                    type="radio"
+                    name="subscriptionPlan"
+                    value="basic"
+                    checked={formData.subscriptionPlan === "basic"}
+                    onChange={(e) => setFormData(prev => ({ ...prev, subscriptionPlan: e.target.value }))}
+                    className="sr-only"
+                  />
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-lumier-gold">Basic</h4>
+                    <p className="text-2xl font-bold mt-2">₦15,000</p>
+                    <p className="text-sm text-gray-600">per month</p>
+                    <ul className="text-xs text-gray-600 mt-3 space-y-1">
+                      <li>• Up to 3 items</li>
+                      <li>• Basic delivery</li>
+                      <li>• 30-day minimum</li>
+                    </ul>
+                  </div>
+                </label>
+
+                <label className={`flex flex-col p-4 border rounded-lg cursor-pointer transition-colors ${
+                  formData.subscriptionPlan === "premium" ? 'border-lumier-gold bg-lumier-gold/10' : 'border-gray-300 hover:border-lumier-gold'
+                }`}>
+                  <input
+                    type="radio"
+                    name="subscriptionPlan"
+                    value="premium"
+                    checked={formData.subscriptionPlan === "premium"}
+                    onChange={(e) => setFormData(prev => ({ ...prev, subscriptionPlan: e.target.value }))}
+                    className="sr-only"
+                  />
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-lumier-gold">Premium</h4>
+                    <p className="text-2xl font-bold mt-2">₦25,000</p>
+                    <p className="text-sm text-gray-600">per month</p>
+                    <ul className="text-xs text-gray-600 mt-3 space-y-1">
+                      <li>• Up to 6 items</li>
+                      <li>• Priority delivery</li>
+                      <li>• Customization included</li>
+                    </ul>
+                  </div>
+                </label>
+
+                <label className={`flex flex-col p-4 border rounded-lg cursor-pointer transition-colors ${
+                  formData.subscriptionPlan === "elite" ? 'border-lumier-gold bg-lumier-gold/10' : 'border-gray-300 hover:border-lumier-gold'
+                }`}>
+                  <input
+                    type="radio"
+                    name="subscriptionPlan"
+                    value="elite"
+                    checked={formData.subscriptionPlan === "elite"}
+                    onChange={(e) => setFormData(prev => ({ ...prev, subscriptionPlan: e.target.value }))}
+                    className="sr-only"
+                  />
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-lumier-gold">Elite</h4>
+                    <p className="text-2xl font-bold mt-2">₦40,000</p>
+                    <p className="text-sm text-gray-600">per month</p>
+                    <ul className="text-xs text-gray-600 mt-3 space-y-1">
+                      <li>• Unlimited items</li>
+                      <li>• White-glove service</li>
+                      <li>• AR visualization</li>
+                    </ul>
+                  </div>
+                </label>
+              </div>
+            </div>
+          )}
 
           {/* Payment Plan - Only show for installment */}
           {formData.purchaseType === "installment" && (

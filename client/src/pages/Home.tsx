@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@shared/schema";
 import ProductCard from "@/components/ProductCard";
-import { CreditCard, Truck, Award } from "lucide-react";
+import { CreditCard, Truck, Award, Recycle, Leaf, Users } from "lucide-react";
 
 export default function Home() {
   const { data: products = [] } = useQuery<Product[]>({
@@ -227,6 +227,52 @@ export default function Home() {
             </div>
             <h3 className="text-xl font-semibold mb-3">Premium Quality</h3>
             <p className="text-lumier-gray">Carefully selected furniture from trusted manufacturers</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Sustainability Section */}
+      <div className="bg-gradient-to-r from-green-50 to-lumier-cream py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Sustainable Living</h2>
+            <p className="text-lg text-lumier-gray max-w-3xl mx-auto">
+              Our subscription model promotes environmental responsibility through circular furniture economy
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Recycle className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Circular Economy</h3>
+              <p className="text-lumier-gray">Furniture gets reused across multiple customers, reducing waste and promoting sustainability</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Leaf className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Eco-Friendly Materials</h3>
+              <p className="text-lumier-gray">Supporting local artisans using sustainable, environmentally conscious materials</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Community Impact</h3>
+              <p className="text-lumier-gray">Creating jobs and supporting Nigerian craftsmen while reducing furniture waste</p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link href="/subscription">
+              <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+                Explore Subscription Plans
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
