@@ -12,7 +12,8 @@ const sampleProducts = [
     dimensions: '240cm x 160cm x 85cm',
     material: 'Premium Fabric',
     weight: '75kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Elegant Dining Table',
@@ -24,7 +25,8 @@ const sampleProducts = [
     dimensions: '180cm x 90cm x 75cm',
     material: 'Solid Wood',
     weight: '45kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: true
   },
   {
     name: 'Luxury King Bed',
@@ -36,7 +38,8 @@ const sampleProducts = [
     dimensions: '200cm x 160cm x 120cm',
     material: 'Upholstered Fabric',
     weight: '50kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Designer Coffee Table',
@@ -48,7 +51,8 @@ const sampleProducts = [
     dimensions: '120cm x 60cm x 45cm',
     material: 'Wood and Glass',
     weight: '25kg',
-    inStock: true
+    inStock: false,
+    availableForPreOrder: true
   },
   {
     name: 'Designer Accent Chair',
@@ -60,7 +64,8 @@ const sampleProducts = [
     dimensions: '75cm x 75cm x 80cm',
     material: 'Upholstered',
     weight: '15kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Modern Wardrobe Set',
@@ -72,7 +77,8 @@ const sampleProducts = [
     dimensions: '150cm x 60cm x 200cm',
     material: 'Engineered Wood',
     weight: '80kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: true
   },
   {
     name: 'Executive Office Desk',
@@ -84,7 +90,8 @@ const sampleProducts = [
     dimensions: '140cm x 70cm x 75cm',
     material: 'Wood Veneer',
     weight: '35kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Modern Bookshelf',
@@ -96,7 +103,8 @@ const sampleProducts = [
     dimensions: '80cm x 30cm x 180cm',
     material: 'Engineered Wood',
     weight: '25kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Dining Chair Set (4)',
@@ -108,7 +116,8 @@ const sampleProducts = [
     dimensions: '45cm x 50cm x 85cm (each)',
     material: 'Wood and Fabric',
     weight: '8kg (each)',
-    inStock: true
+    inStock: false,
+    availableForPreOrder: true
   },
   {
     name: 'Bedside Table',
@@ -120,7 +129,8 @@ const sampleProducts = [
     dimensions: '40cm x 35cm x 50cm',
     material: 'Engineered Wood',
     weight: '12kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: true
   },
   {
     name: 'Modern TV Stand',
@@ -132,7 +142,8 @@ const sampleProducts = [
     dimensions: '120cm x 40cm x 50cm',
     material: 'Engineered Wood',
     weight: '20kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Storage Ottoman',
@@ -144,7 +155,8 @@ const sampleProducts = [
     dimensions: '60cm x 40cm x 45cm',
     material: 'Upholstered',
     weight: '8kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Contemporary Floor Lamp',
@@ -156,7 +168,8 @@ const sampleProducts = [
     dimensions: '30cm x 30cm x 150cm',
     material: 'Metal and Fabric',
     weight: '5kg',
-    inStock: true
+    inStock: false,
+    availableForPreOrder: true
   },
   {
     name: 'Bar Stool Set (2)',
@@ -168,7 +181,8 @@ const sampleProducts = [
     dimensions: '40cm x 40cm x 60-80cm',
     material: 'Metal and Leather',
     weight: '6kg (each)',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: true
   },
   {
     name: 'Decorative Mirror Set',
@@ -180,7 +194,8 @@ const sampleProducts = [
     dimensions: '40cm x 60cm (largest)',
     material: 'Glass and Frame',
     weight: '3kg (set)',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Luxury Lounge Chair',
@@ -192,7 +207,8 @@ const sampleProducts = [
     dimensions: '80cm x 90cm x 100cm',
     material: 'Premium Leather',
     weight: '30kg',
-    inStock: true
+    inStock: false,
+    availableForPreOrder: true
   },
   {
     name: 'Chest of Drawers',
@@ -204,7 +220,8 @@ const sampleProducts = [
     dimensions: '80cm x 45cm x 120cm',
     material: 'Engineered Wood',
     weight: '40kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Entryway Console Table',
@@ -216,7 +233,8 @@ const sampleProducts = [
     dimensions: '100cm x 30cm x 80cm',
     material: 'Solid Wood',
     weight: '18kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: true
   },
   {
     name: 'Classic Rocking Chair',
@@ -228,16 +246,22 @@ const sampleProducts = [
     dimensions: '70cm x 90cm x 110cm',
     material: 'Wood and Cushion',
     weight: '22kg',
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   },
   {
     name: 'Elegant Side Table',
     description: 'Perfect complement to sofas and chairs',
     price: 18000,
     category: 'Living Room',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    colors: ['#92400E', '#1F2937', '#6B7280'],
-    dimensions: '45cm x 45cm x 55cm',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+    colors: ['#92400E', '#1F2937'],
+    dimensions: '50cm x 40cm x 55cm',
+    material: 'Wood',
+    weight: '8kg',
+    inStock: true,
+    availableForPreOrder: false
+  }
     material: 'Engineered Wood',
     weight: '8kg',
     inStock: true
