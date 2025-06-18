@@ -12,6 +12,7 @@ import Category from "@/pages/Category";
 import ProductDetail from "@/pages/ProductDetail";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
+import Subscription from "@/pages/Subscription";
 import ThankYou from "@/pages/ThankYou";
 import Terms from "@/pages/Terms";
 import HelpCenter from "@/pages/HelpCenter";
@@ -33,6 +34,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/explore" component={Explore} />
+      <Route path="/subscription" component={Subscription} />
       <Route path="/category/:category" component={Category} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />

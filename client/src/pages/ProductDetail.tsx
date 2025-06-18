@@ -5,8 +5,10 @@ import { Product } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
-import { Star, Heart, Share2 } from "lucide-react";
+import { Star, Heart, Share2, Camera, Palette } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
+import ARShowroom from "@/components/ARShowroom";
+import CustomizationPanel from "@/components/CustomizationPanel";
 
 export default function ProductDetail() {
   const [, params] = useRoute("/product/:id");
@@ -15,6 +17,9 @@ export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [isRent, setIsRent] = useState(false);
   const [mainImage, setMainImage] = useState<string>("");
+  const [showARShowroom, setShowARShowroom] = useState(false);
+  const [showCustomization, setShowCustomization] = useState(false);
+  const [customizations, setCustomizations] = useState<any>({});
 
   const { addToCart } = useCart();
 
@@ -237,6 +242,26 @@ export default function ProductDetail() {
             }
           </Button>
 
+          {/* AR & Customization */}
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowARShowroom(true)}
+              className="border-lumier-gold text-lumier-gold hover:bg-lumier-gold hover:text-lumier-black"
+            >
+              <Camera className="h-4 w-4 mr-2" />
+              Try in AR
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowCustomization(!showCustomization)}
+              className="border-lumier-gold text-lumier-gold hover:bg-lumier-gold hover:text-lumier-black"
+            >
+              <Palette className="h-4 w-4 mr-2" />
+              Customize
+            </Button>
+          </div>
+
           {/* Share & Wishlist */}
           <div className="flex space-x-4">
             <Button variant="outline" className="flex-1">
@@ -250,6 +275,24 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {/* Customization Panel */}
+      {showCustomization && (
+        <div className="mt-8">
+          <CustomizationPanel 
+            product={product}
+            onCustomizationChange={setCustomizations}
+            availableFor="both"
+          />
+        </div>
+      )}
+
+      {/* AR Showroom Modal */}
+      <ARShowroom 
+        product={product}
+        isOpen={showARShowroom}
+        onClose={() => setShowARShowroom(false)}
+      />
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
