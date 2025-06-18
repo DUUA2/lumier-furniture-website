@@ -26,6 +26,7 @@ interface ProductFormData {
   weight: string;
   inStock: boolean;
   availableForPreOrder: boolean;
+  availableForInstallment: boolean;
 }
 
 export default function Admin() {
@@ -44,7 +45,8 @@ export default function Admin() {
     material: "",
     weight: "",
     inStock: true,
-    availableForPreOrder: false
+    availableForPreOrder: false,
+    availableForInstallment: true
   });
   const [newColor, setNewColor] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -157,7 +159,8 @@ export default function Admin() {
       material: "",
       weight: "",
       inStock: true,
-      availableForPreOrder: false
+      availableForPreOrder: false,
+      availableForInstallment: true
     });
     setNewColor("");
   };
@@ -175,7 +178,8 @@ export default function Admin() {
       material: product.material || "",
       weight: product.weight || "",
       inStock: product.inStock !== false,
-      availableForPreOrder: product.availableForPreOrder || false
+      availableForPreOrder: product.availableForPreOrder || false,
+      availableForInstallment: product.availableForInstallment !== false
     });
     setShowAddForm(true); // Show the form when editing
   };
@@ -521,12 +525,34 @@ export default function Admin() {
                       </Label>
                     </div>
 
+                    <div className="flex items-center space-x-3">
+                      <Switch
+                        id="availableForInstallment"
+                        checked={formData.availableForInstallment}
+                        onCheckedChange={(checked) => setFormData(prev => ({ ...prev, availableForInstallment: checked }))}
+                      />
+                      <Label htmlFor="availableForInstallment" className="flex items-center gap-2">
+                        {formData.availableForInstallment ? (
+                          <>
+                            <Eye className="w-4 h-4 text-purple-600" />
+                            <span className="text-purple-700">Available for Installment Payment - Monthly plans</span>
+                          </>
+                        ) : (
+                          <>
+                            <EyeOff className="w-4 h-4 text-gray-600" />
+                            <span className="text-gray-700">Installment payment disabled</span>
+                          </>
+                        )}
+                      </Label>
+                    </div>
+
                     <div className="text-xs text-gray-600 bg-white p-2 rounded border">
                       <strong>Status Summary:</strong> 
-                      {formData.inStock && formData.availableForPreOrder && " Available for both immediate purchase and pre-order"}
-                      {formData.inStock && !formData.availableForPreOrder && " Available for immediate purchase only"}
-                      {!formData.inStock && formData.availableForPreOrder && " Available for pre-order only"}
-                      {!formData.inStock && !formData.availableForPreOrder && " Hidden from customers"}
+                      {formData.inStock && " In Stock"}
+                      {!formData.inStock && formData.availableForPreOrder && " Available for Pre-order"}
+                      {!formData.inStock && !formData.availableForPreOrder && " Out of Stock"}
+                      {formData.availableForInstallment && " • Installment Payment Available"}
+                      {!formData.availableForInstallment && " • Installment Payment Disabled"}
                     </div>
                   </div>
 
