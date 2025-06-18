@@ -50,7 +50,8 @@ export class MemStorage implements IStorage {
         dimensions: '240cm x 160cm x 85cm',
         material: 'Premium Fabric',
         weight: '75kg',
-        inStock: true
+        inStock: true,
+        availableForPreOrder: false
       },
       {
         name: 'Elegant Dining Table',

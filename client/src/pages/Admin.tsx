@@ -25,6 +25,7 @@ interface ProductFormData {
   material: string;
   weight: string;
   inStock: boolean;
+  availableForPreOrder: boolean;
 }
 
 export default function Admin() {
@@ -42,7 +43,8 @@ export default function Admin() {
     dimensions: "",
     material: "",
     weight: "",
-    inStock: true
+    inStock: true,
+    availableForPreOrder: false
   });
   const [newColor, setNewColor] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -154,7 +156,8 @@ export default function Admin() {
       dimensions: "",
       material: "",
       weight: "",
-      inStock: true
+      inStock: true,
+      availableForPreOrder: false
     });
     setNewColor("");
   };
@@ -171,7 +174,8 @@ export default function Admin() {
       dimensions: product.dimensions || "",
       material: product.material || "",
       weight: product.weight || "",
-      inStock: product.inStock !== false
+      inStock: product.inStock !== false,
+      availableForPreOrder: product.availableForPreOrder || false
     });
     setShowAddForm(true); // Show the form when editing
   };
@@ -472,25 +476,58 @@ export default function Admin() {
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg mb-4">
-                    <Switch
-                      id="inStock"
-                      checked={formData.inStock}
-                      onCheckedChange={(checked) => setFormData(prev => ({ ...prev, inStock: checked }))}
-                    />
-                    <Label htmlFor="inStock" className="flex items-center gap-2 font-medium">
-                      {formData.inStock ? (
-                        <>
-                          <Eye className="w-4 h-4 text-green-600" />
-                          <span className="text-green-700">In Stock - Available for purchase</span>
-                        </>
-                      ) : (
-                        <>
-                          <EyeOff className="w-4 h-4 text-red-600" />
-                          <span className="text-red-700">Out of Stock - Hidden from customers</span>
-                        </>
-                      )}
-                    </Label>
+                  <div className="space-y-4 p-4 bg-gray-50 rounded-lg mb-4">
+                    <Label className="font-semibold">Product Availability</Label>
+                    
+                    <div className="flex items-center space-x-3">
+                      <Switch
+                        id="inStock"
+                        checked={formData.inStock}
+                        onCheckedChange={(checked) => setFormData(prev => ({ ...prev, inStock: checked }))}
+                      />
+                      <Label htmlFor="inStock" className="flex items-center gap-2">
+                        {formData.inStock ? (
+                          <>
+                            <Eye className="w-4 h-4 text-green-600" />
+                            <span className="text-green-700">In Stock - Ready for immediate purchase</span>
+                          </>
+                        ) : (
+                          <>
+                            <EyeOff className="w-4 h-4 text-red-600" />
+                            <span className="text-red-700">Out of Stock</span>
+                          </>
+                        )}
+                      </Label>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Switch
+                        id="availableForPreOrder"
+                        checked={formData.availableForPreOrder}
+                        onCheckedChange={(checked) => setFormData(prev => ({ ...prev, availableForPreOrder: checked }))}
+                      />
+                      <Label htmlFor="availableForPreOrder" className="flex items-center gap-2">
+                        {formData.availableForPreOrder ? (
+                          <>
+                            <Eye className="w-4 h-4 text-blue-600" />
+                            <span className="text-blue-700">Available for Pre-order - Customers can reserve</span>
+                          </>
+                        ) : (
+                          <>
+                            <EyeOff className="w-4 h-4 text-gray-600" />
+                            <span className="text-gray-700">Pre-order disabled</span>
+                          </>
+                        )}
+                      </Label>
+                    </div>
+
+                    <div className="text-xs text-gray-600 bg-white p-2 rounded border">
+                      <strong>Status Summary:</strong> 
+                      {formData.inStock && formData.availableForPreOrder && " Available for both immediate purchase and pre-order"}
+                      {formData.inStock && !formData.availableForPreOrder && " Available for immediate purchase only"}
+                      {!formData.inStock && formData.availableForPreOrder && " Available for pre-order only"}
+                      {!formData.inStock && !formData.availableForPreOrder && " Hidden from customers"}
+                    </div>
                   </div>
 
                   <div className="flex gap-4">
@@ -555,9 +592,23 @@ export default function Admin() {
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
-                      <Badge variant={product.inStock ? "default" : "destructive"}>
-                        {product.inStock ? "In Stock" : "Out of Stock"}
-                      </Badge>
+                      <div className="flex gap-1">
+                        {product.inStock && (
+                          <Badge variant="default" className="bg-green-600">
+                            In Stock
+                          </Badge>
+                        )}
+                        {product.availableForPreOrder && (
+                          <Badge variant="outline" className="border-blue-600 text-blue-600">
+                            Pre-order
+                          </Badge>
+                        )}
+                        {!product.inStock && !product.availableForPreOrder && (
+                          <Badge variant="destructive">
+                            Unavailable
+                          </Badge>
+                        )}
+                      </div>
                     </div>
                     
                     <div className="text-xs text-gray-500 space-y-1">

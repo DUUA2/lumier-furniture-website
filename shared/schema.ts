@@ -43,6 +43,7 @@ export const products = pgTable("products", {
   material: text("material"),
   weight: text("weight"),
   inStock: boolean("in_stock").default(true),
+  availableForPreOrder: boolean("available_for_pre_order").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
