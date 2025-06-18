@@ -125,6 +125,7 @@ The application uses three main entities:
 - June 17, 2025. Implemented user authentication system for checkout process, customers can sign in/create accounts during checkout or continue as guests, authenticated users get auto-filled personal information, navbar shows dynamic sign in/out options with user dropdown menu
 - June 17, 2025. Fixed React hooks error in checkout component by moving useEffect hooks before conditional returns, resolved authentication configuration issues, fixed "Learn More" button on home page to link to terms page with matching gold button styling
 - June 17, 2025. Integrated company logo with RC number 3662809 throughout website including navbar header, footer legal compliance section, Terms of Service and Privacy Policy pages, increased logo size for better visibility and professional branding
+- June 18, 2025. Added live chat support system with WebSocket-based real-time messaging, intelligent auto-reply support bot with furniture-specific responses, user authentication integration, persistent chat state with minimize/maximize functionality, and unread message notifications
 
 ## User Preferences
 

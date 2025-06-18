@@ -24,6 +24,7 @@ import Profile from "@/pages/Profile";
 import Landing from "@/pages/Landing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LiveChat from "@/components/LiveChat";
 
 function Router() {
   return (
@@ -59,6 +60,7 @@ function App() {
               <Router />
             </main>
             <Footer />
+            <LiveChat />
           </div>
           <Toaster />
         </TooltipProvider>
