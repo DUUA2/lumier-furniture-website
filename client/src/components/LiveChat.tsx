@@ -155,27 +155,25 @@ export default function LiveChat({ className }: LiveChatProps) {
   // Chat button when closed
   if (!isOpen) {
     return (
-      <div className={`fixed bottom-6 right-6 z-50 ${className}`}>
-        <Button
-          onClick={openChat}
-          className="relative bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 rounded-full p-4 shadow-lg"
-          size="lg"
-        >
-          <MessageCircle className="h-6 w-6" />
-          {unreadCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs w-6 h-6 flex items-center justify-center">
-              {unreadCount > 9 ? '9+' : unreadCount}
-            </span>
-          )}
-        </Button>
-      </div>
+      <Button
+        onClick={openChat}
+        className={`relative bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 rounded-full p-2 shadow-lg ${className}`}
+        size="sm"
+      >
+        <MessageCircle className="h-3 w-3" />
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center text-[10px]">
+            {unreadCount > 9 ? '9+' : unreadCount}
+          </span>
+        )}
+      </Button>
     );
   }
 
   // Minimized chat
   if (isMinimized) {
     return (
-      <div className={`fixed bottom-6 right-6 z-50 ${className}`}>
+      <div className={`fixed top-20 right-6 z-50 ${className}`}>
         <Card className="w-80 shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between py-3 bg-lumier-gold text-lumier-black">
             <div className="flex items-center space-x-2">
@@ -214,7 +212,7 @@ export default function LiveChat({ className }: LiveChatProps) {
 
   // Full chat window
   return (
-    <div className={`fixed bottom-6 right-6 z-50 ${className}`}>
+    <div className={`fixed top-20 right-6 z-50 ${className}`}>
       <Card className="w-80 h-96 shadow-lg flex flex-col">
         <CardHeader className="flex flex-row items-center justify-between py-3 bg-lumier-gold text-lumier-black">
           <div className="flex items-center space-x-2">

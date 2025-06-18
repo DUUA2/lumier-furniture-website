@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import LiveChat from "@/components/LiveChat";
 
 export default function Navbar() {
   const [location] = useLocation();
@@ -103,6 +104,9 @@ export default function Navbar() {
                 Sign In
               </Button>
             )}
+            
+            {/* Live Chat Button */}
+            <LiveChat />
             
             {/* Mobile menu button */}
             <div className="md:hidden">

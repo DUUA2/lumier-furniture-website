@@ -60,7 +60,6 @@ function App() {
               <Router />
             </main>
             <Footer />
-            <LiveChat />
           </div>
           <Toaster />
         </TooltipProvider>
