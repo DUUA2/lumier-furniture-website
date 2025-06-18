@@ -110,7 +110,6 @@ export default function Admin() {
       inStock: true
     });
     setNewColor("");
-    setImageFile(null);
   };
 
   const startEdit = (product: Product) => {
@@ -132,8 +131,11 @@ export default function Admin() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
-      uploadImageMutation.mutate(file);
+      // For now, just show a message about image uploads
+      toast({ 
+        title: "Image Upload", 
+        description: "Use image hosting services like Unsplash, Imgur, or Cloudinary for product images" 
+      });
     }
   };
 
