@@ -18,7 +18,26 @@ export default function Checkout() {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [showAuthOptions, setShowAuthOptions] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    bvn: string;
+    nin: string;
+    nextOfKinName: string;
+    nextOfKinRelationship: string;
+    nextOfKinPhone: string;
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    purchaseType: string;
+    paymentPlan: string;
+    subscriptionPlan: string;
+    insurance: boolean;
+    agreeToTerms: boolean;
+  }>({
     firstName: "",
     lastName: "",
     email: "",
@@ -32,8 +51,9 @@ export default function Checkout() {
     city: "",
     state: "",
     zipCode: "",
-    purchaseType: "buy", // "buy" or "installment"
+    purchaseType: "buy", // "buy", "installment", or "subscription"
     paymentPlan: "2",
+    subscriptionPlan: "basic", // "basic", "premium", or "elite"
     insurance: false,
     agreeToTerms: false
   });
@@ -95,13 +115,30 @@ export default function Checkout() {
   
   // Enhanced payment calculations
   const insurance = formData.insurance ? Math.round(subtotal * 0.02) : 0; // 2% insurance
-  const baseTotal = subtotal + vat + deliveryFee + insurance;
   
-  // Service fees: 5% per month for installment plans (only if installment selected)
+  // Subscription plan pricing
+  const subscriptionPlanPrices = {
+    basic: 15000,
+    premium: 25000,
+    elite: 40000
+  };
+  
+  // Service fees calculation (moved outside for proper scope)
   const serviceFees = formData.purchaseType === "installment" ? Math.round(subtotal * (0.05 * paymentPlan)) : 0;
   
-  const total = baseTotal + serviceFees;
-  const monthlyPayment = Math.round(total / paymentPlan);
+  let total = 0;
+  let monthlyPayment = 0;
+  
+  if (formData.purchaseType === "subscription") {
+    // For subscription: monthly plan fee + delivery fee (one-time)
+    monthlyPayment = subscriptionPlanPrices[formData.subscriptionPlan as keyof typeof subscriptionPlanPrices];
+    total = monthlyPayment + deliveryFee; // First month + delivery
+  } else {
+    // For buy/installment: original calculation
+    const baseTotal = subtotal + vat + deliveryFee + insurance;
+    total = baseTotal + serviceFees;
+    monthlyPayment = formData.purchaseType === "installment" ? Math.round(total / paymentPlan) : total;
+  }
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -649,25 +686,40 @@ export default function Checkout() {
             <hr className="my-4" />
             
             <div className="space-y-3">
-              <div className="flex justify-between">
-                <span>Subtotal:</span>
-                <span>₦{subtotal.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>VAT (7.5%):</span>
-                <span>₦{vat.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Delivery:</span>
-                <span>₦{deliveryFee.toLocaleString()}</span>
-              </div>
+              {formData.purchaseType === "subscription" ? (
+                <>
+                  <div className="flex justify-between">
+                    <span>Monthly Plan ({formData.subscriptionPlan.charAt(0).toUpperCase() + formData.subscriptionPlan.slice(1)}):</span>
+                    <span>₦{subscriptionPlanPrices[formData.subscriptionPlan as keyof typeof subscriptionPlanPrices].toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Setup & Delivery (One-time):</span>
+                    <span>₦{deliveryFee.toLocaleString()}</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span>₦{subtotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>VAT (7.5%):</span>
+                    <span>₦{vat.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Delivery:</span>
+                    <span>₦{deliveryFee.toLocaleString()}</span>
+                  </div>
+                </>
+              )}
               {formData.insurance && (
                 <div className="flex justify-between">
                   <span>Insurance (2%):</span>
                   <span>₦{insurance.toLocaleString()}</span>
                 </div>
               )}
-              {formData.purchaseType === "installment" && (
+              {formData.purchaseType === "installment" && serviceFees > 0 && (
                 <div className="flex justify-between">
                   <span>Service Fee ({paymentPlan * 5}% total):</span>
                   <span>₦{serviceFees.toLocaleString()}</span>
@@ -678,13 +730,20 @@ export default function Checkout() {
                 <span>Total:</span>
                 <span>₦{total.toLocaleString()}</span>
               </div>
-              {formData.purchaseType === "installment" && (
+              {(formData.purchaseType === "installment" || formData.purchaseType === "subscription") && (
                 <div className="bg-lumier-gold/20 p-3 rounded-lg mt-4">
                   <div className="text-center">
-                    <span className="text-sm">Monthly Payment:</span>
+                    <span className="text-sm">
+                      {formData.purchaseType === "subscription" ? "Monthly Plan Fee:" : "Monthly Payment:"}
+                    </span>
                     <div className="text-lg font-bold text-lumier-gold">
                       ₦{monthlyPayment.toLocaleString()}
                     </div>
+                    {formData.purchaseType === "subscription" && (
+                      <p className="text-xs text-gray-600 mt-1">
+                        Recurring monthly - cancel anytime
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
