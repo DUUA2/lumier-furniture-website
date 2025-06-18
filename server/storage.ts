@@ -14,6 +14,7 @@ export interface IStorage {
   getProductsByCategory(category: string): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
   updateProduct(id: number, updates: Partial<Product>): Promise<Product | undefined>;
+  deleteProduct(id: number): Promise<boolean>;
 
   // Orders
   createOrder(order: InsertOrder): Promise<Order>;

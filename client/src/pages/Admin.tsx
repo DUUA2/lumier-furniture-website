@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Product } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -9,9 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Plus, Edit, Save, X, ExternalLink } from "lucide-react";
+import { Plus, Edit, Save, X, Trash2, Eye, EyeOff, Lock, Unlock } from "lucide-react";
 
 interface ProductFormData {
   name: string;
@@ -27,6 +28,8 @@ interface ProductFormData {
 }
 
 export default function Admin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [adminPassword, setAdminPassword] = useState("");
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState<ProductFormData>({
@@ -42,8 +45,36 @@ export default function Admin() {
     inStock: true
   });
   const [newColor, setNewColor] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("all");
 
   const { toast } = useToast();
+
+  // Check if admin is already authenticated
+  useEffect(() => {
+    const adminAuth = localStorage.getItem('adminAuthenticated');
+    if (adminAuth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleAdminLogin = () => {
+    // Simple password check - in production, use proper authentication
+    if (adminPassword === "lumier2024") {
+      setIsAuthenticated(true);
+      localStorage.setItem('adminAuthenticated', 'true');
+      toast({ title: "Admin access granted" });
+    } else {
+      toast({ title: "Invalid password", variant: "destructive" });
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('adminAuthenticated');
+    setAdminPassword("");
+    toast({ title: "Logged out successfully" });
+  };
 
   const { data: products = [] } = useQuery<Product[]>({
     queryKey: ["/api/products"],
@@ -87,6 +118,22 @@ export default function Admin() {
     },
     onError: () => {
       toast({ title: "Failed to create product", variant: "destructive" });
+    }
+  });
+
+  const deleteProductMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/products/${id}`, {
+        method: "DELETE"
+      });
+      if (!response.ok) throw new Error('Delete failed');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/products"] });
+      toast({ title: "Product deleted successfully" });
+    },
+    onError: () => {
+      toast({ title: "Failed to delete product", variant: "destructive" });
     }
   });
 
@@ -162,17 +209,119 @@ export default function Admin() {
     }
   };
 
+  const handleDeleteProduct = (id: number) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      deleteProductMutation.mutate(id);
+    }
+  };
+
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = filterCategory === "all" || product.category === filterCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="flex items-center justify-center gap-2">
+              <Lock className="w-5 h-5" />
+              Admin Login
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="password">Admin Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={adminPassword}
+                  onChange={(e) => setAdminPassword(e.target.value)}
+                  placeholder="Enter admin password"
+                  onKeyPress={(e) => e.key === 'Enter' && handleAdminLogin()}
+                />
+              </div>
+              <Button 
+                onClick={handleAdminLogin} 
+                className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+              >
+                <Unlock className="w-4 h-4 mr-2" />
+                Login to Admin Panel
+              </Button>
+              <p className="text-xs text-center text-gray-500">
+                Default password: lumier2024
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Admin Panel</h1>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add Product
-        </Button>
+        <div>
+          <h1 className="text-3xl font-bold">Admin Panel</h1>
+          <p className="text-lumier-gray">Manage products, prices, and inventory</p>
+        </div>
+        <div className="flex gap-3">
+          <Button
+            onClick={() => setShowAddForm(true)}
+            className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Product
+          </Button>
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+          >
+            <Lock className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
+      </div>
+
+      {/* Search and Filter Controls */}
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <Label htmlFor="search">Search Products</Label>
+          <Input
+            id="search"
+            placeholder="Search by name or description..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="category-filter">Filter by Category</Label>
+          <Select value={filterCategory} onValueChange={setFilterCategory}>
+            <SelectTrigger>
+              <SelectValue placeholder="All categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              {categories.map(cat => (
+                <SelectItem key={cat} value={cat.toLowerCase().replace(' ', '-')}>
+                  {cat}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-end">
+          <div className="bg-gray-100 p-3 rounded-lg">
+            <span className="text-sm font-medium">
+              Showing {filteredProducts.length} of {products.length} products
+            </span>
+          </div>
+        </div>
       </div>
 
       <Tabs defaultValue="products" className="w-full">
@@ -344,36 +493,73 @@ export default function Admin() {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map(product => (
-              <Card key={product.id}>
+            {filteredProducts.map(product => (
+              <Card key={product.id} className="relative">
                 <CardContent className="p-4">
+                  <div className="absolute top-2 right-2 flex gap-1">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleDeleteProduct(product.id)}
+                      className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-40 object-cover rounded-lg mb-4"
                   />
-                  <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
-                  <p className="text-lumier-gray text-sm mb-2 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
-                    <Badge variant={product.inStock ? "default" : "destructive"}>
-                      {product.inStock ? "In Stock" : "Out of Stock"}
-                    </Badge>
+                  
+                  <div className="space-y-2 mb-4">
+                    <h3 className="font-semibold text-lg">{product.name}</h3>
+                    <p className="text-lumier-gray text-sm line-clamp-2">
+                      {product.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {product.colors.map(color => (
+                        <Badge key={color} variant="outline" className="text-xs">
+                          {color}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                  <Button
-                    onClick={() => startEdit(product)}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit Product
-                  </Button>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
+                      <Badge variant={product.inStock ? "default" : "destructive"}>
+                        {product.inStock ? "In Stock" : "Out of Stock"}
+                      </Badge>
+                    </div>
+                    
+                    <div className="text-xs text-gray-500 space-y-1">
+                      <div>Category: {product.category}</div>
+                      {product.dimensions && <div>Size: {product.dimensions}</div>}
+                      {product.material && <div>Material: {product.material}</div>}
+                    </div>
+                    
+                    <Button
+                      onClick={() => startEdit(product)}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      <Edit className="w-4 h-4 mr-2" />
+                      Edit Product
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+          
+          {filteredProducts.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-lumier-gray">No products found matching your search criteria.</p>
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="orders" className="mt-6">
