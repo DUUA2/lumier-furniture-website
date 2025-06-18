@@ -186,6 +186,116 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(PAYMENT_CONFIG);
   });
 
+  // Newsletter signup endpoint
+  app.post("/api/newsletter/signup", async (req, res) => {
+    try {
+      const { email, source, preferences } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+      }
+
+      // Check if email already exists
+      const existingSignup = await storage.getNewsletterSignup(email);
+      if (existingSignup) {
+        return res.status(409).json({ message: "Email already subscribed" });
+      }
+
+      const signup = await storage.createNewsletterSignup({
+        email,
+        source: source || "website",
+        preferences: preferences || {
+          seasonalUpdates: true,
+          promotions: true,
+          newArrivals: true
+        }
+      });
+
+      res.json(signup);
+    } catch (error) {
+      console.error("Newsletter signup error:", error);
+      res.status(500).json({ message: "Failed to subscribe to newsletter" });
+    }
+  });
+
+  // Get active seasonal collection
+  app.get("/api/seasonal-collections/active", async (req, res) => {
+    try {
+      const activeCollection = await storage.getActiveSeasonalCollection();
+      res.json(activeCollection);
+    } catch (error) {
+      console.error("Error fetching active seasonal collection:", error);
+      res.status(500).json({ message: "Failed to fetch seasonal collection" });
+    }
+  });
+
+  // Get current user subscription
+  app.get("/api/subscription/current", isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.user?.claims?.sub;
+      const subscription = await storage.getUserSubscription(userId);
+      
+      if (!subscription) {
+        return res.status(404).json({ message: "No active subscription found" });
+      }
+
+      res.json(subscription);
+    } catch (error) {
+      console.error("Error fetching subscription:", error);
+      res.status(500).json({ message: "Failed to fetch subscription" });
+    }
+  });
+
+  // Schedule subscription refresh
+  app.post("/api/subscription/schedule-refresh", isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.user?.claims?.sub;
+      const { date, reason } = req.body;
+
+      if (!date || !reason) {
+        return res.status(400).json({ message: "Date and reason are required" });
+      }
+
+      const updatedSubscription = await storage.scheduleSubscriptionRefresh(userId, {
+        date: new Date(date),
+        reason
+      });
+
+      res.json(updatedSubscription);
+    } catch (error) {
+      console.error("Error scheduling refresh:", error);
+      res.status(500).json({ message: "Failed to schedule refresh" });
+    }
+  });
+
+  // Create subscription order
+  app.post("/api/subscription/create", isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.user?.claims?.sub;
+      const { planType, refreshFrequency, customerInfo, deliveryAddress } = req.body;
+
+      const subscription = await storage.createSubscription({
+        userId,
+        planType,
+        refreshFrequency: refreshFrequency || "quarterly",
+        customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
+        customerEmail: customerInfo.email,
+        customerPhone: customerInfo.phone,
+        deliveryAddress,
+        bvn: customerInfo.bvn,
+        nin: customerInfo.nin,
+        monthlyPayment: planType === "basic" ? 15000 : planType === "premium" ? 25000 : 40000,
+        seasonalRefreshEnabled: true,
+        nextRefreshDate: new Date(Date.now() + (refreshFrequency === "quarterly" ? 90 : 180) * 24 * 60 * 60 * 1000)
+      });
+
+      res.json(subscription);
+    } catch (error) {
+      console.error("Error creating subscription:", error);
+      res.status(500).json({ message: "Failed to create subscription" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   // WebSocket server for live chat

@@ -31,6 +31,18 @@ export interface IStorage {
   createOrder(order: InsertOrder): Promise<Order>;
   getOrder(id: number): Promise<Order | undefined>;
   updateOrderPaymentStatus(id: number, status: string, reference?: string): Promise<Order | undefined>;
+
+  // Newsletter operations
+  getNewsletterSignup(email: string): Promise<any | undefined>;
+  createNewsletterSignup(signup: any): Promise<any>;
+
+  // Seasonal collections
+  getActiveSeasonalCollection(): Promise<any | undefined>;
+
+  // Subscription operations
+  getUserSubscription(userId: string): Promise<any | undefined>;
+  createSubscription(subscription: any): Promise<any>;
+  scheduleSubscriptionRefresh(userId: string, refresh: any): Promise<any>;
 }
 
 export class DatabaseStorage implements IStorage {

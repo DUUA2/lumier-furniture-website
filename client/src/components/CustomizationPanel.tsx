@@ -149,12 +149,12 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
               </TooltipContent>
             </Tooltip>
           </div>
-        {availableFor !== 'both' && (
-          <Badge variant="outline" className="w-fit">
-            Available for {availableFor}
-          </Badge>
-        )}
-      </CardHeader>
+          {availableFor !== 'both' && (
+            <Badge variant="outline" className="w-fit">
+              Available for {availableFor}
+            </Badge>
+          )}
+        </CardHeader>
 
       <CardContent>
         <Tabs defaultValue="colors" className="w-full">
