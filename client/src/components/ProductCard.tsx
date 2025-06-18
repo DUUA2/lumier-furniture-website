@@ -75,30 +75,42 @@ export default function ProductCard({ product }: ProductCardProps) {
             {availability.text}
           </Badge>
         </div>
-        <div className="flex items-center space-x-3 mb-3">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8"
-            onClick={decrementQuantity}
-          >
-            <Minus className="h-4 w-4" />
-          </Button>
-          <span className="font-medium min-w-[2rem] text-center">{quantity}</span>
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8"
-            onClick={incrementQuantity}
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
+        {canAddToCart && (
+          <div className="flex items-center space-x-3 mb-3">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8"
+              onClick={decrementQuantity}
+            >
+              <Minus className="h-4 w-4" />
+            </Button>
+            <span className="font-medium min-w-[2rem] text-center">{quantity}</span>
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8"
+              onClick={incrementQuantity}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
         <Button
           onClick={handleAddToCart}
-          className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+          disabled={!canAddToCart}
+          className={`w-full ${
+            canAddToCart 
+              ? 'bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90' 
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
         >
-          Add {quantity} to Cart
+          {!canAddToCart 
+            ? 'Out of Stock' 
+            : product.availableForPreOrder && !product.inStock
+              ? `Pre-order ${quantity}`
+              : `Add ${quantity} to Cart`
+          }
         </Button>
       </div>
     </div>

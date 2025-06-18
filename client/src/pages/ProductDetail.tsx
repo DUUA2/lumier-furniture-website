@@ -62,6 +62,19 @@ export default function ProductDetail() {
     });
   };
 
+  const getAvailabilityStatus = () => {
+    if (product.inStock) {
+      return { text: 'In Stock', variant: 'default' as const };
+    } else if (product.availableForPreOrder) {
+      return { text: 'Available for Pre-order', variant: 'secondary' as const };
+    } else {
+      return { text: 'Out of Stock', variant: 'destructive' as const };
+    }
+  };
+
+  const availability = getAvailabilityStatus();
+  const canAddToCart = product.inStock || product.availableForPreOrder;
+
   const getPrice = () => {
     if (isRent) {
       return Math.round(product.price * 0.15);
@@ -107,14 +120,19 @@ export default function ProductDetail() {
         {/* Product Details */}
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <div className="flex items-center mb-4">
-            <div className="flex text-lumier-gold">
-              {[...Array(4)].map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-current" />
-              ))}
-              <Star className="h-4 w-4" />
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center">
+              <div className="flex text-lumier-gold">
+                {[...Array(4)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-current" />
+                ))}
+                <Star className="h-4 w-4" />
+              </div>
+              <span className="ml-2 text-sm text-lumier-gray">(24 reviews)</span>
             </div>
-            <span className="ml-2 text-sm text-lumier-gray">(24 reviews)</span>
+            <Badge variant={availability.variant}>
+              {availability.text}
+            </Badge>
           </div>
 
           {/* Buy/Rent Toggle */}
@@ -194,10 +212,22 @@ export default function ProductDetail() {
           {/* Add to Cart */}
           <Button
             onClick={handleAddToCart}
-            className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 mb-4"
+            disabled={!canAddToCart}
+            className={`w-full mb-4 ${
+              canAddToCart 
+                ? 'bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90' 
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
             size="lg"
           >
-            Add to Cart
+            {!canAddToCart 
+              ? 'Out of Stock' 
+              : product.availableForPreOrder && !product.inStock
+                ? 'Pre-order Now'
+                : isRent 
+                  ? 'Rent Now'
+                  : 'Add to Cart'
+            }
           </Button>
 
           {/* Share & Wishlist */}
