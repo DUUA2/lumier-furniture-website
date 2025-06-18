@@ -105,8 +105,8 @@ export default function Subscription() {
       {/* Subscription Tiers */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Choose Your Plan</h2>
-          <p className="text-lg text-lumier-gray max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold mb-6 tracking-tight">Choose Your Subscription Plan</h2>
+          <p className="text-lg text-lumier-gray max-w-2xl mx-auto leading-relaxed">
             Flexible furniture subscriptions designed for every lifestyle and space
           </p>
         </div>
@@ -145,8 +145,8 @@ export default function Subscription() {
                   <h4 className="font-semibold mb-3">What's Included:</h4>
                   <ul className="space-y-2">
                     {tier.itemTypes.map((item, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-lumier-gold mt-0.5 flex-shrink-0" />
+                      <li key={index} className="flex items-start gap-3 text-sm">
+                        <CheckCircle className="h-5 w-5 text-lumier-gold mt-0.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -157,8 +157,8 @@ export default function Subscription() {
                   <h4 className="font-semibold mb-3">Features:</h4>
                   <ul className="space-y-2">
                     {tier.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-lumier-gold mt-0.5 flex-shrink-0" />
+                      <li key={index} className="flex items-start gap-3 text-sm">
+                        <CheckCircle className="h-5 w-5 text-lumier-gold mt-0.5 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -194,8 +194,8 @@ export default function Subscription() {
           
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Recycle className="h-8 w-8 text-green-600" />
+              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Recycle className="h-10 w-10 text-green-600" />
               </div>
               <h4 className="font-semibold mb-2 text-green-800">Reduce Waste</h4>
               <p className="text-sm text-green-600">
@@ -204,8 +204,8 @@ export default function Subscription() {
             </div>
             
             <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Palette className="h-8 w-8 text-green-600" />
+              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Palette className="h-10 w-10 text-green-600" />
               </div>
               <h4 className="font-semibold mb-2 text-green-800">Local Artisans</h4>
               <p className="text-sm text-green-600">
@@ -214,8 +214,8 @@ export default function Subscription() {
             </div>
             
             <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-green-600" />
+              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-10 w-10 text-green-600" />
               </div>
               <h4 className="font-semibold mb-2 text-green-800">Quality Care</h4>
               <p className="text-sm text-green-600">
