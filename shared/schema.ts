@@ -48,9 +48,54 @@ export const products = pgTable("products", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const subscriptionPlans = pgTable("subscription_plans", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  monthlyPrice: integer("monthly_price").notNull(),
+  itemCount: text("item_count").notNull(),
+  swapFrequency: text("swap_frequency").notNull(),
+  features: jsonb("features").$type<string[]>().notNull(),
+  itemTypes: jsonb("item_types").$type<string[]>().notNull(),
+  popular: boolean("popular").default(false),
+  active: boolean("active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const subscriptions = pgTable("subscriptions", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id").notNull(),
+  planId: integer("plan_id").references(() => subscriptionPlans.id).notNull(),
+  customerEmail: text("customer_email").notNull(),
+  customerName: text("customer_name").notNull(),
+  customerPhone: text("customer_phone").notNull(),
+  deliveryAddress: jsonb("delivery_address").$type<{
+    street: string;
+    city: string;
+    state: string;
+  }>().notNull(),
+  bvn: text("bvn").notNull(),
+  nin: text("nin").notNull(),
+  status: text("status").default("active"), // active, paused, cancelled
+  startDate: timestamp("start_date").defaultNow(),
+  nextSwapDate: timestamp("next_swap_date"),
+  monthlyPayment: integer("monthly_payment").notNull(),
+  insuranceOptIn: boolean("insurance_opt_in").default(false),
+  currentItems: jsonb("current_items").$type<Array<{
+    productId: number;
+    name: string;
+    customizations?: any;
+    deliveryDate: string;
+  }>>().default([]),
+  paymentStatus: text("payment_status").default("pending"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const orders = pgTable("orders", {
   id: serial("id").primaryKey(),
   userId: varchar("user_id"),
+  orderType: text("order_type").default("purchase").notNull(), // 'purchase', 'installment', 'subscription'
+  subscriptionId: integer("subscription_id").references(() => subscriptions.id),
   customerEmail: text("customer_email").notNull(),
   customerName: text("customer_name").notNull(),
   customerPhone: text("customer_phone").notNull(),
@@ -70,8 +115,9 @@ export const orders = pgTable("orders", {
     name: string;
     price: number;
     quantity: number;
-    type: 'buy' | 'rent';
+    type: 'buy' | 'rent' | 'subscription';
     color: string;
+    customizations?: any;
   }>>().notNull(),
   subtotal: integer("subtotal").notNull(),
   vat: integer("vat").notNull(),
@@ -94,6 +140,17 @@ export const insertProductSchema = createInsertSchema(products).omit({
   createdAt: true,
 });
 
+export const insertSubscriptionPlanSchema = createInsertSchema(subscriptionPlans).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({
+  id: true,
+  createdAt: true,
+  startDate: true,
+});
+
 export const insertOrderSchema = createInsertSchema(orders).omit({
   id: true,
   createdAt: true,
@@ -101,5 +158,9 @@ export const insertOrderSchema = createInsertSchema(orders).omit({
 
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Product = typeof products.$inferSelect;
+export type InsertSubscriptionPlan = z.infer<typeof insertSubscriptionPlanSchema>;
+export type SubscriptionPlan = typeof subscriptionPlans.$inferSelect;
+export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
+export type Subscription = typeof subscriptions.$inferSelect;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
 export type Order = typeof orders.$inferSelect;

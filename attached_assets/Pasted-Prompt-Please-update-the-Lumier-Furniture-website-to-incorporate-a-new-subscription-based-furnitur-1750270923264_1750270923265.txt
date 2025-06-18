@@ -1,0 +1,87 @@
+Prompt:
+
+Please update the Lumier Furniture website to incorporate a new subscription-based furniture rental model. This update should include the following elements:
+
+1. Subscription Plans Page
+Create a dedicated page outlining our new subscription tiers.
+
+Each tier should detail:
+
+Number and type of furniture pieces included
+
+Monthly pricing
+
+Flexibility to swap or upgrade items periodically (e.g. every 3 or 6 months)
+
+Perks like free delivery, free maintenance, and optional insurance.
+
+2. Interactive Showroom / AR Integration
+Integrate a virtual showroom or augmented reality (AR) feature that lets customers visualize how furniture would look in their actual living space.
+
+This feature should be accessible from:
+
+Product pages
+
+Subscription plan page
+
+"Try before you commit" section (if applicable)
+
+3. Sustainability Highlight
+Add a section on the homepage and subscription page emphasizing Lumier Furniture’s eco-conscious commitment.
+
+Mention how the subscription model promotes:
+
+Sustainable reuse
+
+Reduced furniture waste
+
+Support for local artisans using eco-friendly materials
+
+4. Customization Options
+On every relevant product page, include the ability to:
+
+Choose fabric, color, finish, or layout
+
+View those changes in real time (optional)
+
+Ensure this is available for both subscription and purchase customers.
+
+5. Customer Support and Subscription FAQ
+Update the FAQ and support pages to cover:
+
+How the subscription model works
+
+How to request maintenance, upgrades, or cancellations
+
+Delivery and return policies
+
+Terms for swapping items and insurance details
+
+6. Checkout Flow
+Customers should be able to choose between three options:
+
+Outright purchase
+
+Installment plan (2–24 months, 5% monthly fee, verified with ID + credit check)
+
+Subscription model (monthly fee, with perks)
+
+Show the price breakdown based on the option selected.
+
+Include a toggle for insurance opt-in at checkout.
+
+Ensure customers agree to terms and conditions before completing checkout.
+
+7. Backend and Admin Controls
+Add backend tools for:
+
+Managing subscription tiers
+
+Tracking swap/upgrade requests
+
+Managing customer preferences
+
+Turning insurance options on/off per item
+
+Final Notes:
+Ensure the design and flow align with Lumier Furniture’s brand: modern, clean, bohemian + hotel-luxury inspired. Make the interface smooth, mobile-friendly, and visually rich.
