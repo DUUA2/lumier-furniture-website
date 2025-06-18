@@ -73,13 +73,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/products/category/:category", async (req, res) => {
+  // Create new product
+  app.post("/api/products", async (req, res) => {
     try {
-      const category = req.params.category;
-      const products = await storage.getProductsByCategory(category);
-      res.json(products);
+      const product = await storage.createProduct(req.body);
+      res.status(201).json(product);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch products by category" });
+      console.error("Error creating product:", error);
+      res.status(500).json({ message: "Failed to create product" });
+    }
+  });
+
+  // Update existing product
+  app.patch("/api/products/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const product = await storage.updateProduct(id, req.body);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      console.error("Error updating product:", error);
+      res.status(500).json({ message: "Failed to update product" });
     }
   });
 

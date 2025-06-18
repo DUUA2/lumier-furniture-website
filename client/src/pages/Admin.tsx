@@ -10,8 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import { Plus, Edit, Upload, Save, X } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
+import { Plus, Edit, Save, X, ExternalLink } from "lucide-react";
 
 interface ProductFormData {
   name: string;
@@ -42,7 +42,7 @@ export default function Admin() {
     inStock: true
   });
   const [newColor, setNewColor] = useState("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const { toast } = useToast();
 
   const { data: products = [] } = useQuery<Product[]>({
@@ -90,27 +90,7 @@ export default function Admin() {
     }
   });
 
-  const uploadImageMutation = useMutation({
-    mutationFn: async (file: File) => {
-      const formData = new FormData();
-      formData.append('image', file);
-      
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (!response.ok) throw new Error('Upload failed');
-      return response.json();
-    },
-    onSuccess: (data) => {
-      setFormData(prev => ({ ...prev, image: data.url }));
-      toast({ title: "Image uploaded successfully" });
-    },
-    onError: () => {
-      toast({ title: "Failed to upload image", variant: "destructive" });
-    }
-  });
+
 
   const categories = [
     "Living Room", "Bedroom", "Dining Room", "Office", "Lighting", "Decor", "Storage"

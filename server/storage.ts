@@ -13,6 +13,7 @@ export interface IStorage {
   getProduct(id: number): Promise<Product | undefined>;
   getProductsByCategory(category: string): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
+  updateProduct(id: number, updates: Partial<Product>): Promise<Product | undefined>;
 
   // Orders
   createOrder(order: InsertOrder): Promise<Order>;
@@ -309,6 +310,15 @@ export class MemStorage implements IStorage {
     return product;
   }
 
+  async updateProduct(id: number, updates: Partial<Product>): Promise<Product | undefined> {
+    const existing = this.products.get(id);
+    if (!existing) return undefined;
+    
+    const updated = { ...existing, ...updates };
+    this.products.set(id, updated);
+    return updated;
+  }
+
   // Orders
   async createOrder(insertOrder: InsertOrder): Promise<Order> {
     const id = this.currentOrderId++;
@@ -397,6 +407,15 @@ export class DatabaseStorage implements IStorage {
     const [product] = await db
       .insert(products)
       .values(insertProduct)
+      .returning();
+    return product;
+  }
+
+  async updateProduct(id: number, updates: Partial<Product>): Promise<Product | undefined> {
+    const [product] = await db
+      .update(products)
+      .set(updates)
+      .where(eq(products.id, id))
       .returning();
     return product;
   }
