@@ -16,6 +16,9 @@ export default function Home() {
 
   return (
     <div>
+      {/* Seasonal Banner */}
+      <SeasonalBanner position="top" />
+      
       {/* Hero Section */}
       <div className="relative bg-lumier-black text-white">
         <div
@@ -275,6 +278,27 @@ export default function Home() {
                 Explore Subscription Plans
               </Button>
             </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Newsletter Signup Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl font-bold mb-4">Stay Connected</h2>
+            <p className="text-lg text-lumier-gray mb-6">
+              Get exclusive access to seasonal collections, special offers, and furniture trends delivered straight to your inbox.
+            </p>
+            <ul className="space-y-2 text-lumier-gray">
+              <li>• Early access to new collections</li>
+              <li>• Seasonal refresh reminders for subscribers</li>
+              <li>• Exclusive member discounts</li>
+              <li>• Interior design tips and trends</li>
+            </ul>
+          </div>
+          <div>
+            <NewsletterSignup source="homepage" variant="inline" />
           </div>
         </div>
       </div>

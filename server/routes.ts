@@ -232,7 +232,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get current user subscription
   app.get("/api/subscription/current", isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user?.claims?.sub;
+      const userId = (req.user as any)?.claims?.sub;
       const subscription = await storage.getUserSubscription(userId);
       
       if (!subscription) {
@@ -249,7 +249,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Schedule subscription refresh
   app.post("/api/subscription/schedule-refresh", isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user?.claims?.sub;
+      const userId = (req.user as any)?.claims?.sub;
       const { date, reason } = req.body;
 
       if (!date || !reason) {
