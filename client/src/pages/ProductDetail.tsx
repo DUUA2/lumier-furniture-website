@@ -117,7 +117,7 @@ export default function ProductDetail() {
             <span className="ml-2 text-sm text-lumier-gray">(24 reviews)</span>
           </div>
 
-          {/* Rent/Buy Toggle */}
+          {/* Buy/Rent Toggle */}
           <div className="mb-6">
             <div className="flex bg-gray-100 rounded-lg p-1 w-fit">
               <Button
