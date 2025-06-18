@@ -109,7 +109,24 @@ export default function Profile() {
   }
 
   if (!isAuthenticated) {
-    return null; // Will redirect to login
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="max-w-md mx-auto">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold text-lumier-black">Sign In Required</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-lumier-gray mb-6">You need to sign in to access your profile.</p>
+            <Button 
+              onClick={() => window.location.href = '/api/login'}
+              className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+            >
+              Sign In
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
