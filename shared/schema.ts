@@ -77,6 +77,10 @@ export const subscriptions = pgTable("subscriptions", {
   bvn: text("bvn").notNull(),
   nin: text("nin").notNull(),
   status: text("status").default("active"), // active, paused, cancelled
+  refreshFrequency: text("refresh_frequency").default("quarterly").notNull(), // 'quarterly', 'biannual'
+  seasonalRefreshEnabled: boolean("seasonal_refresh_enabled").default(true),
+  lastRefreshDate: timestamp("last_refresh_date"),
+  nextRefreshDate: timestamp("next_refresh_date"),
   startDate: timestamp("start_date").defaultNow(),
   nextSwapDate: timestamp("next_swap_date"),
   monthlyPayment: integer("monthly_payment").notNull(),
@@ -87,6 +91,13 @@ export const subscriptions = pgTable("subscriptions", {
     customizations?: any;
     deliveryDate: string;
   }>>().default([]),
+  refreshHistory: jsonb("refresh_history").$type<Array<{
+    refreshDate: string;
+    previousItems: Array<{productId: number; name: string}>;
+    newItems: Array<{productId: number; name: string}>;
+    reason: string;
+  }>>().default([]),
+  emailNotifications: boolean("email_notifications").default(true),
   paymentStatus: text("payment_status").default("pending"),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -162,5 +173,42 @@ export type InsertSubscriptionPlan = z.infer<typeof insertSubscriptionPlanSchema
 export type SubscriptionPlan = typeof subscriptionPlans.$inferSelect;
 export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
 export type Subscription = typeof subscriptions.$inferSelect;
+// Newsletter signups for marketing automation
+export const newsletterSignups = pgTable("newsletter_signups", {
+  id: serial("id").primaryKey(),
+  email: varchar("email").notNull().unique(),
+  source: text("source").default("website"), // 'website', 'checkout', 'popup'
+  preferences: jsonb("preferences").$type<{
+    seasonalUpdates: boolean;
+    promotions: boolean;
+    newArrivals: boolean;
+  }>().default({
+    seasonalUpdates: true,
+    promotions: true,
+    newArrivals: true
+  }),
+  status: text("status").default("active"), // 'active', 'unsubscribed'
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Seasonal collections for marketing automation
+export const seasonalCollections = pgTable("seasonal_collections", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  season: text("season").notNull(), // 'spring', 'summer', 'fall', 'winter'
+  year: integer("year").notNull(),
+  isActive: boolean("is_active").default(false),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  bannerText: text("banner_text"),
+  featuredProducts: jsonb("featured_products").$type<Array<number>>().default([]),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
 export type Order = typeof orders.$inferSelect;
+export type InsertNewsletterSignup = typeof newsletterSignups.$inferInsert;
+export type NewsletterSignup = typeof newsletterSignups.$inferSelect;
+export type InsertSeasonalCollection = typeof seasonalCollections.$inferInsert;
+export type SeasonalCollection = typeof seasonalCollections.$inferSelect;

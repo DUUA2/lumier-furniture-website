@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Palette, Layers, Ruler, Eye, RotateCcw } from "lucide-react";
+import { Palette, Layers, Ruler, Eye, RotateCcw, Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { Product } from "@shared/schema";
 
 interface CustomizationPanelProps {
@@ -128,18 +129,26 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle className="flex items-center gap-2">
-            <Palette className="h-5 w-5" />
-            Customize Your {product.name}
-          </CardTitle>
-          <Button variant="outline" size="sm" onClick={resetCustomization}>
-            <RotateCcw className="h-4 w-4 mr-2" />
-            Reset
-          </Button>
-        </div>
+    <TooltipProvider>
+      <Card className="w-full">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle className="flex items-center gap-2">
+              <Palette className="h-5 w-5" />
+              Customize Your {product.name}
+            </CardTitle>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="sm" onClick={resetCustomization}>
+                  <RotateCcw className="h-4 w-4 mr-2" />
+                  Reset
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Reset all customizations to default</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
         {availableFor !== 'both' && (
           <Badge variant="outline" className="w-fit">
             Available for {availableFor}
@@ -377,6 +386,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
           </TabsContent>
         </Tabs>
       </CardContent>
-    </Card>
+      </Card>
+    </TooltipProvider>
   );
 }
