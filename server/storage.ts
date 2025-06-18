@@ -2,12 +2,18 @@ import {
   users,
   products,
   orders,
+  subscriptions,
+  newsletterSignups,
+  seasonalCollections,
   type User,
   type UpsertUser,
   type Product,
   type InsertProduct,
   type Order,
   type InsertOrder,
+  type Subscription,
+  type NewsletterSignup,
+  type SeasonalCollection,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -33,16 +39,16 @@ export interface IStorage {
   updateOrderPaymentStatus(id: number, status: string, reference?: string): Promise<Order | undefined>;
 
   // Newsletter operations
-  getNewsletterSignup(email: string): Promise<any | undefined>;
-  createNewsletterSignup(signup: any): Promise<any>;
+  getNewsletterSignup(email: string): Promise<NewsletterSignup | undefined>;
+  createNewsletterSignup(signup: any): Promise<NewsletterSignup>;
 
   // Seasonal collections
-  getActiveSeasonalCollection(): Promise<any | undefined>;
+  getActiveSeasonalCollection(): Promise<SeasonalCollection | undefined>;
 
   // Subscription operations
-  getUserSubscription(userId: string): Promise<any | undefined>;
-  createSubscription(subscription: any): Promise<any>;
-  scheduleSubscriptionRefresh(userId: string, refresh: any): Promise<any>;
+  getUserSubscription(userId: string): Promise<Subscription | undefined>;
+  createSubscription(subscription: any): Promise<Subscription>;
+  scheduleSubscriptionRefresh(userId: string, refresh: any): Promise<Subscription>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -139,6 +145,74 @@ export class DatabaseStorage implements IStorage {
       .where(eq(orders.id, id))
       .returning();
     return order;
+  }
+
+  // Newsletter operations
+  async getNewsletterSignup(email: string): Promise<any | undefined> {
+    try {
+      const [signup] = await db.select().from(newsletterSignups).where(eq(newsletterSignups.email, email));
+      return signup;
+    } catch (error) {
+      console.error("Error getting newsletter signup:", error);
+      return undefined;
+    }
+  }
+
+  async createNewsletterSignup(signupData: any): Promise<any> {
+    const [signup] = await db
+      .insert(newsletterSignups)
+      .values(signupData)
+      .returning();
+    return signup;
+  }
+
+  // Seasonal collections
+  async getActiveSeasonalCollection(): Promise<any | undefined> {
+    try {
+      const [collection] = await db
+        .select()
+        .from(seasonalCollections)
+        .where(eq(seasonalCollections.isActive, true))
+        .limit(1);
+      return collection;
+    } catch (error) {
+      console.error("Error getting active seasonal collection:", error);
+      return undefined;
+    }
+  }
+
+  // Subscription operations
+  async getUserSubscription(userId: string): Promise<any | undefined> {
+    try {
+      const [subscription] = await db
+        .select()
+        .from(subscriptions)
+        .where(eq(subscriptions.userId, userId))
+        .limit(1);
+      return subscription;
+    } catch (error) {
+      console.error("Error getting user subscription:", error);
+      return undefined;
+    }
+  }
+
+  async createSubscription(subscriptionData: any): Promise<any> {
+    const [subscription] = await db
+      .insert(subscriptions)
+      .values(subscriptionData)
+      .returning();
+    return subscription;
+  }
+
+  async scheduleSubscriptionRefresh(userId: string, refreshData: any): Promise<any> {
+    const [subscription] = await db
+      .update(subscriptions)
+      .set({
+        nextRefreshDate: refreshData.date,
+      })
+      .where(eq(subscriptions.userId, userId))
+      .returning();
+    return subscription;
   }
 }
 

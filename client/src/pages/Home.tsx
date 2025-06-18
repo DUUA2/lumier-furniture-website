@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@shared/schema";
 import ProductCard from "@/components/ProductCard";
+import SeasonalBanner from "@/components/SeasonalBanner";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { CreditCard, Truck, Award, Recycle, Leaf, Users } from "lucide-react";
 
 export default function Home() {

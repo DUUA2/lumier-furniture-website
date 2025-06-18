@@ -25,6 +25,7 @@ import Profile from "@/pages/Profile";
 import Admin from "@/pages/Admin";
 import DeploymentGuide from "@/pages/DeploymentGuide";
 import Landing from "@/pages/Landing";
+import Dashboard from "@/pages/Dashboard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LiveChat from "@/components/LiveChat";
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/confirm-order" component={OrderConfirmation} />
       <Route path="/profile" component={Profile} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Admin} />
       <Route path="/deployment-guide" component={DeploymentGuide} />
       <Route path="/terms" component={Terms} />
