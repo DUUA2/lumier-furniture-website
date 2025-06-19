@@ -16,7 +16,7 @@ import {
   type SeasonalCollection,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -36,6 +36,7 @@ export interface IStorage {
   // Orders
   createOrder(order: InsertOrder): Promise<Order>;
   getOrder(id: number): Promise<Order | undefined>;
+  getOrdersByUser(userId: string): Promise<Order[]>;
   updateOrderPaymentStatus(id: number, status: string, reference?: string): Promise<Order | undefined>;
 
   // Newsletter operations
@@ -133,6 +134,19 @@ export class DatabaseStorage implements IStorage {
   async getOrder(id: number): Promise<Order | undefined> {
     const [order] = await db.select().from(orders).where(eq(orders.id, id));
     return order;
+  }
+
+  async getOrdersByUser(userId: string): Promise<Order[]> {
+    try {
+      if (userId === 'all') {
+        // Return all orders for admin
+        return await db.select().from(orders).orderBy(desc(orders.createdAt));
+      }
+      return await db.select().from(orders).where(eq(orders.userId, userId)).orderBy(desc(orders.createdAt));
+    } catch (error) {
+      console.error("Error fetching orders by user:", error);
+      return [];
+    }
   }
 
   async updateOrderPaymentStatus(id: number, status: string, reference?: string): Promise<Order | undefined> {
