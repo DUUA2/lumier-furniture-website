@@ -73,7 +73,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Space?</h2>
           <p className="text-lumiere-gray mb-8 text-lg">
-            Join thousands of satisfied customers who have furnished their homes with Lumier
+            Join thousands of satisfied customers who have furnished their homes with Lumiere
           </p>
           <Button 
             size="lg" 

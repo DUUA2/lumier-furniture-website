@@ -34,7 +34,7 @@ export default function NewsletterSignup({
     },
     onSuccess: () => {
       toast({
-        title: "Welcome to Lumier!",
+        title: "Welcome to Lumiere!",
         description: "You've successfully subscribed to our newsletter.",
       });
       setEmail("");

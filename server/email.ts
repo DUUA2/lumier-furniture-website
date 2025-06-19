@@ -60,11 +60,11 @@ export async function sendOrderConfirmationEmail(order: Order): Promise<boolean>
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Order Confirmation - Lumier Furniture</title>
+      <title>Order Confirmation - Lumiere Furniture</title>
     </head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #D4AF37; margin: 0;">Lumier Furniture</h1>
+        <h1 style="color: #D4AF37; margin: 0;">Lumiere Furniture</h1>
         <p style="color: #666; margin: 5px 0;">RC: 3662809</p>
       </div>
       
@@ -114,14 +114,14 @@ export async function sendOrderConfirmationEmail(order: Order): Promise<boolean>
 
       <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
         <p style="color: #666;">Questions about your order? Contact us at support@lumierfurniture.com</p>
-        <p style="color: #666; font-size: 12px;">Lumier Furniture - Premium Nigerian Furniture Solutions</p>
+        <p style="color: #666; font-size: 12px;">Lumiere Furniture - Premium Nigerian Furniture Solutions</p>
       </div>
     </body>
     </html>
   `;
 
   const textContent = `
-Order Confirmation - Lumier Furniture
+Order Confirmation - Lumiere Furniture
 
 Dear ${order.customerName},
 
@@ -148,14 +148,14 @@ What's Next?
 
 Questions about your order? Contact us at support@lumierfurniture.com
 
-Lumier Furniture - Premium Nigerian Furniture Solutions
+Lumiere Furniture - Premium Nigerian Furniture Solutions
 RC: 3662809
   `;
 
   return await sendEmail({
     to: order.customerEmail,
     from: 'orders@lumierfurniture.com',
-    subject: `Order Confirmation - LUM-${order.id.toString().padStart(6, '0')} - Lumier Furniture`,
+    subject: `Order Confirmation - LUM-${order.id.toString().padStart(6, '0')} - Lumiere Furniture`,
     text: textContent,
     html: htmlContent
   });
@@ -172,12 +172,12 @@ export async function sendAdminNotificationEmail(order: Order): Promise<boolean>
     <html>
     <head>
       <meta charset="utf-8">
-      <title>New Order Received - Lumier Furniture Admin</title>
+      <title>New Order Received - Lumiere Furniture Admin</title>
     </head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="background: #dc2626; color: white; padding: 15px; border-radius: 5px; text-align: center; margin-bottom: 20px;">
         <h1 style="margin: 0;">🛒 NEW ORDER RECEIVED</h1>
-        <p style="margin: 5px 0;">Lumier Furniture Admin Notification</p>
+        <p style="margin: 5px 0;">Lumiere Furniture Admin Notification</p>
       </div>
       
       <h2 style="color: #dc2626;">Order #LUM-${order.id.toString().padStart(6, '0')}</h2>

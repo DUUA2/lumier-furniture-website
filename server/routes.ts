@@ -342,7 +342,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     text: supportReply,
                     sender: 'support',
                     timestamp: new Date().toISOString(),
-                    senderName: 'Lumier Support'
+                    senderName: 'Lumiere Support'
                   }));
                 }
               }, 1000 + Math.random() * 2000); // Random delay 1-3 seconds
@@ -370,7 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const message = userMessage.toLowerCase();
     
     if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
-      return "Hello! Thank you for contacting Lumier Furniture. How can I help you today?";
+      return "Hello! Thank you for contacting Lumiere Furniture. How can I help you today?";
     }
     
     if (message.includes('price') || message.includes('cost') || message.includes('payment')) {

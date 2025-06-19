@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="text-xl font-bold mb-4">
-              Lumier <span className="text-lumiere-gold">Furniture</span>
+              Lumiere <span className="text-lumiere-gold">Furniture</span>
             </div>
             <p className="text-gray-400 mb-2">
               Premium furniture for the modern Nigerian home. Rent or buy with flexible payment plans.

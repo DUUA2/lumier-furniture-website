@@ -42,7 +42,7 @@ export default function Signup() {
       <div className="bg-white rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-2">Create Account</h1>
-          <p className="text-lumiere-gray">Join Lumier for exclusive furniture deals</p>
+          <p className="text-lumiere-gray">Join Lumiere for exclusive furniture deals</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
