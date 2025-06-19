@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Shield, CreditCard, FileText, Clock } from "lucide-react";
+import { ArrowLeft, Shield, CreditCard, FileText, Clock, Recycle, Star, Calendar } from "lucide-react";
 
 export default function Terms() {
   return (
@@ -12,7 +12,7 @@ export default function Terms() {
             Back to Checkout
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold">Installment Payment Terms & Conditions</h1>
+        <h1 className="text-3xl font-bold">Payment Plans & Subscription Services</h1>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-8 space-y-8">
@@ -23,9 +23,9 @@ export default function Terms() {
             Overview
           </h2>
           <p className="text-gray-700 leading-relaxed">
-            Lumiere Furniture offers flexible installment payment plans to make luxury furniture 
-            more accessible. Our in-house financing allows you to enjoy your furniture immediately 
-            while spreading payments over your chosen period.
+            Lumiere Furniture offers multiple ways to enjoy premium furniture that fits your lifestyle and budget. 
+            Choose from traditional purchase with installment plans, or discover our innovative subscription service 
+            that brings flexibility and sustainability to furniture ownership.
           </p>
         </div>
 
@@ -151,10 +151,140 @@ export default function Terms() {
           </div>
         </div>
 
+        {/* Subscription Service Section */}
+        <div className="border-t pt-8">
+          <h2 className="text-3xl font-bold mb-6 text-center">Subscription Furniture Service</h2>
+          <p className="text-lg text-gray-700 mb-8 text-center">
+            Experience luxury furniture with complete flexibility and sustainability
+          </p>
+
+          {/* Subscription Plans */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-xl border">
+              <div className="text-center mb-4">
+                <Star className="h-8 w-8 text-lumiere-gold mx-auto mb-2" />
+                <h3 className="text-xl font-bold">Basic Plan</h3>
+                <div className="text-3xl font-bold text-lumiere-gold">₦15,000</div>
+                <div className="text-sm text-gray-600">per month</div>
+              </div>
+              <ul className="space-y-2 text-sm">
+                <li>• 1-2 furniture pieces</li>
+                <li>• Basic customization options</li>
+                <li>• Quarterly refresh available</li>
+                <li>• Standard delivery</li>
+                <li>• Email support</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-lumiere-gold/10 to-lumiere-gold/20 p-6 rounded-xl border-2 border-lumiere-gold relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-lumiere-gold text-white px-3 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+              </div>
+              <div className="text-center mb-4">
+                <Star className="h-8 w-8 text-lumiere-gold mx-auto mb-2" />
+                <h3 className="text-xl font-bold">Premium Plan</h3>
+                <div className="text-3xl font-bold text-lumiere-gold">₦25,000</div>
+                <div className="text-sm text-gray-600">per month</div>
+              </div>
+              <ul className="space-y-2 text-sm">
+                <li>• 3-4 furniture pieces</li>
+                <li>• Full customization options</li>
+                <li>• Monthly refresh available</li>
+                <li>• AR preview & virtual showroom</li>
+                <li>• Priority delivery</li>
+                <li>• Phone & chat support</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-gray-900 to-black text-white p-6 rounded-xl border">
+              <div className="text-center mb-4">
+                <Star className="h-8 w-8 text-lumiere-gold mx-auto mb-2" />
+                <h3 className="text-xl font-bold">Elite Plan</h3>
+                <div className="text-3xl font-bold text-lumiere-gold">₦40,000</div>
+                <div className="text-sm text-gray-300">per month</div>
+              </div>
+              <ul className="space-y-2 text-sm">
+                <li>• 5+ furniture pieces</li>
+                <li>• Premium customization & design</li>
+                <li>• Bi-weekly refresh available</li>
+                <li>• Personal design consultation</li>
+                <li>• Same-day delivery</li>
+                <li>• 24/7 concierge support</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Subscription Features */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div>
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <Recycle className="h-6 w-6 text-lumiere-gold" />
+                Seasonal Refresh Program
+              </h3>
+              <ul className="space-y-2 text-gray-700">
+                <li>• Swap furniture every 3-6 months</li>
+                <li>• Stay current with design trends</li>
+                <li>• Automated reminders for refresh dates</li>
+                <li>• Easy scheduling through your dashboard</li>
+                <li>• No additional costs within plan limits</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <Calendar className="h-6 w-6 text-lumiere-gold" />
+                Subscription Benefits
+              </h3>
+              <ul className="space-y-2 text-gray-700">
+                <li>• No large upfront payments</li>
+                <li>• Maintenance & repairs included</li>
+                <li>• Insurance coverage provided</li>
+                <li>• Flexible upgrade/downgrade options</li>
+                <li>• Sustainable furniture lifecycle</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Subscription Terms */}
+          <div className="bg-gray-50 p-6 rounded-lg mb-8">
+            <h3 className="text-lg font-semibold mb-4">Subscription Terms & Conditions</h3>
+            <div className="space-y-3 text-sm text-gray-700">
+              <p>
+                <strong>Minimum Commitment:</strong> 3-month minimum subscription period for all plans.
+              </p>
+              <p>
+                <strong>Cancellation:</strong> Cancel anytime after minimum period with 30-day notice.
+              </p>
+              <p>
+                <strong>Damage Policy:</strong> Normal wear included. Significant damage may incur additional charges.
+              </p>
+              <p>
+                <strong>Delivery & Setup:</strong> Professional delivery and setup included in all plans.
+              </p>
+              <p>
+                <strong>Customization:</strong> Custom colors, fabrics, and configurations available based on plan level.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mb-8">
+            <Link href="/subscription">
+              <Button className="bg-lumiere-gold hover:bg-lumiere-gold/90 text-lumiere-black px-8 py-3 mr-4">
+                Explore Subscription Plans
+              </Button>
+            </Link>
+            <Link href="/checkout">
+              <Button variant="outline" className="px-8 py-3">
+                Continue with Purchase
+              </Button>
+            </Link>
+          </div>
+        </div>
+
         {/* Agreement Statement */}
         <div className="bg-gray-100 border-l-4 border-lumiere-gold p-4">
           <p className="text-sm text-gray-700">
-            By proceeding with an installment purchase, you acknowledge that you have read, 
+            By proceeding with any payment plan or subscription service, you acknowledge that you have read, 
             understood, and agree to these terms and conditions. This agreement is legally 
             binding and subject to Nigerian consumer protection laws.
           </p>
