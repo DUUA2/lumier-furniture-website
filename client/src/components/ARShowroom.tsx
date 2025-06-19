@@ -132,7 +132,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
           <div>
             <h2 className="text-2xl font-bold">Virtual Showroom</h2>
             {product && (
-              <p className="text-lumier-gray">Visualizing: {product.name}</p>
+              <p className="text-lumiere-gray">Visualizing: {product.name}</p>
             )}
           </div>
           <Button variant="ghost" onClick={onClose}>
@@ -150,7 +150,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
                 <div
                   key={room.id}
                   className={`cursor-pointer rounded-lg border-2 overflow-hidden transition-all ${
-                    selectedRoom.id === room.id ? 'border-lumier-gold' : 'border-gray-200 hover:border-gray-300'
+                    selectedRoom.id === room.id ? 'border-lumiere-gold' : 'border-gray-200 hover:border-gray-300'
                   }`}
                   onClick={() => setSelectedRoom(room)}
                 >
@@ -161,7 +161,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
                   />
                   <div className="p-2">
                     <h4 className="font-medium text-sm">{room.name}</h4>
-                    <p className="text-xs text-lumier-gray">{room.description}</p>
+                    <p className="text-xs text-lumiere-gray">{room.description}</p>
                   </div>
                 </div>
               ))}
@@ -179,7 +179,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
               </Button>
 
               {product && (
-                <div className="text-xs text-lumier-gray space-y-1">
+                <div className="text-xs text-lumiere-gray space-y-1">
                   <p><strong>Dimensions:</strong> {product.dimensions}</p>
                   <p><strong>Material:</strong> {product.material}</p>
                   <p><strong>Weight:</strong> {product.weight}</p>
@@ -231,7 +231,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
                     }}
                   />
                   <Badge 
-                    className="absolute -top-2 -right-2 bg-lumier-gold text-lumier-black text-xs"
+                    className="absolute -top-2 -right-2 bg-lumiere-gold text-lumiere-black text-xs"
                   >
                     ₦{product.price.toLocaleString()}
                   </Badge>
@@ -310,7 +310,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
 
         {/* Action Buttons */}
         <div className="p-6 border-t bg-gray-50 flex justify-between items-center">
-          <div className="text-sm text-lumier-gray">
+          <div className="text-sm text-lumiere-gray">
             {isARMode ? "AR Mode Active" : `Viewing in ${selectedRoom.name}`}
           </div>
           <div className="flex gap-3">
@@ -318,7 +318,7 @@ export default function ARShowroom({ product, isOpen, onClose }: ARShowroomProps
               Close Preview
             </Button>
             {product && (
-              <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+              <Button className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
                 Add to Cart
               </Button>
             )}

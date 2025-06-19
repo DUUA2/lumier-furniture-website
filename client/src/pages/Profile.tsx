@@ -101,8 +101,8 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-lumier-gold mx-auto mb-4"></div>
-          <p className="text-lumier-gray">Loading your profile...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-lumiere-gold mx-auto mb-4"></div>
+          <p className="text-lumiere-gray">Loading your profile...</p>
         </div>
       </div>
     );
@@ -113,13 +113,13 @@ export default function Profile() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="max-w-md mx-auto">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-lumier-black">Sign In Required</CardTitle>
+            <CardTitle className="text-2xl font-bold text-lumiere-black">Sign In Required</CardTitle>
           </CardHeader>
           <CardContent className="text-center">
-            <p className="text-lumier-gray mb-6">You need to sign in to access your profile.</p>
+            <p className="text-lumiere-gray mb-6">You need to sign in to access your profile.</p>
             <Button 
               onClick={() => window.location.href = '/api/login'}
-              className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+              className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
             >
               Sign In
             </Button>
@@ -134,8 +134,8 @@ export default function Profile() {
       <div className="max-w-2xl mx-auto px-4">
         <Card className="shadow-lg">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold text-lumier-black">Complete Your Profile</CardTitle>
-            <p className="text-lumier-gray mt-2">
+            <CardTitle className="text-3xl font-bold text-lumiere-black">Complete Your Profile</CardTitle>
+            <p className="text-lumiere-gray mt-2">
               Please fill in your details to complete your account setup
             </p>
           </CardHeader>
@@ -144,7 +144,7 @@ export default function Profile() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Personal Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-lumier-black">Personal Information</h3>
+                <h3 className="text-lg font-semibold text-lumiere-black">Personal Information</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -196,7 +196,7 @@ export default function Profile() {
 
               {/* Verification Documents */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-lumier-black">Verification Details</h3>
+                <h3 className="text-lg font-semibold text-lumiere-black">Verification Details</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -224,7 +224,7 @@ export default function Profile() {
 
               {/* Address Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-lumier-black">Address Information</h3>
+                <h3 className="text-lg font-semibold text-lumiere-black">Address Information</h3>
                 
                 <div>
                   <Label htmlFor="address">Street Address</Label>
@@ -279,7 +279,7 @@ export default function Profile() {
               <div className="flex gap-4 pt-6">
                 <Button
                   type="submit"
-                  className="flex-1 bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                  className="flex-1 bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
                   disabled={updateProfileMutation.isPending}
                 >
                   {updateProfileMutation.isPending ? "Updating..." : "Save Profile"}

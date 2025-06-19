@@ -102,7 +102,7 @@ export default function Dashboard() {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
         <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
-        <p className="text-lumier-gray mb-6">Please sign in to view your dashboard.</p>
+        <p className="text-lumiere-gray mb-6">Please sign in to view your dashboard.</p>
         <Button onClick={() => window.location.href = '/api/login'}>
           Sign In
         </Button>
@@ -125,7 +125,7 @@ export default function Dashboard() {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
         <h1 className="text-2xl font-bold mb-4">No Active Subscription</h1>
-        <p className="text-lumier-gray mb-6">You don't have an active subscription yet.</p>
+        <p className="text-lumiere-gray mb-6">You don't have an active subscription yet.</p>
         <Button onClick={() => window.location.href = '/subscription'}>
           Browse Subscription Plans
         </Button>
@@ -140,7 +140,7 @@ export default function Dashboard() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">My Dashboard</h1>
-        <p className="text-lumier-gray">Welcome back, {(user as any)?.firstName || 'Member'}!</p>
+        <p className="text-lumiere-gray">Welcome back, {(user as any)?.firstName || 'Member'}!</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
@@ -156,7 +156,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold">{planTypeLabels[subscription.planType as keyof typeof planTypeLabels]}</h3>
-                <p className="text-sm text-lumier-gray">₦{subscription.monthlyPayment.toLocaleString()}/month</p>
+                <p className="text-sm text-lumiere-gray">₦{subscription.monthlyPayment.toLocaleString()}/month</p>
               </div>
               <Badge variant={subscription.status === 'active' ? 'default' : 'secondary'}>
                 {subscription.status.charAt(0).toUpperCase() + subscription.status.slice(1)}
@@ -167,12 +167,12 @@ export default function Dashboard() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Next Refresh Progress</span>
-                  <span className="text-sm text-lumier-gray">
+                  <span className="text-sm text-lumiere-gray">
                     {daysUntilRefresh !== null ? `${daysUntilRefresh} days remaining` : 'Calculating...'}
                   </span>
                 </div>
                 <Progress value={progress} className="h-2" />
-                <p className="text-xs text-lumier-gray">
+                <p className="text-xs text-lumiere-gray">
                   Refresh frequency: {refreshFrequencyLabels[subscription.refreshFrequency as keyof typeof refreshFrequencyLabels]}
                 </p>
               </div>
@@ -181,11 +181,11 @@ export default function Dashboard() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <p className="text-sm font-medium">Current Items</p>
-                <p className="text-2xl font-bold text-lumier-gold">{subscription.currentItems.length}</p>
+                <p className="text-2xl font-bold text-lumiere-gold">{subscription.currentItems.length}</p>
               </div>
               <div className="space-y-2">
                 <p className="text-sm font-medium">Total Refreshes</p>
-                <p className="text-2xl font-bold text-lumier-gold">{subscription.refreshHistory.length}</p>
+                <p className="text-2xl font-bold text-lumiere-gold">{subscription.refreshHistory.length}</p>
               </div>
             </div>
           </CardContent>
@@ -248,7 +248,7 @@ export default function Dashboard() {
                   {subscription.currentItems.map((item, index) => (
                     <div key={index} className="border rounded-lg p-4">
                       <h4 className="font-semibold">{item.name}</h4>
-                      <p className="text-sm text-lumier-gray">Delivered: {new Date(item.deliveryDate).toLocaleDateString()}</p>
+                      <p className="text-sm text-lumiere-gray">Delivered: {new Date(item.deliveryDate).toLocaleDateString()}</p>
                       {item.customizations && (
                         <Badge variant="outline" className="mt-2">
                           Customized
@@ -258,7 +258,7 @@ export default function Dashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-lumier-gray py-8">No current items in your subscription.</p>
+                <p className="text-center text-lumiere-gray py-8">No current items in your subscription.</p>
               )}
             </CardContent>
           </Card>
@@ -283,7 +283,7 @@ export default function Dashboard() {
                       <div className="grid sm:grid-cols-2 gap-4 text-sm">
                         <div>
                           <p className="font-medium mb-1">Previous Items:</p>
-                          <ul className="text-lumier-gray">
+                          <ul className="text-lumiere-gray">
                             {refresh.previousItems.map((item, i) => (
                               <li key={i}>• {item.name}</li>
                             ))}
@@ -291,7 +291,7 @@ export default function Dashboard() {
                         </div>
                         <div>
                           <p className="font-medium mb-1">New Items:</p>
-                          <ul className="text-lumier-gray">
+                          <ul className="text-lumiere-gray">
                             {refresh.newItems.map((item, i) => (
                               <li key={i}>• {item.name}</li>
                             ))}
@@ -302,7 +302,7 @@ export default function Dashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-lumier-gray py-8">No refresh history yet.</p>
+                <p className="text-center text-lumiere-gray py-8">No refresh history yet.</p>
               )}
             </CardContent>
           </Card>
@@ -317,7 +317,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Seasonal Refresh</p>
-                  <p className="text-sm text-lumier-gray">Automatically refresh your furniture seasonally</p>
+                  <p className="text-sm text-lumiere-gray">Automatically refresh your furniture seasonally</p>
                 </div>
                 <Badge variant={subscription.seasonalRefreshEnabled ? "default" : "secondary"}>
                   {subscription.seasonalRefreshEnabled ? "Enabled" : "Disabled"}
@@ -327,7 +327,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Email Notifications</p>
-                  <p className="text-sm text-lumier-gray">Get notified about upcoming refreshes and updates</p>
+                  <p className="text-sm text-lumiere-gray">Get notified about upcoming refreshes and updates</p>
                 </div>
                 <Badge variant="default">Enabled</Badge>
               </div>
@@ -335,7 +335,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Refresh Frequency</p>
-                  <p className="text-sm text-lumier-gray">How often you want to refresh your items</p>
+                  <p className="text-sm text-lumiere-gray">How often you want to refresh your items</p>
                 </div>
                 <Badge variant="outline">
                   {refreshFrequencyLabels[subscription.refreshFrequency as keyof typeof refreshFrequencyLabels]}

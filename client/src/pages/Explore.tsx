@@ -198,14 +198,14 @@ export default function Explore() {
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-16">
-              <h3 className="text-xl font-semibold text-lumier-gray mb-2">No products found</h3>
-              <p className="text-lumier-gray mb-6">Try adjusting your filters</p>
+              <h3 className="text-xl font-semibold text-lumiere-gray mb-2">No products found</h3>
+              <p className="text-lumiere-gray mb-6">Try adjusting your filters</p>
               <Button
                 onClick={() => {
                   setSelectedCategories([]);
                   setPriceRange("");
                 }}
-                className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
               >
                 Clear Filters
               </Button>

@@ -41,7 +41,7 @@ export default function ProductDetail() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-semibold mb-2">Product not found</h2>
-          <p className="text-lumier-gray">The product you're looking for doesn't exist.</p>
+          <p className="text-lumiere-gray">The product you're looking for doesn't exist.</p>
         </div>
       </div>
     );
@@ -114,7 +114,7 @@ export default function ProductDetail() {
                 src={image}
                 alt={`${product.name} view ${index + 1}`}
                 className={`w-full h-20 object-cover rounded-lg cursor-pointer border-2 transition-colors ${
-                  mainImage === image ? 'border-lumier-gold' : 'border-transparent hover:border-lumier-gold'
+                  mainImage === image ? 'border-lumiere-gold' : 'border-transparent hover:border-lumiere-gold'
                 }`}
                 onClick={() => setMainImage(image)}
               />
@@ -127,13 +127,13 @@ export default function ProductDetail() {
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <div className="flex text-lumier-gold">
+              <div className="flex text-lumiere-gold">
                 {[...Array(4)].map((_, i) => (
                   <Star key={i} className="h-4 w-4 fill-current" />
                 ))}
                 <Star className="h-4 w-4" />
               </div>
-              <span className="ml-2 text-sm text-lumier-gray">(24 reviews)</span>
+              <span className="ml-2 text-sm text-lumiere-gray">(24 reviews)</span>
             </div>
             <div className="flex gap-2">
               <Badge variant={availability.variant}>
@@ -154,7 +154,7 @@ export default function ProductDetail() {
                 variant={!isRent ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setIsRent(false)}
-                className={!isRent ? "rent-buy-toggle text-white" : "text-lumier-gray"}
+                className={!isRent ? "rent-buy-toggle text-white" : "text-lumiere-gray"}
               >
                 Buy
               </Button>
@@ -162,14 +162,14 @@ export default function ProductDetail() {
                 variant={isRent ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setIsRent(true)}
-                className={isRent ? "rent-buy-toggle text-white" : "text-lumier-gray"}
+                className={isRent ? "rent-buy-toggle text-white" : "text-lumiere-gray"}
               >
                 Rent
               </Button>
             </div>
             <div className="mt-4">
               <span className="text-3xl font-bold">₦{getPrice().toLocaleString()}</span>
-              <span className="text-lumier-gold ml-2">{getPriceLabel()}</span>
+              <span className="text-lumiere-gold ml-2">{getPriceLabel()}</span>
             </div>
           </div>
 
@@ -193,7 +193,7 @@ export default function ProductDetail() {
           {/* Product Description */}
           <div className="mb-6">
             <h3 className="font-semibold mb-3">Description</h3>
-            <p className="text-lumier-gray leading-relaxed">{product.description}</p>
+            <p className="text-lumiere-gray leading-relaxed">{product.description}</p>
           </div>
 
           {/* Specifications */}
@@ -227,7 +227,7 @@ export default function ProductDetail() {
             disabled={!canAddToCart}
             className={`w-full mb-4 ${
               canAddToCart 
-                ? 'bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90' 
+                ? 'bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90' 
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             size="lg"
@@ -247,7 +247,7 @@ export default function ProductDetail() {
             <Button 
               variant="outline" 
               onClick={() => setShowARShowroom(true)}
-              className="border-lumier-gold text-lumier-gold hover:bg-lumier-gold hover:text-lumier-black"
+              className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
             >
               <Camera className="h-4 w-4 mr-2" />
               Try in AR
@@ -255,7 +255,7 @@ export default function ProductDetail() {
             <Button 
               variant="outline" 
               onClick={() => setShowCustomization(!showCustomization)}
-              className="border-lumier-gold text-lumier-gold hover:bg-lumier-gold hover:text-lumier-black"
+              className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
             >
               <Palette className="h-4 w-4 mr-2" />
               Customize

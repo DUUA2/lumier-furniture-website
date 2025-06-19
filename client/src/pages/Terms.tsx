@@ -19,11 +19,11 @@ export default function Terms() {
         {/* Overview */}
         <div className="border-b pb-6">
           <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-            <FileText className="h-6 w-6 text-lumier-gold" />
+            <FileText className="h-6 w-6 text-lumiere-gold" />
             Overview
           </h2>
           <p className="text-gray-700 leading-relaxed">
-            Lumier Furniture offers flexible installment payment plans to make luxury furniture 
+            Lumiere Furniture offers flexible installment payment plans to make luxury furniture 
             more accessible. Our in-house financing allows you to enjoy your furniture immediately 
             while spreading payments over your chosen period.
           </p>
@@ -32,13 +32,13 @@ export default function Terms() {
         {/* Installment Periods */}
         <div className="border-b pb-6">
           <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-            <Clock className="h-6 w-6 text-lumier-gold" />
+            <Clock className="h-6 w-6 text-lumiere-gold" />
             Available Installment Periods
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
             {[2, 3, 4, 5, 6].map((months) => (
-              <div key={months} className="bg-lumier-gold/10 p-4 rounded-lg text-center">
-                <div className="text-2xl font-bold text-lumier-gold">{months}</div>
+              <div key={months} className="bg-lumiere-gold/10 p-4 rounded-lg text-center">
+                <div className="text-2xl font-bold text-lumiere-gold">{months}</div>
                 <div className="text-sm text-gray-600">Month{months > 1 ? 's' : ''}</div>
               </div>
             ))}
@@ -51,7 +51,7 @@ export default function Terms() {
         {/* Service Fees */}
         <div className="border-b pb-6">
           <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-            <CreditCard className="h-6 w-6 text-lumier-gold" />
+            <CreditCard className="h-6 w-6 text-lumiere-gold" />
             Service Fees & Charges
           </h2>
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
@@ -73,7 +73,7 @@ export default function Terms() {
         {/* Eligibility Requirements */}
         <div className="border-b pb-6">
           <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-            <Shield className="h-6 w-6 text-lumier-gold" />
+            <Shield className="h-6 w-6 text-lumiere-gold" />
             Eligibility Requirements
           </h2>
           <div className="space-y-4">
@@ -139,7 +139,7 @@ export default function Terms() {
         {/* Contact Information */}
         <div>
           <h2 className="text-2xl font-semibold mb-4">Contact & Support</h2>
-          <div className="bg-lumier-gold/10 rounded-lg p-4">
+          <div className="bg-lumiere-gold/10 rounded-lg p-4">
             <p className="text-gray-700 mb-2">
               For questions about your installment plan or to make payments:
             </p>
@@ -152,7 +152,7 @@ export default function Terms() {
         </div>
 
         {/* Agreement Statement */}
-        <div className="bg-gray-100 border-l-4 border-lumier-gold p-4">
+        <div className="bg-gray-100 border-l-4 border-lumiere-gold p-4">
           <p className="text-sm text-gray-700">
             By proceeding with an installment purchase, you acknowledge that you have read, 
             understood, and agree to these terms and conditions. This agreement is legally 

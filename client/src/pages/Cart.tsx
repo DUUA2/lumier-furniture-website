@@ -16,10 +16,10 @@ export default function Cart() {
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center">
           <ShoppingCart className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-lumier-gray mb-2">Your cart is empty</h2>
-          <p className="text-lumier-gray mb-6">Add some furniture to get started</p>
+          <h2 className="text-xl font-semibold text-lumiere-gray mb-2">Your cart is empty</h2>
+          <p className="text-lumiere-gray mb-6">Add some furniture to get started</p>
           <Link href="/explore">
-            <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+            <Button className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
               Continue Shopping
             </Button>
           </Link>
@@ -42,7 +42,7 @@ export default function Cart() {
             />
             <div className="flex-1">
               <h3 className="font-semibold mb-1">{item.name}</h3>
-              <p className="text-sm text-lumier-gray mb-2 capitalize">
+              <p className="text-sm text-lumiere-gray mb-2 capitalize">
                 {item.type}
               </p>
               <div className="flex items-center space-x-4">
@@ -106,7 +106,7 @@ export default function Cart() {
         </div>
         <Link href="/checkout" className="block w-full">
           <Button 
-            className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 mt-6" 
+            className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90 mt-6" 
             size="lg"
             disabled={cart.length === 0}
           >

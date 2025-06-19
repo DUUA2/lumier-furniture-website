@@ -72,8 +72,8 @@ export default function NewsletterSignup({
 
   if (variant === 'popup') {
     return (
-      <Card className="w-full max-w-md mx-auto shadow-xl border-2 border-lumier-gold">
-        <CardHeader className="text-center bg-gradient-to-r from-lumier-gold to-yellow-400 text-white">
+      <Card className="w-full max-w-md mx-auto shadow-xl border-2 border-lumiere-gold">
+        <CardHeader className="text-center bg-gradient-to-r from-lumiere-gold to-yellow-400 text-white">
           <CardTitle className="flex items-center justify-center gap-2">
             <Sparkles className="h-5 w-5" />
             Exclusive Offers Await!
@@ -95,13 +95,13 @@ export default function NewsletterSignup({
             
             <Button 
               type="submit" 
-              className="w-full bg-lumier-gold hover:bg-lumier-gold/90 text-lumier-black"
+              className="w-full bg-lumiere-gold hover:bg-lumiere-gold/90 text-lumiere-black"
               disabled={signupMutation.isPending}
             >
               {signupMutation.isPending ? "Subscribing..." : "Claim Your Offer"}
             </Button>
             
-            <p className="text-xs text-center text-lumier-gray">
+            <p className="text-xs text-center text-lumiere-gray">
               No spam, unsubscribe anytime. View our Privacy Policy.
             </p>
           </form>
@@ -114,7 +114,7 @@ export default function NewsletterSignup({
     return (
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Stay in the Loop</h3>
-        <p className="text-sm text-lumier-gray">
+        <p className="text-sm text-lumiere-gray">
           Get notified about new collections, seasonal refreshes, and exclusive offers.
         </p>
         <form onSubmit={handleSubmit} className="flex gap-2">
@@ -129,7 +129,7 @@ export default function NewsletterSignup({
           <Button 
             type="submit"
             disabled={signupMutation.isPending}
-            className="bg-lumier-gold hover:bg-lumier-gold/90 text-lumier-black"
+            className="bg-lumiere-gold hover:bg-lumiere-gold/90 text-lumiere-black"
           >
             {signupMutation.isPending ? "..." : "Subscribe"}
           </Button>
@@ -146,7 +146,7 @@ export default function NewsletterSignup({
           <Mail className="h-5 w-5" />
           Newsletter Subscription
         </CardTitle>
-        <p className="text-sm text-lumier-gray">
+        <p className="text-sm text-lumiere-gray">
           Stay updated with seasonal collections, exclusive offers, and furniture trends.
         </p>
       </CardHeader>
@@ -182,7 +182,7 @@ export default function NewsletterSignup({
                     onCheckedChange={() => updatePreference('promotions')}
                   />
                   <div className="flex items-center gap-2">
-                    <Gift className="h-4 w-4 text-lumier-gold" />
+                    <Gift className="h-4 w-4 text-lumiere-gold" />
                     <span className="text-sm">Exclusive Promotions & Discounts</span>
                   </div>
                 </label>
@@ -203,7 +203,7 @@ export default function NewsletterSignup({
           
           <Button 
             type="submit" 
-            className="w-full bg-lumier-gold hover:bg-lumier-gold/90 text-lumier-black"
+            className="w-full bg-lumiere-gold hover:bg-lumiere-gold/90 text-lumiere-black"
             disabled={signupMutation.isPending}
           >
             {signupMutation.isPending ? "Subscribing..." : "Subscribe to Newsletter"}
@@ -224,7 +224,7 @@ export default function NewsletterSignup({
             </Badge>
           </div>
           
-          <p className="text-xs text-center text-lumier-gray">
+          <p className="text-xs text-center text-lumiere-gray">
             We respect your privacy. Unsubscribe anytime with one click.
           </p>
         </form>

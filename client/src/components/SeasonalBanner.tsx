@@ -56,7 +56,7 @@ export default function SeasonalBanner({ position = 'top', dismissible = true }:
       case 'winter':
         return 'from-blue-500 to-indigo-400';
       default:
-        return 'from-lumier-gold to-yellow-400';
+        return 'from-lumiere-gold to-yellow-400';
     }
   };
 

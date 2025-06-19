@@ -174,7 +174,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                     key={color}
                     className={`w-12 h-12 rounded-lg border-2 transition-all ${
                       customization.color === color 
-                        ? 'border-lumier-gold scale-110 shadow-lg' 
+                        ? 'border-lumiere-gold scale-110 shadow-lg' 
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                     style={{ backgroundColor: color }}
@@ -183,7 +183,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                   />
                 ))}
               </div>
-              <p className="text-sm text-lumier-gray mt-2">
+              <p className="text-sm text-lumiere-gray mt-2">
                 Selected: {customization.color}
               </p>
             </div>
@@ -197,13 +197,13 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                       key={layout.id}
                       className={`p-3 rounded-lg border-2 text-left transition-all ${
                         customization.layout === layout.id
-                          ? 'border-lumier-gold bg-lumier-gold/10'
+                          ? 'border-lumiere-gold bg-lumiere-gold/10'
                           : 'border-gray-300 hover:border-gray-400'
                       }`}
                       onClick={() => updateCustomization('layout', layout.id)}
                     >
                       <div className="font-medium">{layout.name}</div>
-                      <div className="text-sm text-lumier-gray">{layout.description}</div>
+                      <div className="text-sm text-lumiere-gray">{layout.description}</div>
                     </button>
                   ))}
                 </div>
@@ -220,7 +220,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                     key={fabric.id}
                     className={`p-3 rounded-lg border-2 transition-all ${
                       customization.fabric === fabric.id
-                        ? 'border-lumier-gold bg-lumier-gold/10'
+                        ? 'border-lumiere-gold bg-lumiere-gold/10'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                     onClick={() => updateCustomization('fabric', fabric.id)}
@@ -231,7 +231,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                       className="w-full h-16 object-cover rounded mb-2"
                     />
                     <div className="font-medium text-sm">{fabric.name}</div>
-                    <div className="text-sm text-lumier-gray">
+                    <div className="text-sm text-lumiere-gray">
                       +₦{fabric.price.toLocaleString()}
                     </div>
                   </button>
@@ -247,13 +247,13 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                     key={finish.id}
                     className={`p-2 rounded border-2 text-sm transition-all ${
                       customization.finish === finish.id
-                        ? 'border-lumier-gold bg-lumier-gold/10'
+                        ? 'border-lumiere-gold bg-lumiere-gold/10'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                     onClick={() => updateCustomization('finish', finish.id)}
                   >
                     <div className="font-medium">{finish.name}</div>
-                    <div className="text-xs text-lumier-gray">
+                    <div className="text-xs text-lumiere-gray">
                       {finish.price === 0 ? 'Included' : `+₦${finish.price.toLocaleString()}`}
                     </div>
                   </button>
@@ -277,7 +277,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                     })}
                   >
                     <div className="font-medium text-sm">{preset.name}</div>
-                    <div className="text-xs text-lumier-gray">
+                    <div className="text-xs text-lumiere-gray">
                       {preset.width} × {preset.depth} × {preset.height}cm
                     </div>
                   </button>
@@ -300,7 +300,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                       ...customization.dimensions,
                       width: parseInt(e.target.value) || 200
                     })}
-                    className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lumier-gold"
+                    className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lumiere-gold"
                   />
                 </div>
                 
@@ -315,7 +315,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                       ...customization.dimensions,
                       height: parseInt(e.target.value) || 80
                     })}
-                    className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lumier-gold"
+                    className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lumiere-gold"
                   />
                 </div>
                 
@@ -330,7 +330,7 @@ export default function CustomizationPanel({ product, onCustomizationChange, ava
                       ...customization.dimensions,
                       depth: parseInt(e.target.value) || 90
                     })}
-                    className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lumier-gold"
+                    className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lumiere-gold"
                   />
                 </div>
               </div>

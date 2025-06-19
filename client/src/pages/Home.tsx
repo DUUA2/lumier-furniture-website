@@ -20,7 +20,7 @@ export default function Home() {
       <SeasonalBanner position="top" />
       
       {/* Hero Section */}
-      <div className="relative bg-lumier-black text-white">
+      <div className="relative bg-lumiere-black text-white">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
           style={{
@@ -31,19 +31,19 @@ export default function Home() {
           <div className="max-w-2xl">
             <h1 className="text-4xl sm:text-6xl font-bold leading-tight">
               Luxury Furniture<br />
-              <span className="text-lumier-gold">Rent or Own</span>
+              <span className="text-lumiere-gold">Rent or Own</span>
             </h1>
             <p className="mt-6 text-xl text-gray-300">
               Transform your space with premium furniture. Flexible payment plans designed for the modern Nigerian lifestyle.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Link href="/explore">
-                <Button size="lg" className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+                <Button size="lg" className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
                   Explore Collection
                 </Button>
               </Link>
               <Link href="/terms">
-                <Button size="lg" className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+                <Button size="lg" className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
                   Learn More
                 </Button>
               </Link>
@@ -65,8 +65,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Living Room</h3>
-                <p className="text-lumier-gray text-sm mb-3">Sofas, chairs, and entertainment units</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Sofas, chairs, and entertainment units</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -82,8 +82,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Bedroom</h3>
-                <p className="text-lumier-gray text-sm mb-3">Beds, wardrobes, and bedside furniture</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Beds, wardrobes, and bedside furniture</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -99,8 +99,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Dining Room</h3>
-                <p className="text-lumier-gray text-sm mb-3">Dining sets and bar stools</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Dining sets and bar stools</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -116,8 +116,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Office</h3>
-                <p className="text-lumier-gray text-sm mb-3">Desks, chairs, and storage solutions</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Desks, chairs, and storage solutions</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -133,8 +133,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Lighting</h3>
-                <p className="text-lumier-gray text-sm mb-3">Floor lamps, table lamps, and fixtures</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Floor lamps, table lamps, and fixtures</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -150,8 +150,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Decor</h3>
-                <p className="text-lumier-gray text-sm mb-3">Mirrors, artwork, and accessories</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Mirrors, artwork, and accessories</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -167,8 +167,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">Storage</h3>
-                <p className="text-lumier-gray text-sm mb-3">Bookcases, cabinets, and organizers</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Bookcases, cabinets, and organizers</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -184,8 +184,8 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">View All</h3>
-                <p className="text-lumier-gray text-sm mb-3">Browse our complete furniture collection</p>
-                <span className="text-lumier-gold text-sm font-medium">
+                <p className="text-lumiere-gray text-sm mb-3">Browse our complete furniture collection</p>
+                <span className="text-lumiere-gold text-sm font-medium">
                   Shop Now →
                 </span>
               </div>
@@ -206,42 +206,42 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Why Choose Lumier */}
+      {/* Why Choose Lumiere */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Why Choose Lumier?</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Why Choose Lumiere?</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="w-16 h-16 bg-lumier-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-lumiere-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <CreditCard className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Flexible Payment Options</h3>
-            <p className="text-lumier-gray">Buy outright or choose 2-6 month installment plans with transparent pricing</p>
+            <p className="text-lumiere-gray">Buy outright or choose 2-6 month installment plans with transparent pricing</p>
           </div>
           
           <div className="text-center">
-            <div className="w-16 h-16 bg-lumier-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-lumiere-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <Truck className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Reliable Delivery</h3>
-            <p className="text-lumier-gray">Professional delivery service across major Nigerian cities with tracking</p>
+            <p className="text-lumiere-gray">Professional delivery service across major Nigerian cities with tracking</p>
           </div>
           
           <div className="text-center">
-            <div className="w-16 h-16 bg-lumier-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-lumiere-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <Award className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Premium Quality</h3>
-            <p className="text-lumier-gray">Carefully selected furniture from trusted manufacturers</p>
+            <p className="text-lumiere-gray">Carefully selected furniture from trusted manufacturers</p>
           </div>
         </div>
       </div>
 
       {/* Sustainability Section */}
-      <div className="bg-gradient-to-r from-green-50 to-lumier-cream py-16">
+      <div className="bg-gradient-to-r from-green-50 to-lumiere-cream py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Sustainable Living</h2>
-            <p className="text-lg text-lumier-gray max-w-3xl mx-auto">
+            <p className="text-lg text-lumiere-gray max-w-3xl mx-auto">
               Our subscription model promotes environmental responsibility through circular furniture economy
             </p>
           </div>
@@ -252,7 +252,7 @@ export default function Home() {
                 <Recycle className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Circular Economy</h3>
-              <p className="text-lumier-gray">Furniture gets reused across multiple customers, reducing waste and promoting sustainability</p>
+              <p className="text-lumiere-gray">Furniture gets reused across multiple customers, reducing waste and promoting sustainability</p>
             </div>
             
             <div className="text-center">
@@ -260,7 +260,7 @@ export default function Home() {
                 <Leaf className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Eco-Friendly Materials</h3>
-              <p className="text-lumier-gray">Supporting local artisans using sustainable, environmentally conscious materials</p>
+              <p className="text-lumiere-gray">Supporting local artisans using sustainable, environmentally conscious materials</p>
             </div>
             
             <div className="text-center">
@@ -268,7 +268,7 @@ export default function Home() {
                 <Users className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Community Impact</h3>
-              <p className="text-lumier-gray">Creating jobs and supporting Nigerian craftsmen while reducing furniture waste</p>
+              <p className="text-lumiere-gray">Creating jobs and supporting Nigerian craftsmen while reducing furniture waste</p>
             </div>
           </div>
 
@@ -287,10 +287,10 @@ export default function Home() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-4">Stay Connected</h2>
-            <p className="text-lg text-lumier-gray mb-6">
+            <p className="text-lg text-lumiere-gray mb-6">
               Get exclusive access to seasonal collections, special offers, and furniture trends delivered straight to your inbox.
             </p>
-            <ul className="space-y-2 text-lumier-gray">
+            <ul className="space-y-2 text-lumiere-gray">
               <li>• Early access to new collections</li>
               <li>• Seasonal refresh reminders for subscribers</li>
               <li>• Exclusive member discounts</li>

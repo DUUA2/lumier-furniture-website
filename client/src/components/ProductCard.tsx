@@ -62,10 +62,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
       <div className="p-4">
         <h3 className="font-semibold mb-2">{product.name}</h3>
-        <p className="text-lumier-gray text-sm mb-3">{product.description}</p>
+        <p className="text-lumiere-gray text-sm mb-3">{product.description}</p>
         <div className="flex justify-between items-center mb-3">
           <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
-          <span className="text-sm text-lumier-gold">From ₦{monthlyPrice.toLocaleString()}/month</span>
+          <span className="text-sm text-lumiere-gold">From ₦{monthlyPrice.toLocaleString()}/month</span>
         </div>
         <div className="flex flex-wrap gap-2 mb-3">
           <Badge variant="secondary">
@@ -106,7 +106,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           disabled={!canAddToCart}
           className={`w-full ${
             canAddToCart 
-              ? 'bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90' 
+              ? 'bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90' 
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >

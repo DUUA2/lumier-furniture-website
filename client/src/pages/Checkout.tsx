@@ -183,12 +183,12 @@ export default function Checkout() {
   const { subtotal, vat, deliveryFee, insuranceFee, total } = calculateTotal();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-lumier-cream to-white">
+    <div className="min-h-screen bg-gradient-to-b from-lumiere-cream to-white">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-lumier-black mb-3">Complete Your Order</h1>
-          <p className="text-lg text-lumier-gray">Review your items and provide delivery information</p>
+          <h1 className="text-4xl font-bold text-lumiere-black mb-3">Complete Your Order</h1>
+          <p className="text-lg text-lumiere-gray">Review your items and provide delivery information</p>
         </div>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -197,21 +197,21 @@ export default function Checkout() {
             
             {/* Account Status */}
             {!isAuthenticated ? (
-              <Card className="border-2 border-lumier-gold">
+              <Card className="border-2 border-lumiere-gold">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
-                    <User className="w-5 h-5 text-lumier-gold" />
+                    <User className="w-5 h-5 text-lumiere-gold" />
                     Account Options
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lumier-gray mb-6">
+                  <p className="text-lumiere-gray mb-6">
                     Sign in to save your information and track orders easily, or continue as guest.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Button
                       type="button"
-                      className="bg-lumier-gold hover:bg-lumier-gold/90 text-white"
+                      className="bg-lumiere-gold hover:bg-lumiere-gold/90 text-white"
                       onClick={() => window.location.href = '/api/login'}
                     >
                       Sign In / Create Account
@@ -250,7 +250,7 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <span className="bg-lumier-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</span>
+                  <span className="bg-lumiere-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</span>
                   <User className="w-5 h-5" />
                   Personal Information
                 </CardTitle>
@@ -370,7 +370,7 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <span className="bg-lumier-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</span>
+                  <span className="bg-lumiere-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</span>
                   <MapPin className="w-5 h-5" />
                   Delivery Address
                 </CardTitle>
@@ -429,7 +429,7 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <span className="bg-lumier-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</span>
+                  <span className="bg-lumiere-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</span>
                   <CreditCard className="w-5 h-5" />
                   Payment Method
                 </CardTitle>
@@ -438,7 +438,7 @@ export default function Checkout() {
                 <div>
                   <Label>Choose Payment Option *</Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                    <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${formData.purchaseType === 'buy' ? 'border-lumier-gold bg-lumier-gold/5' : 'border-gray-200'}`}
+                    <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${formData.purchaseType === 'buy' ? 'border-lumiere-gold bg-lumiere-gold/5' : 'border-gray-200'}`}
                          onClick={() => handleInputChange('purchaseType', 'buy')}>
                       <div className="flex items-center space-x-3">
                         <input
@@ -447,15 +447,15 @@ export default function Checkout() {
                           value="buy"
                           checked={formData.purchaseType === 'buy'}
                           onChange={(e) => handleInputChange('purchaseType', e.target.value)}
-                          className="text-lumier-gold"
+                          className="text-lumiere-gold"
                         />
                         <div>
                           <h4 className="font-semibold">Buy Outright</h4>
-                          <p className="text-sm text-lumier-gray">Pay full amount now</p>
+                          <p className="text-sm text-lumiere-gray">Pay full amount now</p>
                         </div>
                       </div>
                     </div>
-                    <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${formData.purchaseType === 'installment' ? 'border-lumier-gold bg-lumier-gold/5' : 'border-gray-200'}`}
+                    <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${formData.purchaseType === 'installment' ? 'border-lumiere-gold bg-lumiere-gold/5' : 'border-gray-200'}`}
                          onClick={() => handleInputChange('purchaseType', 'installment')}>
                       <div className="flex items-center space-x-3">
                         <input
@@ -464,11 +464,11 @@ export default function Checkout() {
                           value="installment"
                           checked={formData.purchaseType === 'installment'}
                           onChange={(e) => handleInputChange('purchaseType', e.target.value)}
-                          className="text-lumier-gold"
+                          className="text-lumiere-gold"
                         />
                         <div>
                           <h4 className="font-semibold">Installment Plan</h4>
-                          <p className="text-sm text-lumier-gray">Split into monthly payments</p>
+                          <p className="text-sm text-lumiere-gray">Split into monthly payments</p>
                         </div>
                       </div>
                     </div>
@@ -499,7 +499,7 @@ export default function Checkout() {
                     id="insurance"
                     checked={formData.insurance}
                     onChange={(e) => handleInputChange('insurance', e.target.checked)}
-                    className="text-lumier-gold"
+                    className="text-lumiere-gold"
                   />
                   <Label htmlFor="insurance" className="cursor-pointer">
                     Add Insurance Protection (2% of item value)
@@ -512,11 +512,11 @@ export default function Checkout() {
                     id="agreeToTerms"
                     checked={formData.agreeToTerms}
                     onChange={(e) => handleInputChange('agreeToTerms', e.target.checked)}
-                    className="text-lumier-gold"
+                    className="text-lumiere-gold"
                     required
                   />
                   <Label htmlFor="agreeToTerms" className="cursor-pointer">
-                    I agree to the <Link href="/terms" className="text-lumier-gold hover:underline">Terms and Conditions</Link> *
+                    I agree to the <Link href="/terms" className="text-lumiere-gold hover:underline">Terms and Conditions</Link> *
                   </Label>
                 </div>
               </CardContent>
@@ -544,8 +544,8 @@ export default function Checkout() {
                       />
                       <div className="flex-1">
                         <h4 className="font-medium text-sm">{item.name}</h4>
-                        <p className="text-xs text-lumier-gray">Color: {item.color}</p>
-                        <p className="text-xs text-lumier-gray">Qty: {item.quantity}</p>
+                        <p className="text-xs text-lumiere-gray">Color: {item.color}</p>
+                        <p className="text-xs text-lumiere-gray">Qty: {item.quantity}</p>
                         <p className="font-semibold text-sm">₦{(item.price * item.quantity).toLocaleString()}</p>
                       </div>
                     </div>
@@ -577,19 +577,19 @@ export default function Checkout() {
                   <Separator />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span className="text-lumier-gold">₦{total.toLocaleString()}</span>
+                    <span className="text-lumiere-gold">₦{total.toLocaleString()}</span>
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-lumier-gold hover:bg-lumier-gold/90 text-white py-3"
+                  className="w-full bg-lumiere-gold hover:bg-lumiere-gold/90 text-white py-3"
                   disabled={orderMutation.isPending || cart.length === 0}
                 >
                   {orderMutation.isPending ? "Processing..." : "Continue to Payment"}
                 </Button>
 
-                <p className="text-xs text-lumier-gray text-center">
+                <p className="text-xs text-lumiere-gray text-center">
                   Secure payment powered by Paystack
                 </p>
               </CardContent>

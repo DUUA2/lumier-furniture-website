@@ -28,7 +28,7 @@ export default function ThankYou() {
         </div>
         
         <h1 className="text-3xl font-bold mb-4">Thank You for Your Order!</h1>
-        <p className="text-lumier-gray mb-6">
+        <p className="text-lumiere-gray mb-6">
           Your order has been successfully placed. You will receive a confirmation email shortly.
         </p>
         
@@ -58,7 +58,7 @@ export default function ThankYou() {
 
         <div className="space-y-4">
           <Link href="/explore">
-            <Button className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+            <Button className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
               Continue Shopping
             </Button>
           </Link>

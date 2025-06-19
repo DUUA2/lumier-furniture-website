@@ -263,7 +263,7 @@ export default function Admin() {
               </div>
               <Button 
                 onClick={handleAdminLogin} 
-                className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
               >
                 <Unlock className="w-4 h-4 mr-2" />
                 Login to Admin Panel
@@ -283,12 +283,12 @@ export default function Admin() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold">Admin Panel</h1>
-          <p className="text-lumier-gray">Manage products, prices, and inventory</p>
+          <p className="text-lumiere-gray">Manage products, prices, and inventory</p>
         </div>
         <div className="flex gap-3">
           <Button
             onClick={() => setShowAddForm(true)}
-            className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+            className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Product
@@ -559,7 +559,7 @@ export default function Admin() {
                   <div className="flex gap-4">
                     <Button
                       type="submit"
-                      className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                      className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
                       disabled={updateProductMutation.isPending || createProductMutation.isPending}
                     >
                       <Save className="w-4 h-4 mr-2" />
@@ -603,7 +603,7 @@ export default function Admin() {
                   
                   <div className="space-y-2 mb-4">
                     <h3 className="font-semibold text-lg">{product.name}</h3>
-                    <p className="text-lumier-gray text-sm line-clamp-2">
+                    <p className="text-lumiere-gray text-sm line-clamp-2">
                       {product.description}
                     </p>
                     <div className="flex flex-wrap gap-1">
@@ -659,7 +659,7 @@ export default function Admin() {
           
           {filteredProducts.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-lumier-gray">No products found matching your search criteria.</p>
+              <p className="text-lumiere-gray">No products found matching your search criteria.</p>
             </div>
           )}
         </TabsContent>
@@ -670,7 +670,7 @@ export default function Admin() {
               <CardTitle>Recent Orders</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lumier-gray">Order management coming soon...</p>
+              <p className="text-lumiere-gray">Order management coming soon...</p>
             </CardContent>
           </Card>
         </TabsContent>

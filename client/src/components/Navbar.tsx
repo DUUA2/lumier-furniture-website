@@ -53,8 +53,8 @@ export default function Navbar() {
             <div className="hidden md:flex space-x-6">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <span className={`text-lumier-gray hover:text-lumier-gold transition-colors cursor-pointer ${
-                    location === item.href ? 'text-lumier-gold' : ''
+                  <span className={`text-lumiere-gray hover:text-lumiere-gold transition-colors cursor-pointer ${
+                    location === item.href ? 'text-lumiere-gold' : ''
                   }`}>
                     {item.name}
                   </span>
@@ -69,7 +69,7 @@ export default function Navbar() {
                 <Button variant="ghost" size="icon" className="relative">
                   <ShoppingCart className="h-5 w-5" />
                   {cartItemsCount > 0 && (
-                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center bg-lumier-gold text-lumier-black text-xs">
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center bg-lumiere-gold text-lumiere-black text-xs">
                       {cartItemsCount}
                     </Badge>
                   )}
@@ -99,7 +99,7 @@ export default function Navbar() {
               </DropdownMenu>
             ) : (
               <Button 
-                className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
                 onClick={() => window.location.href = '/api/login'}
               >
                 Sign In
@@ -129,8 +129,8 @@ export default function Navbar() {
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
                   <span
-                    className={`block px-3 py-2 text-lumier-gray hover:text-lumier-gold transition-colors cursor-pointer ${
-                      location === item.href ? 'text-lumier-gold' : ''
+                    className={`block px-3 py-2 text-lumiere-gray hover:text-lumiere-gold transition-colors cursor-pointer ${
+                      location === item.href ? 'text-lumiere-gold' : ''
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

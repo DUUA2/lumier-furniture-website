@@ -9,8 +9,8 @@ export default function DeploymentGuide() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4">Website Management Guide</h1>
-        <p className="text-lumier-gray">
-          Complete guide for managing your Lumier Furniture website after deployment
+        <p className="text-lumiere-gray">
+          Complete guide for managing your Lumiere Furniture website after deployment
         </p>
       </div>
 

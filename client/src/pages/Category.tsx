@@ -75,8 +75,8 @@ export default function Category() {
           </Button>
         </Link>
         <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
-        <p className="text-lumier-gray text-lg max-w-3xl">{categoryDescription}</p>
-        <div className="mt-4 text-sm text-lumier-gray">
+        <p className="text-lumiere-gray text-lg max-w-3xl">{categoryDescription}</p>
+        <div className="mt-4 text-sm text-lumiere-gray">
           {categoryProducts.length} product{categoryProducts.length !== 1 ? 's' : ''} available
         </div>
       </div>
@@ -136,14 +136,14 @@ export default function Category() {
       ) : (
         <div className="text-center py-16">
           <h3 className="text-xl font-semibold mb-2">No products found</h3>
-          <p className="text-lumier-gray mb-6">
+          <p className="text-lumiere-gray mb-6">
             {priceRange || sortBy !== "name" 
               ? "Try adjusting your filters to see more products."
               : `We don't have any ${categoryName.toLowerCase()} products available right now.`
             }
           </p>
           <Link href="/explore">
-            <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+            <Button className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
               Browse All Products
             </Button>
           </Link>

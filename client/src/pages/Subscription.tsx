@@ -70,12 +70,12 @@ export default function Subscription() {
   const [showComparison, setShowComparison] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lumier-cream to-white">
+    <div className="min-h-screen bg-gradient-to-br from-lumiere-cream to-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-lumier-black to-gray-800 text-white py-20">
+      <div className="relative bg-gradient-to-r from-lumiere-black to-gray-800 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">
-            Furniture <span className="text-lumier-gold">Subscription</span>
+            Furniture <span className="text-lumiere-gold">Subscription</span>
           </h1>
           <p className="text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
             Transform your living space with flexible furniture subscriptions. 
@@ -83,19 +83,19 @@ export default function Subscription() {
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <Truck className="h-5 w-5 text-lumier-gold" />
+              <Truck className="h-5 w-5 text-lumiere-gold" />
               <span>Free Delivery</span>
             </div>
             <div className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-lumier-gold" />
+              <Shield className="h-5 w-5 text-lumiere-gold" />
               <span>Maintenance Included</span>
             </div>
             <div className="flex items-center gap-2">
-              <Recycle className="h-5 w-5 text-lumier-gold" />
+              <Recycle className="h-5 w-5 text-lumiere-gold" />
               <span>Eco-Friendly</span>
             </div>
             <div className="flex items-center gap-2">
-              <Palette className="h-5 w-5 text-lumier-gold" />
+              <Palette className="h-5 w-5 text-lumiere-gold" />
               <span>Regular Swaps</span>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function Subscription() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-6 tracking-tight">Choose Your Subscription Plan</h2>
-          <p className="text-lg text-lumier-gray max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-lumiere-gray max-w-2xl mx-auto leading-relaxed">
             Flexible furniture subscriptions designed for every lifestyle and space
           </p>
         </div>
@@ -116,11 +116,11 @@ export default function Subscription() {
             <Card 
               key={tier.id} 
               className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${
-                tier.popular ? 'ring-2 ring-lumier-gold shadow-lg scale-105' : 'hover:scale-105'
-              } ${selectedTier === tier.id ? 'ring-2 ring-lumier-gold' : ''}`}
+                tier.popular ? 'ring-2 ring-lumiere-gold shadow-lg scale-105' : 'hover:scale-105'
+              } ${selectedTier === tier.id ? 'ring-2 ring-lumiere-gold' : ''}`}
             >
               {tier.popular && (
-                <div className="absolute top-0 right-0 bg-lumier-gold text-lumier-black px-3 py-1 rounded-bl-lg">
+                <div className="absolute top-0 right-0 bg-lumiere-gold text-lumiere-black px-3 py-1 rounded-bl-lg">
                   <Star className="h-4 w-4 inline mr-1" />
                   Most Popular
                 </div>
@@ -131,9 +131,9 @@ export default function Subscription() {
                 <CardDescription className="text-base">{tier.description}</CardDescription>
                 <div className="py-4">
                   <span className="text-4xl font-bold">₦{tier.price.toLocaleString()}</span>
-                  <span className="text-lumier-gray">/month</span>
+                  <span className="text-lumiere-gray">/month</span>
                 </div>
-                <div className="flex justify-center gap-4 text-sm text-lumier-gray">
+                <div className="flex justify-center gap-4 text-sm text-lumiere-gray">
                   <span>{tier.items}</span>
                   <span>•</span>
                   <span>{tier.swapFrequency}</span>
@@ -146,7 +146,7 @@ export default function Subscription() {
                   <ul className="space-y-2">
                     {tier.itemTypes.map((item, index) => (
                       <li key={index} className="flex items-start gap-3 text-sm">
-                        <CheckCircle className="h-5 w-5 text-lumier-gold mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="h-5 w-5 text-lumiere-gold mt-0.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -158,7 +158,7 @@ export default function Subscription() {
                   <ul className="space-y-2">
                     {tier.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-3 text-sm">
-                        <CheckCircle className="h-5 w-5 text-lumier-gold mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="h-5 w-5 text-lumiere-gold mt-0.5 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -168,8 +168,8 @@ export default function Subscription() {
                 <Button 
                   className={`w-full ${
                     tier.popular 
-                      ? 'bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90' 
-                      : 'bg-lumier-black text-white hover:bg-gray-800'
+                      ? 'bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90' 
+                      : 'bg-lumiere-black text-white hover:bg-gray-800'
                   }`}
                   onClick={() => setSelectedTier(tier.id)}
                 >
@@ -230,41 +230,41 @@ export default function Subscription() {
           <h3 className="text-3xl font-bold mb-8">How It Works</h3>
           <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="bg-lumier-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumier-black font-bold text-lg">
+              <div className="bg-lumiere-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumiere-black font-bold text-lg">
                 1
               </div>
               <h4 className="font-semibold mb-2">Choose Your Plan</h4>
-              <p className="text-sm text-lumier-gray">
+              <p className="text-sm text-lumiere-gray">
                 Select the subscription tier that fits your space and lifestyle
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-lumier-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumier-black font-bold text-lg">
+              <div className="bg-lumiere-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumiere-black font-bold text-lg">
                 2
               </div>
               <h4 className="font-semibold mb-2">Customize & Preview</h4>
-              <p className="text-sm text-lumier-gray">
+              <p className="text-sm text-lumiere-gray">
                 Use our AR tool to visualize furniture in your space
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-lumier-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumier-black font-bold text-lg">
+              <div className="bg-lumiere-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumiere-black font-bold text-lg">
                 3
               </div>
               <h4 className="font-semibold mb-2">Enjoy & Swap</h4>
-              <p className="text-sm text-lumier-gray">
+              <p className="text-sm text-lumiere-gray">
                 Live with your furniture and swap pieces when you're ready for change
               </p>
             </div>
             
             <div className="text-center">
-              <div className="bg-lumier-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumier-black font-bold text-lg">
+              <div className="bg-lumiere-gold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-lumiere-black font-bold text-lg">
                 4
               </div>
               <h4 className="font-semibold mb-2">Seamless Service</h4>
-              <p className="text-sm text-lumier-gray">
+              <p className="text-sm text-lumiere-gray">
                 We handle delivery, maintenance, and pickup - you just enjoy beautiful furniture
               </p>
             </div>
@@ -272,13 +272,13 @@ export default function Subscription() {
         </div>
 
         {/* FAQ Preview */}
-        <div className="bg-lumier-cream rounded-xl p-8 text-center">
+        <div className="bg-lumiere-cream rounded-xl p-8 text-center">
           <h3 className="text-2xl font-bold mb-4">Questions About Subscriptions?</h3>
-          <p className="text-lumier-gray mb-6">
+          <p className="text-lumiere-gray mb-6">
             Learn about swapping, maintenance, cancellations, and more
           </p>
           <Link href="/help">
-            <Button variant="outline" className="border-lumier-gold text-lumier-gold hover:bg-lumier-gold hover:text-lumier-black">
+            <Button variant="outline" className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black">
               View Subscription FAQ
             </Button>
           </Link>
@@ -292,12 +292,12 @@ export default function Subscription() {
                 <h4 className="font-semibold">
                   {subscriptionTiers.find(t => t.id === selectedTier)?.name}
                 </h4>
-                <p className="text-sm text-lumier-gray">
+                <p className="text-sm text-lumiere-gray">
                   ₦{subscriptionTiers.find(t => t.id === selectedTier)?.price.toLocaleString()}/month
                 </p>
               </div>
               <Link href="/checkout">
-                <Button className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90">
+                <Button className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
                   Get Started
                 </Button>
               </Link>

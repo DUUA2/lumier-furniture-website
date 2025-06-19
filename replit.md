@@ -1,8 +1,8 @@
-# Lumier Furniture - E-Commerce Platform
+# Lumiere Furniture - E-Commerce Platform
 
 ## Overview
 
-Lumier Furniture is a modern e-commerce platform specializing in luxury furniture sales and rentals for the Nigerian market. The application provides customers with flexible payment options, allowing them to either purchase furniture outright or rent with customizable payment plans. The platform features a comprehensive product catalog, shopping cart functionality, and streamlined checkout process with BVN verification integration.
+Lumiere Furniture is a modern e-commerce platform specializing in luxury furniture sales and rentals for the Nigerian market. The application provides customers with flexible payment options, allowing them to either purchase furniture outright or rent with customizable payment plans. The platform features a comprehensive product catalog, shopping cart functionality, and streamlined checkout process with BVN verification integration.
 
 ## System Architecture
 
@@ -132,6 +132,7 @@ The application uses three main entities:
 - June 18, 2025. Implemented comprehensive subscription-based furniture rental model with three tiered plans (Basic ₦15,000, Premium ₦25,000, Elite ₦40,000), AR/Virtual Showroom for immersive furniture visualization, real-time CustomizationPanel for personalized furniture configuration, integrated subscription checkout flow with monthly billing, and sustainability section promoting eco-conscious circular economy furniture rental
 - June 18, 2025. Added Seasonal Refresh feature to subscriptions with automated reminders, user dashboard for managing subscription refreshes with progress tracking, enhanced CustomizationPanel with tooltips and reset functionality, newsletter signup system with marketing automation, seasonal collections banner system with dismissible notifications, and comprehensive backend API routes for subscription management and email marketing integration
 - June 18, 2025. Redesigned checkout page with cleaner, less crowded layout featuring step-by-step visual progression, organized sections with numbered cards, better spacing and visual hierarchy, sticky order summary sidebar, and improved user experience with clear payment method selection and streamlined form structure
+- June 19, 2025. Corrected brand spelling from "Lumier" to "Lumiere" throughout entire project including CSS variables, Tailwind classes, component names, and all references to maintain proper French spelling of company name
 
 ## User Preferences
 

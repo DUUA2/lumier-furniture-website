@@ -42,7 +42,7 @@ export default function Signup() {
       <div className="bg-white rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-2">Create Account</h1>
-          <p className="text-lumier-gray">Join Lumier for exclusive furniture deals</p>
+          <p className="text-lumiere-gray">Join Lumier for exclusive furniture deals</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -125,7 +125,7 @@ export default function Signup() {
           
           <Button
             type="submit"
-            className="w-full bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+            className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
           >
             Create Account
           </Button>
@@ -137,7 +137,7 @@ export default function Signup() {
               <div className="w-full border-t border-gray-300" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-lumier-gray">Or continue with</span>
+              <span className="px-2 bg-white text-lumiere-gray">Or continue with</span>
             </div>
           </div>
         </div>
@@ -170,9 +170,9 @@ export default function Signup() {
         </div>
 
         <div className="text-center mt-6">
-          <span className="text-sm text-lumier-gray">Already have an account? </span>
+          <span className="text-sm text-lumiere-gray">Already have an account? </span>
           <Link href="/login">
-            <a className="text-sm text-lumier-gold hover:underline">Sign in</a>
+            <a className="text-sm text-lumiere-gold hover:underline">Sign in</a>
           </Link>
         </div>
       </div>

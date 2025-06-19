@@ -155,8 +155,8 @@ export default function OrderConfirmation() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-lumier-black mb-2">Order Confirmation</h1>
-          <p className="text-lumier-gray">Please review your order details before confirming</p>
+          <h1 className="text-3xl font-bold text-lumiere-black mb-2">Order Confirmation</h1>
+          <p className="text-lumiere-gray">Please review your order details before confirming</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -169,8 +169,8 @@ export default function OrderConfirmation() {
               <CardContent className="space-y-3">
                 <div>
                   <p className="font-medium">{orderData.customerInfo.firstName} {orderData.customerInfo.lastName}</p>
-                  <p className="text-sm text-lumier-gray">{orderData.customerInfo.email}</p>
-                  <p className="text-sm text-lumier-gray">{orderData.customerInfo.phone}</p>
+                  <p className="text-sm text-lumiere-gray">{orderData.customerInfo.email}</p>
+                  <p className="text-sm text-lumiere-gray">{orderData.customerInfo.phone}</p>
                 </div>
                 <Separator />
                 <div>
@@ -199,8 +199,8 @@ export default function OrderConfirmation() {
               <CardContent>
                 <div className="text-sm">
                   <p className="font-medium">{orderData.nextOfKin.name}</p>
-                  <p className="text-lumier-gray">Relationship: {orderData.nextOfKin.relationship}</p>
-                  <p className="text-lumier-gray">Phone: {orderData.nextOfKin.phone}</p>
+                  <p className="text-lumiere-gray">Relationship: {orderData.nextOfKin.relationship}</p>
+                  <p className="text-lumiere-gray">Phone: {orderData.nextOfKin.phone}</p>
                 </div>
               </CardContent>
             </Card>
@@ -218,10 +218,10 @@ export default function OrderConfirmation() {
                     <div key={index} className="flex justify-between items-start">
                       <div className="flex-1">
                         <p className="font-medium">{item.name}</p>
-                        <p className="text-sm text-lumier-gray">
+                        <p className="text-sm text-lumiere-gray">
                           Color: {item.color} | Type: {item.type === 'buy' ? 'Purchase' : 'Rental'}
                         </p>
-                        <p className="text-sm text-lumier-gray">Quantity: {item.quantity}</p>
+                        <p className="text-sm text-lumiere-gray">Quantity: {item.quantity}</p>
                       </div>
                       <p className="font-medium">{formatCurrency(item.price * item.quantity)}</p>
                     </div>
@@ -245,7 +245,7 @@ export default function OrderConfirmation() {
                     <span className="font-medium">{paymentDetails.description}</span>
                   </div>
                   {orderData.paymentPlan.insurance && (
-                    <p className="text-sm text-lumier-gray mt-2">
+                    <p className="text-sm text-lumiere-gray mt-2">
                       ✓ Insurance included (damage protection & maintenance)
                     </p>
                   )}
@@ -294,7 +294,7 @@ export default function OrderConfirmation() {
                 />
                 <label htmlFor="confirm" className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   I confirm that all the above details are correct and I agree to the{" "}
-                  <a href="/terms" target="_blank" className="text-lumier-gold hover:underline">
+                  <a href="/terms" target="_blank" className="text-lumiere-gold hover:underline">
                     terms and conditions
                   </a>
                 </label>
@@ -312,7 +312,7 @@ export default function OrderConfirmation() {
                 <Button
                   onClick={handleConfirmOrder}
                   disabled={!confirmed || isProcessing}
-                  className="flex-1 bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                  className="flex-1 bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
                 >
                   {isProcessing ? "Processing..." : "Confirm & Pay"}
                 </Button>

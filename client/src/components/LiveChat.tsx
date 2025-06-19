@@ -59,7 +59,7 @@ export default function LiveChat({ className }: LiveChatProps) {
         // Send initial greeting
         setMessages([{
           id: Date.now().toString(),
-          text: "Hello! Welcome to Lumier Furniture. How can I assist you today?",
+          text: "Hello! Welcome to Lumiere Furniture. How can I assist you today?",
           sender: 'support',
           timestamp: new Date(),
           senderName: 'Support Team'
@@ -157,7 +157,7 @@ export default function LiveChat({ className }: LiveChatProps) {
     return (
       <Button
         onClick={openChat}
-        className={`relative bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90 rounded-full p-2 shadow-lg ${className}`}
+        className={`relative bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90 rounded-full p-2 shadow-lg ${className}`}
         size="sm"
       >
         <MessageCircle className="h-3 w-3" />
@@ -175,7 +175,7 @@ export default function LiveChat({ className }: LiveChatProps) {
     return (
       <div className={`fixed top-20 right-6 z-50 ${className}`}>
         <Card className="w-80 shadow-lg">
-          <CardHeader className="flex flex-row items-center justify-between py-3 bg-lumier-gold text-lumier-black">
+          <CardHeader className="flex flex-row items-center justify-between py-3 bg-lumiere-gold text-lumiere-black">
             <div className="flex items-center space-x-2">
               <MessageCircle className="h-5 w-5" />
               <span className="font-semibold">Live Chat</span>
@@ -186,7 +186,7 @@ export default function LiveChat({ className }: LiveChatProps) {
                 variant="ghost"
                 size="sm"
                 onClick={openChat}
-                className="h-6 w-6 p-0 hover:bg-lumier-gold/80"
+                className="h-6 w-6 p-0 hover:bg-lumiere-gold/80"
               >
                 <MessageCircle className="h-4 w-4" />
               </Button>
@@ -194,7 +194,7 @@ export default function LiveChat({ className }: LiveChatProps) {
                 variant="ghost"
                 size="sm"
                 onClick={closeChat}
-                className="h-6 w-6 p-0 hover:bg-lumier-gold/80"
+                className="h-6 w-6 p-0 hover:bg-lumiere-gold/80"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -214,7 +214,7 @@ export default function LiveChat({ className }: LiveChatProps) {
   return (
     <div className={`fixed top-20 right-6 z-50 ${className}`}>
       <Card className="w-80 h-96 shadow-lg flex flex-col">
-        <CardHeader className="flex flex-row items-center justify-between py-3 bg-lumier-gold text-lumier-black">
+        <CardHeader className="flex flex-row items-center justify-between py-3 bg-lumiere-gold text-lumiere-black">
           <div className="flex items-center space-x-2">
             <MessageCircle className="h-5 w-5" />
             <span className="font-semibold">Live Chat</span>
@@ -225,7 +225,7 @@ export default function LiveChat({ className }: LiveChatProps) {
               variant="ghost"
               size="sm"
               onClick={minimizeChat}
-              className="h-6 w-6 p-0 hover:bg-lumier-gold/80"
+              className="h-6 w-6 p-0 hover:bg-lumiere-gold/80"
             >
               <Minimize2 className="h-4 w-4" />
             </Button>
@@ -233,7 +233,7 @@ export default function LiveChat({ className }: LiveChatProps) {
               variant="ghost"
               size="sm"
               onClick={closeChat}
-              className="h-6 w-6 p-0 hover:bg-lumier-gold/80"
+              className="h-6 w-6 p-0 hover:bg-lumiere-gold/80"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -251,7 +251,7 @@ export default function LiveChat({ className }: LiveChatProps) {
                   <div
                     className={`max-w-[80%] rounded-lg p-3 ${
                       message.sender === 'user'
-                        ? 'bg-lumier-gold text-lumier-black'
+                        ? 'bg-lumiere-gold text-lumiere-black'
                         : 'bg-gray-100 text-gray-800'
                     }`}
                   >
@@ -280,7 +280,7 @@ export default function LiveChat({ className }: LiveChatProps) {
                 onClick={sendMessage}
                 disabled={!newMessage.trim() || !isConnected}
                 size="sm"
-                className="bg-lumier-gold text-lumier-black hover:bg-lumier-gold/90"
+                className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
               >
                 <Send className="h-4 w-4" />
               </Button>
