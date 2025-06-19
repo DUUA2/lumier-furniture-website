@@ -61,6 +61,12 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        lumiere: {
+          gold: "var(--lumiere-gold)",
+          black: "var(--lumiere-black)",
+          gray: "var(--lumiere-gray)",
+          cream: "var(--lumiere-cream)",
+        },
       },
       keyframes: {
         "accordion-down": {

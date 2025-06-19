@@ -24,10 +24,11 @@
   --ring: hsl(43, 89%, 57%);
   --radius: 0.5rem;
   
-  /* Lumier brand colors */
-  --lumier-gold: hsl(43, 89%, 57%);
-  --lumier-black: hsl(0, 0%, 10%);
-  --lumier-gray: hsl(0, 0%, 40%);
+  /* Lumiere brand colors */
+  --lumiere-gold: hsl(43, 89%, 57%);
+  --lumiere-black: hsl(0, 0%, 10%);
+  --lumiere-gray: hsl(0, 0%, 40%);
+  --lumiere-cream: hsl(42, 100%, 97%);
 }
 
 .dark {
@@ -65,39 +66,39 @@
 }
 
 @layer utilities {
-  .text-lumier-gold {
+  .text-lumiere-gold {
     color: #F4C430;
   }
   
-  .bg-lumier-gold {
+  .bg-lumiere-gold {
     background-color: #F4C430;
   }
   
-  .text-lumier-black {
+  .text-lumiere-black {
     color: #1A1A1A;
   }
   
-  .bg-lumier-black {
+  .bg-lumiere-black {
     background-color: #1A1A1A;
   }
   
-  .text-lumier-gray {
+  .text-lumiere-gray {
     color: #666666;
   }
   
-  .bg-lumier-gray {
+  .bg-lumiere-gray {
     background-color: #666666;
   }
   
-  .border-lumier-gold {
+  .border-lumiere-gold {
     border-color: #F4C430;
   }
   
-  .hover\:bg-lumier-gold:hover {
+  .hover\:bg-lumiere-gold:hover {
     background-color: #E6B800;
   }
   
-  .hover\:text-lumier-gold:hover {
+  .hover\:text-lumiere-gold:hover {
     color: #F4C430;
   }
   
