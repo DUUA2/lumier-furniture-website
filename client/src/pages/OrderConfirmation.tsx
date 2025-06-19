@@ -66,24 +66,49 @@ export default function OrderConfirmation() {
     if (orderData.paymentPlan.type === 'rent') {
       const monthlyRental = subtotal * 0.01; // 1% monthly
       const insuranceFee = orderData.paymentPlan.insurance ? subtotal * 0.02 : 0;
+      const totalMonthly = monthlyRental + insuranceFee;
       return {
         type: 'Rent-to-Own',
-        monthlyAmount: monthlyRental + insuranceFee,
-        description: `${formatCurrency(monthlyRental)}/month ${orderData.paymentPlan.insurance ? `+ ${formatCurrency(insuranceFee)} insurance` : ''}`
+        monthlyAmount: totalMonthly,
+        description: `${formatCurrency(totalMonthly)}/month`,
+        breakdown: {
+          rental: monthlyRental,
+          insurance: insuranceFee,
+          totalPaid: 0, // First month
+          remainingBalance: total // Full amount until ownership transfer
+        }
       };
     } else if (orderData.paymentPlan.type === 'installment') {
       const months = orderData.paymentPlan.months || 3;
-      const monthlyPayment = calculateMonthlyPayment(total, months);
+      const serviceRate = 0.05; // 5% service fee
+      const baseAmount = total;
+      const serviceFee = baseAmount * serviceRate;
+      const totalWithFees = baseAmount + serviceFee;
+      const monthlyPayment = totalWithFees / months;
+      
       return {
-        type: `${months}-Month Installment`,
+        type: `${months}-Month Installment Plan`,
         monthlyAmount: monthlyPayment,
-        description: `${formatCurrency(monthlyPayment)}/month for ${months} months (5% service fee included)`
+        description: `${formatCurrency(monthlyPayment)}/month for ${months} months`,
+        breakdown: {
+          baseAmount: baseAmount,
+          serviceFee: serviceFee,
+          totalWithFees: totalWithFees,
+          monthlyPayment: monthlyPayment,
+          totalPaid: 0, // First payment
+          remainingBalance: totalWithFees,
+          months: months
+        }
       };
     } else {
       return {
         type: 'Full Payment',
         monthlyAmount: total,
-        description: 'One-time payment'
+        description: 'One-time payment',
+        breakdown: {
+          totalPaid: total,
+          remainingBalance: 0
+        }
       };
     }
   };
@@ -232,22 +257,128 @@ export default function OrderConfirmation() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Payment Plan</CardTitle>
+                <CardTitle>Payment Plan Details</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
+                <div className="space-y-4">
                   <div className="flex justify-between">
                     <span>Payment Type:</span>
                     <span className="font-medium">{paymentDetails.type}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Payment Amount:</span>
-                    <span className="font-medium">{paymentDetails.description}</span>
-                  </div>
+                  
+                  {/* Installment Payment Breakdown */}
+                  {orderData.paymentPlan.type === 'installment' && paymentDetails.breakdown && (
+                    <div className="bg-blue-50 p-4 rounded-lg space-y-3">
+                      <h4 className="font-semibold text-blue-800">Installment Payment Breakdown</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Order Total:</span>
+                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown.baseAmount)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Service Fee (5%):</span>
+                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown.serviceFee)}</span>
+                        </div>
+                        <div className="border-t pt-2 flex justify-between font-semibold">
+                          <span>Total with Fees:</span>
+                          <span>{formatCurrency(paymentDetails.breakdown.totalWithFees)}</span>
+                        </div>
+                        <div className="flex justify-between text-blue-700">
+                          <span>Monthly Payment:</span>
+                          <span className="font-bold">{formatCurrency(paymentDetails.breakdown.monthlyPayment)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Payment Duration:</span>
+                          <span className="font-medium">{paymentDetails.breakdown.months} months</span>
+                        </div>
+                      </div>
+                      
+                      <div className="border-t pt-3 mt-3">
+                        <h5 className="font-medium text-blue-800 mb-2">Payment Schedule</h5>
+                        <div className="space-y-1 text-sm">
+                          <div className="flex justify-between">
+                            <span>Amount Paid Today:</span>
+                            <span className="font-medium text-green-600">{formatCurrency(paymentDetails.breakdown.monthlyPayment)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Remaining Balance:</span>
+                            <span className="font-medium text-orange-600">{formatCurrency(paymentDetails.breakdown.totalWithFees - paymentDetails.breakdown.monthlyPayment)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Next Payment Due:</span>
+                            <span className="font-medium">30 days from order confirmation</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Rent-to-Own Breakdown */}
+                  {orderData.paymentPlan.type === 'rent' && paymentDetails.breakdown && (
+                    <div className="bg-purple-50 p-4 rounded-lg space-y-3">
+                      <h4 className="font-semibold text-purple-800">Rental Payment Breakdown</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Monthly Rental (1%):</span>
+                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown.rental)}</span>
+                        </div>
+                        {paymentDetails.breakdown.insurance > 0 && (
+                          <div className="flex justify-between">
+                            <span>Insurance (2%):</span>
+                            <span className="font-medium">{formatCurrency(paymentDetails.breakdown.insurance)}</span>
+                          </div>
+                        )}
+                        <div className="border-t pt-2 flex justify-between font-semibold text-purple-700">
+                          <span>Total Monthly:</span>
+                          <span>{formatCurrency(paymentDetails.monthlyAmount)}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="border-t pt-3 mt-3">
+                        <h5 className="font-medium text-purple-800 mb-2">Rental Terms</h5>
+                        <div className="space-y-1 text-sm">
+                          <div className="flex justify-between">
+                            <span>First Payment Today:</span>
+                            <span className="font-medium text-green-600">{formatCurrency(paymentDetails.monthlyAmount)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Ownership Transfer Value:</span>
+                            <span className="font-medium text-blue-600">{formatCurrency(total)}</span>
+                          </div>
+                          <p className="text-xs text-purple-600 mt-2">
+                            * Monthly payments continue until ownership transfer or item return
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Full Payment */}
+                  {orderData.paymentPlan.type === 'buy' && (
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-green-800">Full Payment</h4>
+                      <div className="space-y-2 text-sm mt-2">
+                        <div className="flex justify-between">
+                          <span>Amount Due Today:</span>
+                          <span className="font-bold text-green-700">{formatCurrency(total)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Remaining Balance:</span>
+                          <span className="font-medium text-green-600">₦0 (Paid in Full)</span>
+                        </div>
+                        <p className="text-xs text-green-600 mt-2">
+                          ✓ Immediate ownership transfer upon payment
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   {orderData.paymentPlan.insurance && (
-                    <p className="text-sm text-lumiere-gray mt-2">
-                      ✓ Insurance included (damage protection & maintenance)
-                    </p>
+                    <div className="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
+                      <p className="text-sm text-yellow-800">
+                        <strong>Insurance Coverage Included:</strong> Damage protection, maintenance, and replacement coverage
+                      </p>
+                    </div>
                   )}
                 </div>
               </CardContent>
