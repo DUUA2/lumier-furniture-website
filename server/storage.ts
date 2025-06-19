@@ -103,7 +103,7 @@ export class DatabaseStorage implements IStorage {
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
     const [product] = await db
       .insert(products)
-      .values(insertProduct)
+      .values(insertProduct as any)
       .returning();
     return product;
   }
@@ -124,11 +124,20 @@ export class DatabaseStorage implements IStorage {
 
   // Orders
   async createOrder(insertOrder: InsertOrder): Promise<Order> {
-    const [order] = await db
-      .insert(orders)
-      .values([insertOrder])
-      .returning();
-    return order;
+    try {
+      const orderData = {
+        ...insertOrder,
+        items: Array.isArray(insertOrder.items) ? insertOrder.items : []
+      };
+      const [order] = await db
+        .insert(orders)
+        .values(orderData as any)
+        .returning();
+      return order;
+    } catch (error) {
+      console.error("Error creating order:", error);
+      throw error;
+    }
   }
 
   async getOrder(id: number): Promise<Order | undefined> {
@@ -140,9 +149,9 @@ export class DatabaseStorage implements IStorage {
     try {
       if (userId === 'all') {
         // Return all orders for admin
-        return await db.select().from(orders).orderBy(desc(orders.createdAt));
+        return await db.select().from(orders);
       }
-      return await db.select().from(orders).where(eq(orders.userId, userId)).orderBy(desc(orders.createdAt));
+      return await db.select().from(orders).where(eq(orders.userId, userId));
     } catch (error) {
       console.error("Error fetching orders by user:", error);
       return [];
