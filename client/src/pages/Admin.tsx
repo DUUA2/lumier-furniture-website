@@ -749,60 +749,164 @@ export default function Admin() {
         <TabsContent value="subscriptions" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Subscription Plans</CardTitle>
+              <CardTitle>Subscription Plans Management</CardTitle>
+              <p className="text-sm text-gray-600">Customize plan descriptions, pricing, and features</p>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="border rounded-lg p-4">
-                    <h3 className="font-semibold text-lg">Basic Plan</h3>
-                    <p className="text-gray-600 mb-4">Essential furniture for small spaces</p>
-                    <div>
-                      <Label>Monthly Price (₦)</Label>
-                      <Input type="number" defaultValue="15000" />
+              <div className="space-y-8">
+                {/* Basic Plan */}
+                <div className="border rounded-lg p-6 bg-blue-50">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Plan Name</Label>
+                        <Input defaultValue="Basic Plan" />
+                      </div>
+                      <div>
+                        <Label>Monthly Price (₦)</Label>
+                        <Input type="number" defaultValue="15000" />
+                      </div>
                     </div>
-                    <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                      <li>• 2-3 furniture pieces</li>
-                      <li>• Quarterly refresh</li>
-                      <li>• Basic delivery</li>
-                    </ul>
+                    
+                    <div>
+                      <Label>Plan Description</Label>
+                      <Textarea 
+                        defaultValue="Essential furniture pieces for small spaces and budget-conscious customers"
+                        rows={2}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label>Features & Benefits (one per line)</Label>
+                      <Textarea 
+                        defaultValue={`2-3 carefully selected furniture pieces
+Quarterly refresh options to change your style
+Basic delivery service included
+Perfect for studio apartments and small spaces
+Customer support via email`}
+                        rows={6}
+                        placeholder="Enter each feature on a new line"
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="border rounded-lg p-4">
-                    <h3 className="font-semibold text-lg">Premium Plan</h3>
-                    <p className="text-gray-600 mb-4">Complete room solutions</p>
-                    <div>
-                      <Label>Monthly Price (₦)</Label>
-                      <Input type="number" defaultValue="25000" />
+                </div>
+
+                {/* Premium Plan */}
+                <div className="border rounded-lg p-6 bg-yellow-50">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Plan Name</Label>
+                        <Input defaultValue="Premium Plan" />
+                      </div>
+                      <div>
+                        <Label>Monthly Price (₦)</Label>
+                        <Input type="number" defaultValue="25000" />
+                      </div>
                     </div>
-                    <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                      <li>• 4-6 furniture pieces</li>
-                      <li>• Monthly refresh option</li>
-                      <li>• Priority delivery</li>
-                      <li>• Design consultation</li>
-                    </ul>
+                    
+                    <div>
+                      <Label>Plan Description</Label>
+                      <Textarea 
+                        defaultValue="Complete room solutions with premium furniture pieces and enhanced services"
+                        rows={2}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label>Features & Benefits (one per line)</Label>
+                      <Textarea 
+                        defaultValue={`4-6 premium furniture pieces for complete room setup
+Monthly refresh options for more flexibility
+Priority delivery service with scheduling
+Basic interior design consultation included
+Phone and email customer support
+Perfect for 1-2 bedroom apartments`}
+                        rows={6}
+                        placeholder="Enter each feature on a new line"
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="border rounded-lg p-4">
-                    <h3 className="font-semibold text-lg">Elite Plan</h3>
-                    <p className="text-gray-600 mb-4">Luxury furniture collection</p>
-                    <div>
-                      <Label>Monthly Price (₦)</Label>
-                      <Input type="number" defaultValue="40000" />
+                </div>
+
+                {/* Elite Plan */}
+                <div className="border rounded-lg p-6 bg-purple-50">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Plan Name</Label>
+                        <Input defaultValue="Elite Plan" />
+                      </div>
+                      <div>
+                        <Label>Monthly Price (₦)</Label>
+                        <Input type="number" defaultValue="40000" />
+                      </div>
                     </div>
-                    <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                      <li>• 8+ furniture pieces</li>
-                      <li>• Weekly refresh option</li>
-                      <li>• White-glove delivery</li>
-                      <li>• Personal design consultant</li>
-                      <li>• Exclusive pieces</li>
-                    </ul>
+                    
+                    <div>
+                      <Label>Plan Description</Label>
+                      <Textarea 
+                        defaultValue="Luxury furniture collection with exclusive pieces and white-glove service"
+                        rows={2}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label>Features & Benefits (one per line)</Label>
+                      <Textarea 
+                        defaultValue={`8+ luxury furniture pieces including exclusive designs
+Weekly refresh options for maximum flexibility
+White-glove delivery and setup service
+Personal interior design consultant
+24/7 priority customer support
+Access to limited edition and designer pieces
+Perfect for large homes and luxury spaces
+Complimentary styling and rearrangement service`}
+                        rows={8}
+                        placeholder="Enter each feature on a new line"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Plan Comparison Settings */}
+                <div className="border rounded-lg p-6 bg-gray-50">
+                  <h3 className="text-lg font-semibold mb-4">Plan Comparison Settings</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <Label>Main Subscription Headline</Label>
+                      <Input defaultValue="Transform Your Space with Flexible Furniture Subscriptions" />
+                    </div>
+                    
+                    <div>
+                      <Label>Subscription Service Description</Label>
+                      <Textarea 
+                        defaultValue="Enjoy premium furniture without the commitment. Our subscription plans let you refresh your space regularly with high-quality pieces that match your evolving style and needs."
+                        rows={3}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Call-to-Action Button Text</Label>
+                        <Input defaultValue="Start Your Subscription" />
+                      </div>
+                      <div>
+                        <Label>Secondary Button Text</Label>
+                        <Input defaultValue="Learn More" />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <Button className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
-                  Update Subscription Plans
-                </Button>
+                <div className="flex gap-4">
+                  <Button className="flex-1 bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
+                    Save All Subscription Changes
+                  </Button>
+                  <Button variant="outline" className="px-6">
+                    Preview Changes
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
