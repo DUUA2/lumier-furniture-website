@@ -5,13 +5,7 @@ import { ArrowLeft, Shield, CreditCard, FileText, Clock, Recycle, Star, Calendar
 export default function Terms() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-4 mb-8">
-        <Link href="/checkout">
-          <Button variant="outline" size="sm">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Checkout
-          </Button>
-        </Link>
+      <div className="mb-8">
         <h1 className="text-3xl font-bold">Payment Plans & Subscription Services</h1>
       </div>
 
