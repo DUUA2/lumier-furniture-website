@@ -268,6 +268,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin API routes
+  app.get("/api/admin/stats", async (req, res) => {
+    try {
+      const products = await storage.getProducts();
+      const orders = await storage.getOrdersByUser('all'); // Get all orders for admin
+      
+      const totalRevenue = orders.reduce((sum: number, order: any) => sum + (order.total || 0), 0);
+      
+      const stats = {
+        totalProducts: products.length,
+        totalOrders: orders.length,
+        totalRevenue,
+        activeSubscriptions: 0 // TODO: implement subscription counting
+      };
+      
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching admin stats:", error);
+      res.status(500).json({ message: "Failed to fetch admin statistics" });
+    }
+  });
+
+  app.get("/api/orders", async (req, res) => {
+    try {
+      const orders = await storage.getOrdersByUser('all'); // Get all orders for admin
+      res.json(orders);
+    } catch (error) {
+      console.error("Error fetching all orders:", error);
+      res.status(500).json({ message: "Failed to fetch orders" });
+    }
+  });
+
+  app.put("/api/admin/settings", async (req, res) => {
+    try {
+      const settings = req.body;
+      // TODO: Implement settings storage
+      res.json({ message: "Settings updated successfully", settings });
+    } catch (error) {
+      console.error("Error updating settings:", error);
+      res.status(500).json({ message: "Failed to update settings" });
+    }
+  });
+
   // Create subscription order
   app.post("/api/subscription/create", isAuthenticated, async (req, res) => {
     try {

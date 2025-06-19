@@ -387,8 +387,8 @@ export default function AdminDashboard() {
                       </div>
                       <div className="text-right">
                         <p className="font-medium">{formatCurrency(order.total || 0)}</p>
-                        <Badge variant={order.paymentType === 'purchase' ? 'default' : 'secondary'}>
-                          {order.paymentType}
+                        <Badge variant={order.orderType === 'purchase' ? 'default' : 'secondary'}>
+                          {order.orderType}
                         </Badge>
                       </div>
                     </div>
@@ -439,7 +439,7 @@ export default function AdminDashboard() {
                         <div className="space-y-4">
                           <ProductForm
                             product={editingProduct}
-                            onChange={setEditingProduct}
+                            onChange={(updates) => setEditingProduct(updates as Product)}
                           />
                           <div className="flex justify-end space-x-2">
                             <Button variant="outline" onClick={() => setEditingProduct(null)}>
@@ -518,17 +518,19 @@ export default function AdminDashboard() {
                         </div>
                         <div className="text-right">
                           <p className="font-semibold">{formatCurrency(order.total || 0)}</p>
-                          <Badge variant={order.paymentType === 'purchase' ? 'default' : 'secondary'}>
-                            {order.paymentType}
+                          <Badge variant={order.orderType === 'purchase' ? 'default' : 'secondary'}>
+                            {order.orderType}
                           </Badge>
                         </div>
                       </div>
                       <div className="text-sm text-gray-600">
                         <p>Phone: {order.customerPhone}</p>
-                        <p>Delivery: {order.deliveryAddress}</p>
-                        <p>Payment Plan: {order.paymentMonths} months</p>
-                        {order.monthlyAmount && (
-                          <p>Monthly Amount: {formatCurrency(order.monthlyAmount)}</p>
+                        <p>Delivery: {typeof order.deliveryAddress === 'object' 
+                          ? `${order.deliveryAddress.street}, ${order.deliveryAddress.city}, ${order.deliveryAddress.state}`
+                          : String(order.deliveryAddress)}</p>
+                        <p>Payment Plan: {order.paymentPlan} months</p>
+                        {order.monthlyPayment && (
+                          <p>Monthly Amount: {formatCurrency(order.monthlyPayment)}</p>
                         )}
                       </div>
                     </div>

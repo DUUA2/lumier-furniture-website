@@ -23,6 +23,7 @@ import TermsOfService from "@/pages/TermsOfService";
 import OrderConfirmation from "@/pages/OrderConfirmation";
 import Profile from "@/pages/Profile";
 import Admin from "@/pages/Admin";
+import AdminDashboard from "@/pages/AdminDashboard";
 import DeploymentGuide from "@/pages/DeploymentGuide";
 import Landing from "@/pages/Landing";
 import Dashboard from "@/pages/Dashboard";
@@ -44,6 +45,7 @@ function Router() {
       <Route path="/profile" component={Profile} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Admin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route path="/deployment-guide" component={DeploymentGuide} />
       <Route path="/terms" component={Terms} />
       <Route path="/help" component={HelpCenter} />
