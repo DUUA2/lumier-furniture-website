@@ -340,9 +340,12 @@ export default function Admin() {
       </div>
 
       <Tabs defaultValue="products" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="products">Manage Products</TabsTrigger>
-          <TabsTrigger value="orders">View Orders</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="products">Products</TabsTrigger>
+          <TabsTrigger value="orders">Orders</TabsTrigger>
+          <TabsTrigger value="pricing">Pricing</TabsTrigger>
+          <TabsTrigger value="subscriptions">Subscriptions</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
         <TabsContent value="products" className="mt-6">
@@ -667,10 +670,233 @@ export default function Admin() {
         <TabsContent value="orders" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Recent Orders</CardTitle>
+              <CardTitle>Order Management</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lumiere-gray">Order management coming soon...</p>
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div className="bg-blue-50 p-4 rounded">
+                    <h3 className="font-semibold text-blue-700">Total Orders</h3>
+                    <p className="text-2xl font-bold text-blue-800">0</p>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded">
+                    <h3 className="font-semibold text-green-700">Total Revenue</h3>
+                    <p className="text-2xl font-bold text-green-800">₦0</p>
+                  </div>
+                  <div className="bg-yellow-50 p-4 rounded">
+                    <h3 className="font-semibold text-yellow-700">Pending Orders</h3>
+                    <p className="text-2xl font-bold text-yellow-800">0</p>
+                  </div>
+                </div>
+                <p className="text-lumiere-gray">Orders will appear here once customers start purchasing</p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="pricing" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Pricing Configuration</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <Label>VAT Rate (%)</Label>
+                    <Input type="number" step="0.1" defaultValue="7.5" />
+                    <p className="text-xs text-gray-500 mt-1">Nigeria standard VAT rate</p>
+                  </div>
+                  <div>
+                    <Label>Service Fee Rate (%)</Label>
+                    <Input type="number" step="0.1" defaultValue="5.0" />
+                    <p className="text-xs text-gray-500 mt-1">Monthly service fee for installments</p>
+                  </div>
+                  <div>
+                    <Label>Rental Rate (%)</Label>
+                    <Input type="number" step="0.1" defaultValue="1.0" />
+                    <p className="text-xs text-gray-500 mt-1">Monthly rental percentage of item value</p>
+                  </div>
+                  <div>
+                    <Label>Insurance Rate (%)</Label>
+                    <Input type="number" step="0.1" defaultValue="2.0" />
+                    <p className="text-xs text-gray-500 mt-1">Optional insurance for rental items</p>
+                  </div>
+                </div>
+                
+                <div className="border-t pt-6">
+                  <h3 className="text-lg font-semibold mb-4">Delivery Fees</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Lagos Delivery Fee (₦)</Label>
+                      <Input type="number" defaultValue="15000" />
+                    </div>
+                    <div>
+                      <Label>Other States Delivery Fee (₦)</Label>
+                      <Input type="number" defaultValue="25000" />
+                    </div>
+                  </div>
+                </div>
+                
+                <Button className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
+                  Save Pricing Settings
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="subscriptions" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Subscription Plans</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold text-lg">Basic Plan</h3>
+                    <p className="text-gray-600 mb-4">Essential furniture for small spaces</p>
+                    <div>
+                      <Label>Monthly Price (₦)</Label>
+                      <Input type="number" defaultValue="15000" />
+                    </div>
+                    <ul className="text-sm text-gray-600 mt-2 space-y-1">
+                      <li>• 2-3 furniture pieces</li>
+                      <li>• Quarterly refresh</li>
+                      <li>• Basic delivery</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold text-lg">Premium Plan</h3>
+                    <p className="text-gray-600 mb-4">Complete room solutions</p>
+                    <div>
+                      <Label>Monthly Price (₦)</Label>
+                      <Input type="number" defaultValue="25000" />
+                    </div>
+                    <ul className="text-sm text-gray-600 mt-2 space-y-1">
+                      <li>• 4-6 furniture pieces</li>
+                      <li>• Monthly refresh option</li>
+                      <li>• Priority delivery</li>
+                      <li>• Design consultation</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold text-lg">Elite Plan</h3>
+                    <p className="text-gray-600 mb-4">Luxury furniture collection</p>
+                    <div>
+                      <Label>Monthly Price (₦)</Label>
+                      <Input type="number" defaultValue="40000" />
+                    </div>
+                    <ul className="text-sm text-gray-600 mt-2 space-y-1">
+                      <li>• 8+ furniture pieces</li>
+                      <li>• Weekly refresh option</li>
+                      <li>• White-glove delivery</li>
+                      <li>• Personal design consultant</li>
+                      <li>• Exclusive pieces</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <Button className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
+                  Update Subscription Plans
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="settings" className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Website Settings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Email Configuration</h3>
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <Label>SendGrid API Key</Label>
+                      <Input type="password" placeholder="Enter SendGrid API key for email notifications" />
+                      <p className="text-xs text-gray-500 mt-1">Required for order confirmations and notifications</p>
+                    </div>
+                    <div>
+                      <Label>Admin Email</Label>
+                      <Input type="email" defaultValue="admin@lumierefurniture.com" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="border-t pt-6">
+                  <h3 className="text-lg font-semibold mb-4">Business Information</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Company RC Number</Label>
+                      <Input defaultValue="3662809" />
+                    </div>
+                    <div>
+                      <Label>Business Address</Label>
+                      <Input defaultValue="Lagos, Nigeria" />
+                    </div>
+                    <div>
+                      <Label>Phone Number</Label>
+                      <Input defaultValue="+234 800 LUMIERE" />
+                    </div>
+                    <div>
+                      <Label>Support Email</Label>
+                      <Input defaultValue="support@lumierefurniture.com" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="border-t pt-6">
+                  <h3 className="text-lg font-semibold mb-4">Website Features</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Live Chat Support</Label>
+                        <p className="text-sm text-gray-500">Enable real-time customer support</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Newsletter Signup</Label>
+                        <p className="text-sm text-gray-500">Allow customers to subscribe to updates</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Seasonal Collections</Label>
+                        <p className="text-sm text-gray-500">Display seasonal furniture collections</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>AR Showroom</Label>
+                        <p className="text-sm text-gray-500">Virtual furniture preview feature</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Subscription Service</Label>
+                        <p className="text-sm text-gray-500">Monthly furniture rental plans</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                  </div>
+                </div>
+                
+                <Button className="w-full bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90">
+                  Save All Settings
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
