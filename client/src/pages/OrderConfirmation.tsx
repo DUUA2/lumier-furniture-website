@@ -177,14 +177,14 @@ export default function OrderConfirmation() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-6 sm:py-12">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-lumiere-black mb-2">Order Confirmation</h1>
-          <p className="text-lumiere-gray">Please review your order details before confirming</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-lumiere-black mb-2">Order Confirmation</h1>
+          <p className="text-lumiere-gray text-sm sm:text-base">Please review your order details before confirming</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Customer Information */}
           <div className="space-y-6">
             <Card>
@@ -273,19 +273,19 @@ export default function OrderConfirmation() {
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span>Order Total:</span>
-                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown.baseAmount)}</span>
+                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown?.baseAmount || 0)}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Service Fee (5%):</span>
-                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown.serviceFee)}</span>
+                          <span className="font-medium">{formatCurrency(paymentDetails.breakdown?.serviceFee || 0)}</span>
                         </div>
                         <div className="border-t pt-2 flex justify-between font-semibold">
                           <span>Total with Fees:</span>
-                          <span>{formatCurrency(paymentDetails.breakdown.totalWithFees)}</span>
+                          <span>{formatCurrency(paymentDetails.breakdown?.totalWithFees || 0)}</span>
                         </div>
                         <div className="flex justify-between text-blue-700">
                           <span>Monthly Payment:</span>
-                          <span className="font-bold">{formatCurrency(paymentDetails.breakdown.monthlyPayment)}</span>
+                          <span className="font-bold">{formatCurrency(paymentDetails.breakdown?.monthlyPayment || 0)}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Payment Duration:</span>
@@ -298,11 +298,11 @@ export default function OrderConfirmation() {
                         <div className="space-y-1 text-sm">
                           <div className="flex justify-between">
                             <span>Amount Paid Today:</span>
-                            <span className="font-medium text-green-600">{formatCurrency(paymentDetails.breakdown.monthlyPayment)}</span>
+                            <span className="font-medium text-green-600">{formatCurrency(paymentDetails.breakdown?.monthlyPayment || 0)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Remaining Balance:</span>
-                            <span className="font-medium text-orange-600">{formatCurrency(paymentDetails.breakdown.totalWithFees - paymentDetails.breakdown.monthlyPayment)}</span>
+                            <span className="font-medium text-orange-600">{formatCurrency((paymentDetails.breakdown?.totalWithFees || 0) - (paymentDetails.breakdown?.monthlyPayment || 0))}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Next Payment Due:</span>
