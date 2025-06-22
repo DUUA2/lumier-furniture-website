@@ -20,6 +20,7 @@ interface ProductFormData {
   price: number;
   category: string;
   image: string;
+  images: string[];
   colors: string[];
   dimensions: string;
   material: string;
@@ -40,6 +41,7 @@ export default function Admin() {
     price: 0,
     category: "",
     image: "",
+    images: [],
     colors: [],
     dimensions: "",
     material: "",
@@ -154,6 +156,7 @@ export default function Admin() {
       price: 0,
       category: "",
       image: "",
+      images: [],
       colors: [],
       dimensions: "",
       material: "",
@@ -173,6 +176,7 @@ export default function Admin() {
       price: product.price || 0,
       category: product.category || "",
       image: product.image || "",
+      images: [product.image || ""],
       colors: product.colors || [],
       dimensions: product.dimensions || "",
       material: product.material || "",
