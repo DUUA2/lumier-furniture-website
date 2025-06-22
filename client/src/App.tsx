@@ -31,6 +31,7 @@ import Dashboard from "@/pages/Dashboard";
 import Account from "@/pages/Account";
 import TestLogin from "@/pages/TestLogin";
 import QuickTest from "@/pages/QuickTest";
+import TestAuth from "@/pages/TestAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LiveChat from "@/components/LiveChat";
@@ -49,6 +50,7 @@ function Router() {
       <Route path="/profile" component={Profile} />
       <Route path="/account" component={Account} />
       <Route path="/test-login" component={TestLogin} />
+      <Route path="/test-auth" component={TestAuth} />
       <Route path="/quick-test" component={QuickTest} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Admin} />

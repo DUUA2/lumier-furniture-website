@@ -23,6 +23,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Local authentication routes
+  app.post('/api/auth/register', async (req, res) => {
+    try {
+      const { email, password, firstName, lastName, phone } = req.body;
+      
+      // Check if user already exists
+      const existingUser = await storage.getUserByEmail(email);
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists with this email" });
+      }
+
+      // Create new user
+      const user = await storage.createUserAccount({
+        email,
+        password,
+        firstName,
+        lastName,
+        phone
+      });
+
+      // Store user session
+      (req.session as any).userId = user.id;
+      (req.session as any).user = user;
+
+      res.json({ 
+        message: "Account created successfully", 
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phone: user.phone
+        }
+      });
+    } catch (error) {
+      console.error("Registration error:", error);
+      res.status(500).json({ message: "Failed to create account" });
+    }
+  });
+
+  app.post('/api/auth/login', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+      const user = await storage.authenticateUser(email, password);
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      // Store user session
+      (req.session as any).userId = user.id;
+      (req.session as any).user = user;
+
+      res.json({ 
+        message: "Login successful", 
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phone: user.phone
+        }
+      });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
+  app.post('/api/auth/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Could not log out" });
+      }
+      res.json({ message: "Logout successful" });
+    });
+  });
+
+  app.get('/api/auth/current-user', (req, res) => {
+    const userId = (req.session as any)?.userId;
+    const user = (req.session as any)?.user;
+    
+    if (!userId || !user) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    res.json({
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone
+    });
+  });
+
   // Profile update route
   app.put('/api/profile', isAuthenticated, async (req: any, res) => {
     try {
