@@ -308,6 +308,24 @@ export default function OrderConfirmation() {
                             <DialogTitle>Monthly Payment Schedule</DialogTitle>
                           </DialogHeader>
                           <div className="space-y-4">
+                            {/* Purchase Date Header */}
+                            <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                              <div className="flex justify-between items-center">
+                                <span className="font-medium text-green-800">Purchase Date:</span>
+                                <span className="font-bold text-green-700">
+                                  {new Date().toLocaleDateString('en-GB', { 
+                                    weekday: 'long',
+                                    day: 'numeric', 
+                                    month: 'long', 
+                                    year: 'numeric' 
+                                  })}
+                                </span>
+                              </div>
+                              <div className="text-sm text-green-600 mt-1">
+                                All payment dates calculated from today's purchase
+                              </div>
+                            </div>
+                            
                             <div className="bg-blue-50 p-4 rounded-lg">
                               <div className="flex justify-between items-center mb-2">
                                 <span className="font-semibold">Monthly Payment:</span>
@@ -316,7 +334,7 @@ export default function OrderConfirmation() {
                                 </span>
                               </div>
                               <div className="text-sm text-gray-600">
-                                For {paymentDetails.breakdown?.months || 3} months
+                                For {paymentDetails.breakdown?.months || 3} months starting today
                               </div>
                             </div>
                             
@@ -327,28 +345,51 @@ export default function OrderConfirmation() {
                               </h4>
                               {Array.from({ length: paymentDetails.breakdown?.months || 3 }, (_, index) => {
                                 const monthNumber = index + 1;
-                                const dueDate = new Date();
-                                dueDate.setMonth(dueDate.getMonth() + index);
+                                const purchaseDate = new Date(); // Current purchase date
+                                const dueDate = new Date(purchaseDate);
+                                
+                                // Calculate actual due dates based on purchase date
+                                if (index === 0) {
+                                  // First payment is due today (on purchase)
+                                  dueDate.setDate(purchaseDate.getDate());
+                                } else {
+                                  // Subsequent payments due on the same day of each following month
+                                  dueDate.setMonth(purchaseDate.getMonth() + index);
+                                  // Handle month overflow (e.g., Jan 31 -> Feb 28)
+                                  if (dueDate.getDate() !== purchaseDate.getDate()) {
+                                    dueDate.setDate(0); // Set to last day of previous month
+                                  }
+                                }
+                                
+                                const isToday = index === 0;
+                                const daysBetween = index === 0 ? 0 : Math.ceil((dueDate.getTime() - purchaseDate.getTime()) / (1000 * 60 * 60 * 24));
                                 
                                 return (
-                                  <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                  <div key={index} className={`flex justify-between items-center p-3 rounded ${
+                                    isToday ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50'
+                                  }`}>
                                     <div>
-                                      <div className="font-medium">Month {monthNumber}</div>
+                                      <div className="font-medium">Payment {monthNumber}</div>
                                       <div className="text-sm text-gray-600">
-                                        Due: {dueDate.toLocaleDateString('en-GB', { 
+                                        {isToday ? 'Due Today' : `Due: ${dueDate.toLocaleDateString('en-GB', { 
                                           day: 'numeric', 
                                           month: 'short', 
                                           year: 'numeric' 
-                                        })}
+                                        })}`}
                                       </div>
+                                      {!isToday && (
+                                        <div className="text-xs text-gray-500">
+                                          ({daysBetween} days from purchase)
+                                        </div>
+                                      )}
                                     </div>
                                     <div className="text-right">
-                                      <div className="font-semibold">
+                                      <div className={`font-semibold ${isToday ? 'text-blue-600' : ''}`}>
                                         {formatCurrency(paymentDetails.breakdown?.monthlyPayment || 0)}
                                       </div>
-                                      {index === 0 && (
-                                        <Badge variant="secondary" className="text-xs">
-                                          Due Today
+                                      {isToday && (
+                                        <Badge className="text-xs bg-blue-600">
+                                          Pay Now
                                         </Badge>
                                       )}
                                     </div>
