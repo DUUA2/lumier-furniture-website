@@ -679,6 +679,8 @@ export default function Admin() {
                       {!formData.inStock && !formData.availableForPreOrder && " Out of Stock"}
                       {formData.availableForInstallment && " • Installment Payment Available"}
                       {!formData.availableForInstallment && " • Installment Payment Disabled"}
+                      {formData.requiresTruckDelivery && " • Truck Delivery Required"}
+                      {!formData.requiresTruckDelivery && " • Standard Delivery"}
                     </div>
                   </div>
 
@@ -849,14 +851,30 @@ export default function Admin() {
                 
                 <div className="border-t pt-6">
                   <h3 className="text-lg font-semibold mb-4">Delivery Fees</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label>Lagos Delivery Fee (₦)</Label>
-                      <Input type="number" defaultValue="15000" />
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Standard Lagos Delivery (₦)</Label>
+                        <Input type="number" defaultValue="15000" />
+                        <p className="text-xs text-gray-500 mt-1">Regular delivery for small items</p>
+                      </div>
+                      <div>
+                        <Label>Standard Other States (₦)</Label>
+                        <Input type="number" defaultValue="25000" />
+                        <p className="text-xs text-gray-500 mt-1">Regular delivery outside Lagos</p>
+                      </div>
                     </div>
-                    <div>
-                      <Label>Other States Delivery Fee (₦)</Label>
-                      <Input type="number" defaultValue="25000" />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Truck Lagos Delivery (₦)</Label>
+                        <Input type="number" defaultValue="35000" />
+                        <p className="text-xs text-gray-500 mt-1">Large items requiring truck</p>
+                      </div>
+                      <div>
+                        <Label>Truck Other States (₦)</Label>
+                        <Input type="number" defaultValue="50000" />
+                        <p className="text-xs text-gray-500 mt-1">Large items outside Lagos</p>
+                      </div>
                     </div>
                   </div>
                 </div>

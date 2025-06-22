@@ -79,6 +79,15 @@ export default function ProductCard({ product }: ProductCardProps) {
               Remaining ₦{remainingBalance.toLocaleString()} in 2-6 monthly installments
             </div>
           </div>
+          {product.requiresTruckDelivery && (
+            <div className="flex items-center gap-2 mt-2 p-2 bg-orange-50 rounded-lg">
+              <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707L16 7.586A1 1 0 0015.414 7H14z"/>
+              </svg>
+              <span className="text-xs text-orange-700 font-medium">Truck Delivery Required</span>
+            </div>
+          )}
         </div>
         <div className="flex flex-wrap gap-2 mb-3">
           <Badge variant="secondary">

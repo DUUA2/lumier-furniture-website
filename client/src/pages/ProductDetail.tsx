@@ -330,6 +330,26 @@ export default function ProductDetail() {
             </div>
           </div>
 
+          {/* Delivery Information */}
+          {product.requiresTruckDelivery && (
+            <div className="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+              <div className="flex items-center gap-3 mb-2">
+                <svg className="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                  <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707L16 7.586A1 1 0 0015.414 7H14z"/>
+                </svg>
+                <h4 className="font-semibold text-orange-900">Special Truck Delivery Required</h4>
+              </div>
+              <p className="text-sm text-orange-800">
+                This large furniture item requires truck delivery. Additional delivery fees apply:
+              </p>
+              <ul className="text-sm text-orange-700 mt-2 ml-4 list-disc">
+                <li>Lagos: ₦35,000 (truck delivery)</li>
+                <li>Other States: ₦50,000 (truck delivery)</li>
+              </ul>
+            </div>
+          )}
+
           {/* Add to Cart */}
           <Button
             onClick={handleAddToCart}

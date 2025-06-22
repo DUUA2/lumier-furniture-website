@@ -19,12 +19,23 @@ export function calculatePaymentBreakdown(
   cartTotal: number,
   installmentMonths: number = 0,
   includeInsurance: boolean = false,
-  deliveryFee: number = 5000
+  deliveryFee: number = 5000,
+  requiresTruckDelivery: boolean = false,
+  isLagos: boolean = true
 ): PaymentBreakdown {
   const subtotal = cartTotal;
   const vat = Math.round(subtotal * 0.075); // 7.5% VAT
   const insurance = includeInsurance ? Math.round(subtotal * 0.02) : 0; // 2% insurance
-  const totalOrderValue = subtotal + vat + deliveryFee + insurance;
+  
+  // Calculate delivery fee based on truck requirement and location
+  let calculatedDeliveryFee = deliveryFee;
+  if (requiresTruckDelivery) {
+    calculatedDeliveryFee = isLagos ? 35000 : 50000; // Truck delivery rates
+  } else {
+    calculatedDeliveryFee = isLagos ? 15000 : 25000; // Standard delivery rates
+  }
+  
+  const totalOrderValue = subtotal + vat + calculatedDeliveryFee + insurance;
   
   // Calculate 70% down payment
   const downPayment = Math.round(totalOrderValue * 0.70);
@@ -37,7 +48,7 @@ export function calculatePaymentBreakdown(
     return {
       subtotal,
       vat,
-      deliveryFee,
+      deliveryFee: calculatedDeliveryFee,
       insurance,
       totalOrderValue,
       downPayment: totalOrderValue,
@@ -65,7 +76,7 @@ export function calculatePaymentBreakdown(
   return {
     subtotal,
     vat,
-    deliveryFee,
+    deliveryFee: calculatedDeliveryFee,
     insurance,
     totalOrderValue,
     downPayment,
