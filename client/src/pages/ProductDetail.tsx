@@ -57,13 +57,15 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
+    const cartItemType: 'buy' | 'rent' | 'installment' = paymentType === 'full' ? 'buy' : 'installment';
+    
     const cartItem = {
       id: product.id,
       name: product.name,
       price: product.price,
       image: product.image,
       quantity: 1,
-      type: paymentType === 'full' ? 'buy' : 'installment',
+      type: cartItemType,
       color: selectedColor || product.colors[0],
       paymentType,
       installmentDuration: paymentType === 'installment' ? installmentDuration : undefined
