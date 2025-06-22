@@ -262,6 +262,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Create test user for account testing
+  app.post('/api/create-test-user', async (req, res) => {
+    try {
+      const { email, firstName, lastName, phone } = req.body;
+      
+      if (!email || !firstName) {
+        return res.status(400).json({ error: 'Email and first name are required' });
+      }
+
+      // Check if user already exists
+      const existingUser = await storage.getUser(email);
+      if (existingUser) {
+        return res.status(409).json({ error: 'User already exists' });
+      }
+
+      // Create new test user
+      const newUser = await storage.upsertUser({
+        id: email,
+        email,
+        firstName,
+        lastName: lastName || '',
+        phone: phone || '',
+      });
+
+      res.json({ 
+        message: 'Test user created successfully', 
+        user: newUser 
+      });
+    } catch (error) {
+      console.error('Error creating test user:', error);
+      res.status(500).json({ error: 'Failed to create test user' });
+    }
+  });
+
+  // Simple login for testing
+  app.post('/api/test-login', async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+      }
+
+      const user = await storage.getUser(email);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Set user session (simplified for testing)
+      (req.session as any).user = user;
+      
+      res.json({ 
+        message: 'Login successful', 
+        user 
+      });
+    } catch (error) {
+      console.error('Error during test login:', error);
+      res.status(500).json({ error: 'Failed to login' });
+    }
+  });
+
   // Pay remaining balance for an order
   app.post('/api/orders/:id/pay-remaining', isAuthenticated, async (req, res) => {
     try {
