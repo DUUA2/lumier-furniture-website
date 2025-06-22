@@ -6,6 +6,10 @@ import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/contexts/CartContext";
 import { formatCurrency, calculateVAT, calculateMonthlyPayment } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Info, Calendar, DollarSign } from "lucide-react";
+import { useLocalAuth } from "@/hooks/useLocalAuth";
 
 interface OrderData {
   customerInfo: {
@@ -39,7 +43,9 @@ export default function OrderConfirmation() {
   const [, setLocation] = useLocation();
   const [isProcessing, setIsProcessing] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [showBreakdown, setShowBreakdown] = useState(false);
   const { cart, getCartTotal, clearCart } = useCart();
+  const { user: localUser, isAuthenticated: isLocalAuth } = useLocalAuth();
 
   // Get order data from localStorage (passed from checkout)
   const [orderData, setOrderData] = useState<OrderData | null>(null);
@@ -81,7 +87,7 @@ export default function OrderConfirmation() {
     } else if (orderData.paymentPlan.type === 'installment') {
       const months = orderData.paymentPlan.months || 3;
       const serviceRate = 0.05; // 5% service fee
-      const baseAmount = total;
+      const baseAmount = total; // Already includes delivery fee
       const serviceFee = baseAmount * serviceRate;
       const totalWithFees = baseAmount + serviceFee;
       const monthlyPayment = totalWithFees / months;
@@ -117,6 +123,12 @@ export default function OrderConfirmation() {
 
   const handleConfirmOrder = async () => {
     if (!confirmed) return;
+    
+    // Check authentication for order processing
+    if (!isLocalAuth) {
+      setLocation('/test-auth');
+      return;
+    }
     
     setIsProcessing(true);
 
@@ -280,6 +292,91 @@ export default function OrderConfirmation() {
                     <span>Total:</span>
                     <span>{formatCurrency(total)}</span>
                   </div>
+                  
+                  {/* Monthly Breakdown for Installments */}
+                  {orderData.paymentPlan.type === 'installment' && (
+                    <div className="mt-4 pt-4 border-t">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="outline" className="w-full">
+                            <Info className="w-4 h-4 mr-2" />
+                            View Monthly Payment Breakdown
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Monthly Payment Schedule</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <div className="bg-blue-50 p-4 rounded-lg">
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="font-semibold">Monthly Payment:</span>
+                                <span className="text-xl font-bold text-blue-600">
+                                  {formatCurrency(paymentDetails.breakdown?.monthlyPayment || 0)}
+                                </span>
+                              </div>
+                              <div className="text-sm text-gray-600">
+                                For {paymentDetails.breakdown?.months || 3} months
+                              </div>
+                            </div>
+                            
+                            <div className="space-y-3">
+                              <h4 className="font-semibold flex items-center">
+                                <Calendar className="w-4 h-4 mr-2" />
+                                Payment Schedule
+                              </h4>
+                              {Array.from({ length: paymentDetails.breakdown?.months || 3 }, (_, index) => {
+                                const monthNumber = index + 1;
+                                const dueDate = new Date();
+                                dueDate.setMonth(dueDate.getMonth() + index);
+                                
+                                return (
+                                  <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                    <div>
+                                      <div className="font-medium">Month {monthNumber}</div>
+                                      <div className="text-sm text-gray-600">
+                                        Due: {dueDate.toLocaleDateString('en-GB', { 
+                                          day: 'numeric', 
+                                          month: 'short', 
+                                          year: 'numeric' 
+                                        })}
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <div className="font-semibold">
+                                        {formatCurrency(paymentDetails.breakdown?.monthlyPayment || 0)}
+                                      </div>
+                                      {index === 0 && (
+                                        <Badge variant="secondary" className="text-xs">
+                                          Due Today
+                                        </Badge>
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            
+                            <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                              <div className="flex">
+                                <DollarSign className="w-5 h-5 text-yellow-600 mr-2 flex-shrink-0 mt-0.5" />
+                                <div className="text-sm">
+                                  <div className="font-semibold text-yellow-800 mb-1">Payment Breakdown:</div>
+                                  <div className="space-y-1 text-yellow-700">
+                                    <div>Order Total: {formatCurrency(paymentDetails.breakdown?.baseAmount || 0)}</div>
+                                    <div>Service Fee (5%): {formatCurrency(paymentDetails.breakdown?.serviceFee || 0)}</div>
+                                    <div className="font-semibold border-t border-yellow-300 pt-1">
+                                      Total Amount: {formatCurrency(paymentDetails.breakdown?.totalWithFees || 0)}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
