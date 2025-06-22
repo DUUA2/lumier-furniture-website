@@ -28,6 +28,7 @@ import SimpleAdmin from "@/pages/SimpleAdmin";
 import DeploymentGuide from "@/pages/DeploymentGuide";
 import Landing from "@/pages/Landing";
 import Dashboard from "@/pages/Dashboard";
+import Account from "@/pages/Account";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LiveChat from "@/components/LiveChat";
@@ -44,6 +45,7 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/confirm-order" component={OrderConfirmation} />
       <Route path="/profile" component={Profile} />
+      <Route path="/account" component={Account} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Admin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
