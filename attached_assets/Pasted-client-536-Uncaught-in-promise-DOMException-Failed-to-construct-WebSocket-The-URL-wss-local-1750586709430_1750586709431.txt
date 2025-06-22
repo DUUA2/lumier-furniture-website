@@ -1,0 +1,106 @@
+client:536 Uncaught (in promise) DOMException: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=yQUSgpqmrvyT' is invalid.
+    at setupWebSocket (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@vite/client:536:19)
+    at fallback (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@vite/client:509:16)
+    at WebSocket.<anonymous> (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@vite/client:555:7)
+chunk-WERSD76P.js?v=3f371b06:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+chunk-WERSD76P.js?v=3f371b06:521 Warning: Cannot update a component (`Toaster`) while rendering a different component (`CartProvider`). To locate the bad setState() call inside `CartProvider`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render
+    at CartProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/src/contexts/CartContext.tsx:22:32)
+    at QueryClientProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=3f371b06:2805:3)
+    at App
+printWarning @ chunk-WERSD76P.js?v=3f371b06:521
+Show 1 more frame
+Show less
+/explore:1 A soft navigation has been detected: https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/explore
+71:1 A soft navigation has been detected: https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/product/71
+chunk-WERSD76P.js?v=3f371b06:521 Warning: React has detected a change in the order of Hooks called by ProductDetail. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useContext                 useContext
+2. useContext                 useContext
+3. useSyncExternalStore       useSyncExternalStore
+4. useRef                     useRef
+5. useInsertionEffect         useInsertionEffect
+6. useState                   useState
+7. useState                   useState
+8. useState                   useState
+9. useState                   useState
+10. useState                  useState
+11. useState                  useState
+12. useState                  useState
+13. useState                  useState
+14. useContext                useContext
+15. useContext                useContext
+16. useContext                useContext
+17. useContext                useContext
+18. useEffect                 useEffect
+19. useState                  useState
+20. useCallback               useCallback
+21. useSyncExternalStore      useSyncExternalStore
+22. useEffect                 useEffect
+23. useContext                useContext
+24. useContext                useContext
+25. useContext                useContext
+26. useEffect                 useEffect
+27. useState                  useState
+28. useCallback               useCallback
+29. useSyncExternalStore      useSyncExternalStore
+30. useEffect                 useEffect
+31. undefined                 useEffect
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    at ProductDetail (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/src/pages/ProductDetail.tsx:30:22)
+    at Route (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f371b06:323:16)
+    at Switch (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f371b06:379:17)
+    at Router
+    at main
+    at div
+    at Provider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-XIZKKOCE.js?v=3f371b06:22:15)
+    at TooltipProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=3f371b06:63:5)
+    at CartProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/src/contexts/CartContext.tsx:22:32)
+    at QueryClientProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=3f371b06:2805:3)
+    at App
+printWarning @ chunk-WERSD76P.js?v=3f371b06:521
+Show 1 more frame
+Show less
+2chunk-WERSD76P.js?v=3f371b06:11678 Uncaught Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-WERSD76P.js?v=3f371b06:11678:21)
+    at updateEffectImpl (chunk-WERSD76P.js?v=3f371b06:12074:22)
+    at updateEffect (chunk-WERSD76P.js?v=3f371b06:12099:18)
+    at Object.useEffect (chunk-WERSD76P.js?v=3f371b06:12703:22)
+    at useEffect (chunk-3TFVT2CW.js?v=3f371b06:1078:29)
+    at ProductDetail (ProductDetail.tsx:53:3)
+    at renderWithHooks (chunk-WERSD76P.js?v=3f371b06:11548:26)
+    at updateFunctionComponent (chunk-WERSD76P.js?v=3f371b06:14582:28)
+    at beginWork (chunk-WERSD76P.js?v=3f371b06:15924:22)
+    at HTMLUnknownElement.callCallback2 (chunk-WERSD76P.js?v=3f371b06:3674:22)
+chunk-WERSD76P.js?v=3f371b06:14032 The above error occurred in the <ProductDetail> component:
+
+    at ProductDetail (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/src/pages/ProductDetail.tsx:30:22)
+    at Route (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f371b06:323:16)
+    at Switch (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f371b06:379:17)
+    at Router
+    at main
+    at div
+    at Provider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-XIZKKOCE.js?v=3f371b06:22:15)
+    at TooltipProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=3f371b06:63:5)
+    at CartProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/src/contexts/CartContext.tsx:22:32)
+    at QueryClientProvider (https://f1e8c6a3-67c0-464a-83e7-accc9a16ea89-00-20arjicr5buhd.picard.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=3f371b06:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-WERSD76P.js?v=3f371b06:14032
+Show 1 more frame
+Show less
+chunk-WERSD76P.js?v=3f371b06:9129 Uncaught Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (chunk-WERSD76P.js?v=3f371b06:11678:21)
+    at updateEffectImpl (chunk-WERSD76P.js?v=3f371b06:12074:22)
+    at updateEffect (chunk-WERSD76P.js?v=3f371b06:12099:18)
+    at Object.useEffect (chunk-WERSD76P.js?v=3f371b06:12703:22)
+    at useEffect (chunk-3TFVT2CW.js?v=3f371b06:1078:29)
+    at ProductDetail (ProductDetail.tsx:53:3)
+    at renderWithHooks (chunk-WERSD76P.js?v=3f371b06:11548:26)
+    at updateFunctionComponent (chunk-WERSD76P.js?v=3f371b06:14582:28)
+    at beginWork (chunk-WERSD76P.js?v=3f371b06:15924:22)
+    at beginWork$1 (chunk-WERSD76P.js?v=3f371b06:19753:22)

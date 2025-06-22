@@ -34,21 +34,6 @@ export default function ProductDetail() {
     queryKey: ["/api/products"],
   });
 
-  const relatedProducts = allProducts
-    .filter(p => p.id !== productId && p.category === product?.category)
-    .slice(0, 4);
-
-  if (!product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold mb-2">Product not found</h2>
-          <p className="text-lumiere-gray">The product you're looking for doesn't exist.</p>
-        </div>
-      </div>
-    );
-  }
-
   // Initialize product settings from cart item if coming from cart
   useEffect(() => {
     if (product) {
@@ -74,6 +59,21 @@ export default function ProductDetail() {
       }
     }
   }, [product, cart, selectedColor, mainImage]);
+
+  const relatedProducts = allProducts
+    .filter(p => p.id !== productId && p.category === product?.category)
+    .slice(0, 4);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold mb-2">Product not found</h2>
+          <p className="text-lumiere-gray">The product you're looking for doesn't exist.</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleAddToCart = () => {
     const cartItemType: 'buy' | 'rent' | 'installment' = paymentType === 'full' ? 'buy' : 'installment';
