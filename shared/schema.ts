@@ -45,6 +45,7 @@ export const products = pgTable("products", {
   inStock: boolean("in_stock").default(true),
   availableForPreOrder: boolean("available_for_pre_order").default(false),
   availableForInstallment: boolean("available_for_installment").default(true),
+  requiresTruckDelivery: boolean("requires_truck_delivery").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

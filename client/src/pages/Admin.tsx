@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Plus, Edit, Save, X, Trash2, Eye, EyeOff, Lock, Unlock } from "lucide-react";
+import { Plus, Edit, Save, X, Trash2, Eye, EyeOff, Lock, Unlock, Truck, Package } from "lucide-react";
 
 interface ProductFormData {
   name: string;
@@ -28,6 +28,7 @@ interface ProductFormData {
   inStock: boolean;
   availableForPreOrder: boolean;
   availableForInstallment: boolean;
+  requiresTruckDelivery: boolean;
 }
 
 export default function Admin() {
@@ -48,7 +49,8 @@ export default function Admin() {
     weight: "",
     inStock: true,
     availableForPreOrder: false,
-    availableForInstallment: true
+    availableForInstallment: true,
+    requiresTruckDelivery: false
   });
   const [newColor, setNewColor] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -163,7 +165,8 @@ export default function Admin() {
       weight: "",
       inStock: true,
       availableForPreOrder: false,
-      availableForInstallment: true
+      availableForInstallment: true,
+      requiresTruckDelivery: false
     });
     setNewColor("");
   };
@@ -183,7 +186,8 @@ export default function Admin() {
       weight: product.weight || "",
       inStock: product.inStock !== false,
       availableForPreOrder: product.availableForPreOrder || false,
-      availableForInstallment: product.availableForInstallment !== false
+      availableForInstallment: product.availableForInstallment !== false,
+      requiresTruckDelivery: product.requiresTruckDelivery || false
     });
     setShowAddForm(true); // Show the form when editing
   };
@@ -642,6 +646,27 @@ export default function Admin() {
                           <>
                             <EyeOff className="w-4 h-4 text-gray-600" />
                             <span className="text-gray-700">Installment payment disabled</span>
+                          </>
+                        )}
+                      </Label>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Switch
+                        id="requiresTruckDelivery"
+                        checked={formData.requiresTruckDelivery}
+                        onCheckedChange={(checked) => setFormData(prev => ({ ...prev, requiresTruckDelivery: checked }))}
+                      />
+                      <Label htmlFor="requiresTruckDelivery" className="flex items-center gap-2">
+                        {formData.requiresTruckDelivery ? (
+                          <>
+                            <Truck className="w-4 h-4 text-orange-600" />
+                            <span className="text-orange-700">Requires Truck Delivery - Large item</span>
+                          </>
+                        ) : (
+                          <>
+                            <Package className="w-4 h-4 text-gray-600" />
+                            <span className="text-gray-700">Standard delivery available</span>
                           </>
                         )}
                       </Label>
