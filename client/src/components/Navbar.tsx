@@ -96,29 +96,27 @@ export default function Navbar() {
                       My Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => window.location.href = '/api/logout'}>
+                  <DropdownMenuItem onClick={async () => {
+                    try {
+                      await fetch('/api/auth/logout', { method: 'POST' });
+                      window.location.reload();
+                    } catch (error) {
+                      console.error('Logout failed:', error);
+                    }
+                  }}>
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center space-x-2">
-                <Link href="/test-auth">
-                  <Button 
-                    variant="outline"
-                    className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
-                  >
-                    Test Login
-                  </Button>
-                </Link>
+              <Link href="/test-auth">
                 <Button 
                   className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
-                  onClick={() => window.location.href = '/api/login'}
                 >
                   Sign In
                 </Button>
-              </div>
+              </Link>
             )}
             
             {/* Live Chat Button */}

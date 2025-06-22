@@ -1,8 +1,22 @@
+import { useQuery } from '@tanstack/react-query';
+
 export function useAuth() {
-  // Simplified auth - return mock user for now since auth system needs proper configuration
+  const { data: user, isLoading, error } = useQuery({
+    queryKey: ['/api/auth/current-user'],
+    queryFn: async () => {
+      const response = await fetch('/api/auth/current-user');
+      if (!response.ok) {
+        throw new Error('Not authenticated');
+      }
+      return await response.json();
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
   return {
-    user: null,
-    isLoading: false,
-    isAuthenticated: false,
+    user: user || null,
+    isLoading,
+    isAuthenticated: !!user && !error,
   };
 }
