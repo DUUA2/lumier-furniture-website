@@ -30,6 +30,7 @@ import Landing from "@/pages/Landing";
 import Dashboard from "@/pages/Dashboard";
 import Account from "@/pages/Account";
 import TestLogin from "@/pages/TestLogin";
+import QuickTest from "@/pages/QuickTest";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LiveChat from "@/components/LiveChat";
@@ -48,6 +49,7 @@ function Router() {
       <Route path="/profile" component={Profile} />
       <Route path="/account" component={Account} />
       <Route path="/test-login" component={TestLogin} />
+      <Route path="/quick-test" component={QuickTest} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Admin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />

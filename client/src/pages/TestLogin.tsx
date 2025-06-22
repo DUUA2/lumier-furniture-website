@@ -30,10 +30,11 @@ export default function TestLogin() {
     },
     onSuccess: (data) => {
       toast({
-        title: "Account Created",
-        description: "Test user created successfully. You can now login.",
+        title: "Account Created Successfully!",
+        description: `Account created for ${data.user.email}. You can now login below.`,
       });
-      setFormData({ email: "", firstName: "", lastName: "", phone: "" });
+      // Don't clear email so user can easily login
+      setFormData(prev => ({ ...prev, firstName: "", lastName: "", phone: "" }));
     },
     onError: (error: Error) => {
       toast({
@@ -143,7 +144,8 @@ export default function TestLogin() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
-      <h1 className="text-3xl font-bold text-center mb-8">Test Account Access</h1>
+      <h1 className="text-3xl font-bold text-center mb-2">Test Account Access</h1>
+      <p className="text-center text-muted-foreground mb-8">Create and login to test the customer account features</p>
       
       <div className="space-y-6">
         <Card>
