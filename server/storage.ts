@@ -108,8 +108,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   async upsertUser(userData: UpsertUser): Promise<User> {
-    // First check if user exists by email
-    const existingUser = await this.getUserByEmail(userData.email || '');
+    // First check if user exists by id
+    const existingUser = await this.getUser(userData.id);
     
     if (existingUser) {
       // Update existing user
@@ -119,7 +119,7 @@ export class DatabaseStorage implements IStorage {
           ...userData,
           updatedAt: new Date(),
         })
-        .where(eq(users.email, userData.email))
+        .where(eq(users.id, userData.id))
         .returning();
       return user;
     } else {

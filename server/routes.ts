@@ -318,6 +318,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Local authentication routes
+  app.post('/api/auth/register', async (req, res) => {
+    try {
+      const { email, password, firstName, lastName, phone } = req.body;
+      
+      if (!email || !password || !firstName || !lastName) {
+        return res.status(400).json({ message: 'Email, password, first name, and last name are required' });
+      }
+
+      // Check if user already exists
+      const existingUser = await storage.getUserByEmail(email);
+      if (existingUser) {
+        return res.status(400).json({ message: 'User already exists with this email' });
+      }
+
+      // Create new user account
+      const newUser = await storage.createUserAccount({
+        email,
+        password,
+        firstName,
+        lastName,
+        phone: phone || ''
+      });
+
+      // Set user session
+      (req.session as any).userId = newUser.id;
+      (req.session as any).user = newUser;
+      
+      res.json({ 
+        message: 'Account created successfully', 
+        user: {
+          id: newUser.id,
+          email: newUser.email,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          phone: newUser.phone
+        }
+      });
+    } catch (error) {
+      console.error('Error during registration:', error);
+      res.status(500).json({ message: 'Failed to create account' });
+    }
+  });
+
+  app.post('/api/auth/login', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+      if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required' });
+      }
+
+      // Authenticate user
+      const user = await storage.authenticateUser(email, password);
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+
+      // Set user session
+      (req.session as any).userId = user.id;
+      (req.session as any).user = user;
+      
+      res.json({ 
+        message: 'Login successful', 
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phone: user.phone
+        }
+      });
+    } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).json({ message: 'Failed to login' });
+    }
+  });
+
+  app.post('/api/auth/logout', (req, res) => {
+    try {
+      // Clear session
+      (req.session as any).userId = null;
+      (req.session as any).user = null;
+      
+      res.json({ message: 'Logged out successfully' });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      res.status(500).json({ message: 'Failed to logout' });
+    }
+  });
+
   // Get current user subscription
   app.get("/api/subscription/current", isAuthenticated, async (req, res) => {
     try {
