@@ -4,8 +4,10 @@ export interface CartItem {
   price: number;
   image: string;
   quantity: number;
-  type: 'buy' | 'rent';
+  type: 'buy' | 'rent' | 'installment';
   color: string;
+  paymentType?: 'full' | 'installment';
+  installmentDuration?: number;
 }
 
 export const getCartFromStorage = (): CartItem[] => {

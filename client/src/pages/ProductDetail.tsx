@@ -15,7 +15,8 @@ export default function ProductDetail() {
   const productId = parseInt(params?.id || "0");
   
   const [selectedColor, setSelectedColor] = useState<string>("");
-  const [isRent, setIsRent] = useState(false);
+  const [paymentType, setPaymentType] = useState<'full' | 'installment'>('full');
+  const [installmentDuration, setInstallmentDuration] = useState<number>(2);
   const [mainImage, setMainImage] = useState<string>("");
   const [showARShowroom, setShowARShowroom] = useState(false);
   const [showCustomization, setShowCustomization] = useState(false);
@@ -62,8 +63,10 @@ export default function ProductDetail() {
       price: product.price,
       image: product.image,
       quantity: 1,
-      type: isRent ? 'rent' : 'buy',
-      color: selectedColor || product.colors[0]
+      type: paymentType === 'full' ? 'buy' : 'installment',
+      color: selectedColor || product.colors[0],
+      paymentType,
+      installmentDuration: paymentType === 'installment' ? installmentDuration : undefined
     });
   };
 
@@ -80,19 +83,33 @@ export default function ProductDetail() {
   const availability = getAvailabilityStatus();
   const canAddToCart = product.inStock || product.availableForPreOrder;
 
-  const getPrice = () => {
-    if (isRent) {
-      return Math.round(product.price * 0.15);
+  const getPaymentBreakdown = () => {
+    const subtotal = product.price;
+    const vat = Math.round(subtotal * 0.075);
+    const totalWithVat = subtotal + vat;
+    
+    if (paymentType === 'full') {
+      return {
+        totalAmount: totalWithVat,
+        displayText: `₦${totalWithVat.toLocaleString()}`,
+        subtitle: "Pay full amount upfront"
+      };
+    } else {
+      const downPayment = Math.round(totalWithVat * 0.7);
+      const remainingBalance = totalWithVat - downPayment;
+      const monthlyServiceFee = Math.round(remainingBalance * 0.05);
+      const monthlyPayment = Math.round(remainingBalance / installmentDuration) + monthlyServiceFee;
+      
+      return {
+        totalAmount: totalWithVat,
+        downPayment,
+        remainingBalance,
+        monthlyPayment,
+        installmentDuration,
+        displayText: `₦${downPayment.toLocaleString()} down`,
+        subtitle: `Then ₦${monthlyPayment.toLocaleString()}/month for ${installmentDuration} months`
+      };
     }
-    return product.price;
-  };
-
-  const getPriceLabel = () => {
-    if (isRent) {
-      return "/month";
-    }
-    const monthlyPrice = Math.round(product.price / 12);
-    return ` or from ₦${monthlyPrice.toLocaleString()}/month`;
   };
 
   return (
@@ -147,29 +164,89 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          {/* Buy/Rent Toggle */}
+          {/* Payment Options */}
           <div className="mb-6">
-            <div className="flex bg-gray-100 rounded-lg p-1 w-fit">
-              <Button
-                variant={!isRent ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setIsRent(false)}
-                className={!isRent ? "rent-buy-toggle text-white" : "text-lumiere-gray"}
+            <h3 className="text-lg font-semibold mb-4">Payment Options</h3>
+            <div className="space-y-4">
+              <div
+                className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  paymentType === 'full' ? 'border-lumiere-gold bg-lumiere-gold/10' : 'border-gray-300 hover:border-lumiere-gold/50'
+                }`}
+                onClick={() => setPaymentType('full')}
               >
-                Buy
-              </Button>
-              <Button
-                variant={isRent ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setIsRent(true)}
-                className={isRent ? "rent-buy-toggle text-white" : "text-lumiere-gray"}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      checked={paymentType === 'full'}
+                      onChange={() => setPaymentType('full')}
+                      className="mr-3"
+                    />
+                    <div>
+                      <h4 className="font-semibold">Full Payment</h4>
+                      <p className="text-sm text-gray-600">Pay complete amount upfront</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-bold text-lumiere-gold">
+                      {getPaymentBreakdown().displayText}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {getPaymentBreakdown().subtitle}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  paymentType === 'installment' ? 'border-lumiere-gold bg-lumiere-gold/10' : 'border-gray-300 hover:border-lumiere-gold/50'
+                }`}
+                onClick={() => setPaymentType('installment')}
               >
-                Rent
-              </Button>
-            </div>
-            <div className="mt-4">
-              <span className="text-3xl font-bold">₦{getPrice().toLocaleString()}</span>
-              <span className="text-lumiere-gold ml-2">{getPriceLabel()}</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      checked={paymentType === 'installment'}
+                      onChange={() => setPaymentType('installment')}
+                      className="mr-3"
+                    />
+                    <div>
+                      <h4 className="font-semibold">Down Payment + Installments</h4>
+                      <p className="text-sm text-gray-600">70% down + 30% in monthly payments</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-bold text-lumiere-gold">
+                      {getPaymentBreakdown().displayText}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {getPaymentBreakdown().subtitle}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {paymentType === 'installment' && (
+                <div className="ml-8 p-3 bg-blue-50 rounded-lg">
+                  <label className="block text-sm font-medium mb-2">Choose installment duration:</label>
+                  <select
+                    value={installmentDuration}
+                    onChange={(e) => setInstallmentDuration(Number(e.target.value))}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                  >
+                    <option value={2}>2 months</option>
+                    <option value={3}>3 months</option>
+                    <option value={4}>4 months</option>
+                    <option value={5}>5 months</option>
+                    <option value={6}>6 months</option>
+                  </select>
+                  <div className="text-sm text-blue-700 mt-2">
+                    Monthly payment includes 5% service fee on remaining balance
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -236,8 +313,8 @@ export default function ProductDetail() {
               ? 'Out of Stock' 
               : product.availableForPreOrder && !product.inStock
                 ? 'Pre-order Now'
-                : isRent 
-                  ? 'Rent Now'
+                : paymentType === 'installment' 
+                  ? 'Add to Cart (Installment)'
                   : 'Add to Cart'
             }
           </Button>
