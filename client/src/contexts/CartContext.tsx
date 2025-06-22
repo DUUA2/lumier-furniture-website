@@ -5,11 +5,13 @@ import { useToast } from '@/hooks/use-toast';
 interface CartContextType {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
+  updateCartItem: (item: CartItem) => void;
   updateQuantity: (index: number, quantity: number) => void;
   removeFromCart: (index: number) => void;
   clearCart: () => void;
   getCartTotal: () => number;
   getCartItemsCount: () => number;
+  findExistingCartItem: (productId: number, color: string, paymentType?: string, installmentDuration?: number) => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -37,6 +39,15 @@ export function CartProvider({ children }: CartProviderProps) {
     }
   }, [cart, isInitialized]);
 
+  const findExistingCartItem = useCallback((productId: number, color: string, paymentType?: string, installmentDuration?: number) => {
+    return cart.findIndex(item => 
+      item.id === productId && 
+      item.color === color &&
+      item.paymentType === paymentType &&
+      item.installmentDuration === installmentDuration
+    );
+  }, [cart]);
+
   const addToCart = useCallback((item: CartItem) => {
     setCart(currentCart => {
       const newCart = addItemToCart(item, currentCart);
@@ -47,6 +58,24 @@ export function CartProvider({ children }: CartProviderProps) {
       description: `${item.name} has been added to your cart.`,
     });
   }, [toast]);
+
+  const updateCartItem = useCallback((item: CartItem) => {
+    const existingIndex = findExistingCartItem(item.id, item.color, item.paymentType, item.installmentDuration);
+    
+    if (existingIndex !== -1) {
+      setCart(currentCart => {
+        const newCart = [...currentCart];
+        newCart[existingIndex] = { ...item, quantity: newCart[existingIndex].quantity };
+        return newCart;
+      });
+      toast({
+        title: "Cart updated",
+        description: `${item.name} configuration has been updated.`,
+      });
+    } else {
+      addToCart(item);
+    }
+  }, [findExistingCartItem, addToCart, toast]);
 
   const updateQuantity = useCallback((index: number, quantity: number) => {
     setCart(currentCart => updateCartItemQuantity(index, quantity, currentCart));
@@ -85,11 +114,13 @@ export function CartProvider({ children }: CartProviderProps) {
   const value: CartContextType = {
     cart,
     addToCart,
+    updateCartItem,
     updateQuantity,
     removeFromCart,
     clearCart,
     getCartTotal,
     getCartItemsCount,
+    findExistingCartItem,
   };
 
   return (

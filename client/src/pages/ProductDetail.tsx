@@ -22,7 +22,7 @@ export default function ProductDetail() {
   const [showCustomization, setShowCustomization] = useState(false);
   const [customizations, setCustomizations] = useState<any>({});
 
-  const { addToCart } = useCart();
+  const { addToCart, updateCartItem, findExistingCartItem } = useCart();
 
   const { data: product } = useQuery<Product>({
     queryKey: [`/api/products/${productId}`],
@@ -57,7 +57,7 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    addToCart({
+    const cartItem = {
       id: product.id,
       name: product.name,
       price: product.price,
@@ -67,7 +67,23 @@ export default function ProductDetail() {
       color: selectedColor || product.colors[0],
       paymentType,
       installmentDuration: paymentType === 'installment' ? installmentDuration : undefined
-    });
+    };
+
+    // Check if this exact configuration already exists in cart
+    const existingIndex = findExistingCartItem(
+      product.id, 
+      selectedColor || product.colors[0], 
+      paymentType, 
+      paymentType === 'installment' ? installmentDuration : undefined
+    );
+
+    if (existingIndex !== -1) {
+      // Update existing cart item configuration
+      updateCartItem(cartItem);
+    } else {
+      // Add new item to cart
+      addToCart(cartItem);
+    }
   };
 
   const getAvailabilityStatus = () => {
@@ -315,9 +331,22 @@ export default function ProductDetail() {
               ? 'Out of Stock' 
               : product.availableForPreOrder && !product.inStock
                 ? 'Pre-order Now'
-                : paymentType === 'installment' 
-                  ? 'Add to Cart (Installment)'
-                  : 'Add to Cart'
+                : (() => {
+                    const existingIndex = findExistingCartItem(
+                      product.id, 
+                      selectedColor || product.colors[0], 
+                      paymentType, 
+                      paymentType === 'installment' ? installmentDuration : undefined
+                    );
+                    
+                    if (existingIndex !== -1) {
+                      return 'Update Cart Item';
+                    }
+                    
+                    return paymentType === 'installment' 
+                      ? 'Add to Cart (Installment)'
+                      : 'Add to Cart';
+                  })()
             }
           </Button>
 
