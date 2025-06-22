@@ -3,8 +3,14 @@ export const PAYMENT_CONFIG = {
   // VAT rate (7.5% for Nigeria)
   VAT_RATE: 0.075,
   
-  // Monthly rental fee rate (1% per installment)
-  RENTAL_FEE_RATE: 0.01,
+  // Down payment percentage (70% of total cost)
+  DOWN_PAYMENT_RATE: 0.70,
+  
+  // Remaining balance rate (30% of total cost)
+  REMAINING_BALANCE_RATE: 0.30,
+  
+  // Monthly service fee rate for installments (5% per month on remaining balance)
+  SERVICE_FEE_RATE: 0.05,
   
   // Insurance options
   INSURANCE: {
@@ -28,21 +34,20 @@ export const PAYMENT_CONFIG = {
     "DEFAULT": 5000
   },
   
-  // Payment plan options
-  PAYMENT_PLANS: [
-    { value: "1", label: "1 Month", months: 1 },
+  // Updated installment payment plan options (2-6 months for remaining 30%)
+  INSTALLMENT_PLANS: [
+    { value: "2", label: "2 Months", months: 2 },
     { value: "3", label: "3 Months", months: 3 },
-    { value: "6", label: "6 Months", months: 6 },
-    { value: "9", label: "9 Months", months: 9 },
-    { value: "12", label: "12 Months", months: 12 },
-    { value: "24", label: "24 Months", months: 24 }
+    { value: "4", label: "4 Months", months: 4 },
+    { value: "5", label: "5 Months", months: 5 },
+    { value: "6", label: "6 Months", months: 6 }
   ]
 };
 
-// Calculate enhanced payment breakdown
+// Calculate new payment breakdown with 70% down payment + 30% installments
 export function calculatePaymentBreakdown(
   subtotal: number,
-  paymentPlan: number,
+  installmentMonths: number = 0,
   deliveryFee: number = PAYMENT_CONFIG.DELIVERY_FEES.DEFAULT,
   includeInsurance: boolean = false
 ) {
@@ -53,26 +58,57 @@ export function calculatePaymentBreakdown(
     ? Math.round(subtotal * PAYMENT_CONFIG.INSURANCE.RATE) 
     : 0;
   
-  // Base total before rental fees
-  const baseTotal = subtotal + vat + deliveryFee + insurance;
+  // Total order value including VAT, delivery, and insurance
+  const totalOrderValue = subtotal + vat + deliveryFee + insurance;
   
-  // Calculate rental fees for installment plans (1% per month total, e.g., 3 months = 3%)
-  const rentalFees = paymentPlan > 1 
-    ? Math.round(subtotal * PAYMENT_CONFIG.RENTAL_FEE_RATE * paymentPlan)
-    : 0;
+  // Calculate 70% down payment
+  const downPayment = Math.round(totalOrderValue * PAYMENT_CONFIG.DOWN_PAYMENT_RATE);
   
-  const finalTotal = baseTotal + rentalFees;
-  const monthlyPayment = Math.round(finalTotal / paymentPlan);
+  // Calculate 30% remaining balance
+  const remainingBalance = Math.round(totalOrderValue * PAYMENT_CONFIG.REMAINING_BALANCE_RATE);
+  
+  if (installmentMonths === 0) {
+    // Full payment option
+    return {
+      subtotal,
+      vat,
+      deliveryFee,
+      insurance,
+      totalOrderValue,
+      downPayment: totalOrderValue, // Full payment
+      remainingBalance: 0,
+      serviceFees: 0,
+      totalWithFees: totalOrderValue,
+      monthlyPayment: 0,
+      installmentMonths: 0,
+      paymentType: 'full'
+    };
+  }
+  
+  // Calculate service fees for installment plan (5% per month on remaining balance)
+  const serviceFees = Math.round(remainingBalance * PAYMENT_CONFIG.SERVICE_FEE_RATE * installmentMonths);
+  
+  // Total remaining balance with service fees
+  const totalRemainingWithFees = remainingBalance + serviceFees;
+  
+  // Monthly payment for remaining balance
+  const monthlyPayment = Math.round(totalRemainingWithFees / installmentMonths);
+  
+  // Final total (down payment + remaining balance + service fees)
+  const finalTotal = downPayment + totalRemainingWithFees;
   
   return {
     subtotal,
     vat,
     deliveryFee,
     insurance,
-    rentalFees,
-    baseTotal,
-    finalTotal,
+    totalOrderValue,
+    downPayment,
+    remainingBalance,
+    serviceFees,
+    totalWithFees: finalTotal,
     monthlyPayment,
-    paymentPlan
+    installmentMonths,
+    paymentType: 'installment'
   };
 }

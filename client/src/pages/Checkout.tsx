@@ -75,22 +75,68 @@ export default function Checkout() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const calculateTotal = () => {
+  const calculatePaymentBreakdown = () => {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const vat = subtotal * 0.075;
+    const vat = Math.round(subtotal * 0.075);
     const deliveryFee = 5000;
-    const insuranceFee = formData.insurance ? subtotal * 0.02 : 0;
-    return { subtotal, vat, deliveryFee, insuranceFee, total: subtotal + vat + deliveryFee + insuranceFee };
+    const insurance = formData.insurance ? Math.round(subtotal * 0.02) : 0;
+    const totalOrderValue = subtotal + vat + deliveryFee + insurance;
+    
+    // Calculate 70% down payment
+    const downPayment = Math.round(totalOrderValue * 0.70);
+    
+    // Calculate 30% remaining balance
+    const remainingBalance = Math.round(totalOrderValue * 0.30);
+    
+    // Get installment months
+    const installmentMonths = parseInt(formData.paymentPlan) || 0;
+    
+    if (formData.purchaseType === 'full' || installmentMonths === 0) {
+      return {
+        subtotal,
+        vat,
+        deliveryFee,
+        insurance,
+        totalOrderValue,
+        downPayment: totalOrderValue,
+        remainingBalance: 0,
+        serviceFees: 0,
+        totalWithFees: totalOrderValue,
+        monthlyPayment: 0,
+        installmentMonths: 0
+      };
+    }
+    
+    // Calculate service fees (5% per month on remaining balance)
+    const serviceFees = Math.round(remainingBalance * 0.05 * installmentMonths);
+    const totalRemainingWithFees = remainingBalance + serviceFees;
+    const monthlyPayment = Math.round(totalRemainingWithFees / installmentMonths);
+    const finalTotal = downPayment + totalRemainingWithFees;
+    
+    return {
+      subtotal,
+      vat,
+      deliveryFee,
+      insurance,
+      totalOrderValue,
+      downPayment,
+      remainingBalance,
+      serviceFees,
+      totalWithFees: finalTotal,
+      monthlyPayment,
+      installmentMonths
+    };
   };
 
   const orderMutation = useMutation({
     mutationFn: async (orderData: any) => {
-      const response = await apiRequest('/api/orders', {
+      const response = await fetch('/api/orders', {
         method: 'POST',
         body: JSON.stringify(orderData),
         headers: { 'Content-Type': 'application/json' }
       });
-      return response;
+      if (!response.ok) throw new Error('Order failed');
+      return response.json();
     },
     onSuccess: () => {
       clearCart();
@@ -172,7 +218,7 @@ export default function Checkout() {
     { value: "kaduna", label: "Kaduna" }
   ];
 
-  const paymentPlans = [
+  const installmentOptions = [
     { value: "2", label: "2 Months" },
     { value: "3", label: "3 Months" },
     { value: "4", label: "4 Months" },
@@ -180,7 +226,7 @@ export default function Checkout() {
     { value: "6", label: "6 Months" }
   ];
 
-  const { subtotal, vat, deliveryFee, insuranceFee, total } = calculateTotal();
+  const paymentBreakdown = calculatePaymentBreakdown();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-lumiere-cream to-white">

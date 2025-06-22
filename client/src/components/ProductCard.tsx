@@ -13,7 +13,10 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const monthlyPrice = Math.round(product.price / 12);
+  
+  // Calculate 70% down payment for display
+  const downPaymentAmount = Math.round(product.price * 0.70);
+  const remainingBalance = Math.round(product.price * 0.30);
 
   const handleAddToCart = () => {
     addToCart({
@@ -63,9 +66,19 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-4">
         <h3 className="font-semibold mb-2">{product.name}</h3>
         <p className="text-lumiere-gray text-sm mb-3">{product.description}</p>
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
-          <span className="text-sm text-lumiere-gold">From ₦{monthlyPrice.toLocaleString()}/month</span>
+        <div className="mb-3">
+          <div className="flex justify-between items-center mb-1">
+            <span className="text-lg font-bold">₦{product.price.toLocaleString()}</span>
+            <span className="text-xs text-gray-500">Total Price</span>
+          </div>
+          <div className="bg-lumiere-gold/10 p-2 rounded-lg">
+            <div className="text-sm font-semibold text-lumiere-black">
+              Start with: ₦{downPaymentAmount.toLocaleString()} (70% down)
+            </div>
+            <div className="text-xs text-lumiere-gray">
+              Remaining ₦{remainingBalance.toLocaleString()} in 2-6 monthly installments
+            </div>
+          </div>
         </div>
         <div className="flex flex-wrap gap-2 mb-3">
           <Badge variant="secondary">
