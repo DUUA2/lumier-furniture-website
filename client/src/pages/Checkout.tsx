@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import { apiRequest } from "@/lib/queryClient";
+import { calculatePaymentBreakdown, formatCurrency } from "@/lib/paymentUtils";
 import { ShoppingCart, User, MapPin, CreditCard, Check } from "lucide-react";
 
 export default function Checkout() {
@@ -75,57 +75,16 @@ export default function Checkout() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const calculatePaymentBreakdown = () => {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const vat = Math.round(subtotal * 0.075);
-    const deliveryFee = 5000;
-    const insurance = formData.insurance ? Math.round(subtotal * 0.02) : 0;
-    const totalOrderValue = subtotal + vat + deliveryFee + insurance;
+  const getPaymentBreakdown = () => {
+    const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const installmentMonths = formData.purchaseType === 'full' ? 0 : parseInt(formData.paymentPlan) || 0;
     
-    // Calculate 70% down payment
-    const downPayment = Math.round(totalOrderValue * 0.70);
-    
-    // Calculate 30% remaining balance
-    const remainingBalance = Math.round(totalOrderValue * 0.30);
-    
-    // Get installment months
-    const installmentMonths = parseInt(formData.paymentPlan) || 0;
-    
-    if (formData.purchaseType === 'full' || installmentMonths === 0) {
-      return {
-        subtotal,
-        vat,
-        deliveryFee,
-        insurance,
-        totalOrderValue,
-        downPayment: totalOrderValue,
-        remainingBalance: 0,
-        serviceFees: 0,
-        totalWithFees: totalOrderValue,
-        monthlyPayment: 0,
-        installmentMonths: 0
-      };
-    }
-    
-    // Calculate service fees (5% per month on remaining balance)
-    const serviceFees = Math.round(remainingBalance * 0.05 * installmentMonths);
-    const totalRemainingWithFees = remainingBalance + serviceFees;
-    const monthlyPayment = Math.round(totalRemainingWithFees / installmentMonths);
-    const finalTotal = downPayment + totalRemainingWithFees;
-    
-    return {
-      subtotal,
-      vat,
-      deliveryFee,
-      insurance,
-      totalOrderValue,
-      downPayment,
-      remainingBalance,
-      serviceFees,
-      totalWithFees: finalTotal,
-      monthlyPayment,
-      installmentMonths
-    };
+    return calculatePaymentBreakdown(
+      cartTotal,
+      installmentMonths,
+      formData.insurance,
+      5000 // delivery fee
+    );
   };
 
   const orderMutation = useMutation({
@@ -226,7 +185,7 @@ export default function Checkout() {
     { value: "6", label: "6 Months" }
   ];
 
-  const paymentBreakdown = calculatePaymentBreakdown();
+  const paymentBreakdown = getPaymentBreakdown();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-lumiere-cream to-white">
@@ -529,7 +488,7 @@ export default function Checkout() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {paymentPlans.map((plan) => (
+                        {installmentOptions.map((plan) => (
                           <SelectItem key={plan.value} value={plan.value}>
                             {plan.label}
                           </SelectItem>
@@ -600,30 +559,71 @@ export default function Checkout() {
 
                 <Separator />
 
-                {/* Price Breakdown */}
+                {/* New Payment Breakdown */}
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span>Subtotal</span>
-                    <span>₦{subtotal.toLocaleString()}</span>
+                    <span>{formatCurrency(paymentBreakdown.subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>VAT (7.5%)</span>
-                    <span>₦{vat.toLocaleString()}</span>
+                    <span>{formatCurrency(paymentBreakdown.vat)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Delivery Fee</span>
-                    <span>₦{deliveryFee.toLocaleString()}</span>
+                    <span>{formatCurrency(paymentBreakdown.deliveryFee)}</span>
                   </div>
                   {formData.insurance && (
                     <div className="flex justify-between text-sm">
                       <span>Insurance (2%)</span>
-                      <span>₦{insuranceFee.toLocaleString()}</span>
+                      <span>{formatCurrency(paymentBreakdown.insurance)}</span>
                     </div>
                   )}
                   <Separator />
-                  <div className="flex justify-between font-bold text-lg">
-                    <span>Total</span>
-                    <span className="text-lumiere-gold">₦{total.toLocaleString()}</span>
+                  <div className="flex justify-between font-semibold text-base">
+                    <span>Order Total</span>
+                    <span>{formatCurrency(paymentBreakdown.totalOrderValue)}</span>
+                  </div>
+                  
+                  {/* Payment Structure */}
+                  <div className="bg-lumiere-gold/10 p-4 rounded-lg space-y-3 mt-4">
+                    <h4 className="font-semibold text-lumiere-black">Payment Structure</h4>
+                    
+                    <div className="flex justify-between">
+                      <span className="font-medium">Down Payment (70%)</span>
+                      <span className="font-bold text-lumiere-gold">{formatCurrency(paymentBreakdown.downPayment)}</span>
+                    </div>
+                    
+                    {paymentBreakdown.paymentType === 'installment' && (
+                      <>
+                        <div className="text-sm text-lumiere-gray border-t pt-2">
+                          <div className="flex justify-between mb-1">
+                            <span>Remaining Balance (30%)</span>
+                            <span>{formatCurrency(paymentBreakdown.remainingBalance)}</span>
+                          </div>
+                          <div className="flex justify-between mb-1">
+                            <span>Service Fees ({paymentBreakdown.installmentMonths}× 5%)</span>
+                            <span>{formatCurrency(paymentBreakdown.serviceFees)}</span>
+                          </div>
+                          <div className="flex justify-between font-medium">
+                            <span>Monthly Payment</span>
+                            <span>{formatCurrency(paymentBreakdown.monthlyPayment)} × {paymentBreakdown.installmentMonths} months</span>
+                          </div>
+                        </div>
+                        
+                        <Separator />
+                        <div className="flex justify-between font-bold text-lg">
+                          <span>Total with Fees</span>
+                          <span className="text-lumiere-gold">{formatCurrency(paymentBreakdown.totalWithFees)}</span>
+                        </div>
+                      </>
+                    )}
+                    
+                    {paymentBreakdown.paymentType === 'full' && (
+                      <div className="text-sm text-green-600">
+                        <span>✓ Full payment - No additional fees</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
