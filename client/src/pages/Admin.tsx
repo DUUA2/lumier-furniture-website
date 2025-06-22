@@ -187,10 +187,18 @@ export default function Admin() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // For now, just show a message about image uploads
+      // Create a preview URL for the uploaded file
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setFormData(prev => ({ ...prev, image: event.target.result as string }));
+        }
+      };
+      reader.readAsDataURL(file);
+      
       toast({ 
-        title: "Image Upload", 
-        description: "Use image hosting services like Unsplash, Imgur, or Cloudinary for product images" 
+        title: "Image Selected", 
+        description: "Preview loaded. For production, use image hosting services like Cloudinary." 
       });
     }
   };
@@ -401,16 +409,46 @@ export default function Admin() {
 
                     <div>
                       <Label htmlFor="image">Product Image</Label>
-                      <div className="space-y-2">
-                        <Input
-                          id="image"
+                      <div className="mt-2">
+                        {formData.image ? (
+                          <div className="relative">
+                            <img 
+                              src={formData.image} 
+                              alt="Product preview" 
+                              className="w-32 h-32 object-cover rounded-lg border-2 border-gray-200"
+                            />
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="absolute top-2 right-2 bg-white/90 hover:bg-white"
+                              onClick={() => setFormData(prev => ({ ...prev, image: "" }))}
+                            >
+                              <X className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <div 
+                            className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-lumiere-gold hover:bg-gray-50 transition-colors"
+                            onClick={() => document.getElementById('image-upload')?.click()}
+                          >
+                            <Plus className="w-8 h-8 text-gray-400 mb-2" />
+                            <span className="text-sm text-gray-500">Add Photo</span>
+                          </div>
+                        )}
+                        <input
+                          id="image-upload"
                           type="file"
                           accept="image/*"
+                          className="hidden"
                           onChange={handleImageUpload}
                         />
-                        {formData.image && (
-                          <img src={formData.image} alt="Preview" className="w-20 h-20 object-cover rounded" />
-                        )}
+                        <Input
+                          className="mt-2"
+                          placeholder="Or enter image URL"
+                          value={formData.image}
+                          onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
+                        />
                       </div>
                     </div>
                   </div>
