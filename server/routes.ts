@@ -28,13 +28,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { email, password, firstName, lastName, phone } = req.body;
       
-      // Check if user already exists
-      const existingUser = await storage.getUserByEmail(email);
-      if (existingUser) {
-        return res.status(400).json({ message: "User already exists with this email" });
-      }
-
-      // Create new user
+      // Create new user (storage layer handles duplicate check)
       const user = await storage.createUserAccount({
         email,
         password,

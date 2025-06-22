@@ -75,6 +75,13 @@ export class DatabaseStorage implements IStorage {
     password: string; 
   }): Promise<User> {
     const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Check if user already exists
+    const existingUser = await this.getUserByEmail(userData.email);
+    if (existingUser) {
+      throw new Error("User already exists with this email");
+    }
+    
     const [user] = await db
       .insert(users)
       .values({
