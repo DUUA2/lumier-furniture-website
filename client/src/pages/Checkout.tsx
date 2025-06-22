@@ -430,74 +430,16 @@ export default function Checkout() {
               </CardContent>
             </Card>
 
-            {/* Step 3: Payment Method */}
+            {/* Step 3: Additional Options */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <span className="bg-lumiere-gold text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</span>
                   <CreditCard className="w-5 h-5" />
-                  Payment Method
+                  Additional Options
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div>
-                  <Label>Choose Payment Option *</Label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                    <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${formData.purchaseType === 'buy' ? 'border-lumiere-gold bg-lumiere-gold/5' : 'border-gray-200'}`}
-                         onClick={() => handleInputChange('purchaseType', 'buy')}>
-                      <div className="flex items-center space-x-3">
-                        <input
-                          type="radio"
-                          name="purchaseType"
-                          value="buy"
-                          checked={formData.purchaseType === 'buy'}
-                          onChange={(e) => handleInputChange('purchaseType', e.target.value)}
-                          className="text-lumiere-gold"
-                        />
-                        <div>
-                          <h4 className="font-semibold">Buy Outright</h4>
-                          <p className="text-sm text-lumiere-gray">Pay full amount now</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${formData.purchaseType === 'installment' ? 'border-lumiere-gold bg-lumiere-gold/5' : 'border-gray-200'}`}
-                         onClick={() => handleInputChange('purchaseType', 'installment')}>
-                      <div className="flex items-center space-x-3">
-                        <input
-                          type="radio"
-                          name="purchaseType"
-                          value="installment"
-                          checked={formData.purchaseType === 'installment'}
-                          onChange={(e) => handleInputChange('purchaseType', e.target.value)}
-                          className="text-lumiere-gold"
-                        />
-                        <div>
-                          <h4 className="font-semibold">Installment Plan</h4>
-                          <p className="text-sm text-lumiere-gray">Split into monthly payments</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {formData.purchaseType === 'installment' && (
-                  <div>
-                    <Label htmlFor="paymentPlan">Payment Duration</Label>
-                    <Select value={formData.paymentPlan} onValueChange={(value) => handleInputChange("paymentPlan", value)}>
-                      <SelectTrigger className="mt-2">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {installmentOptions.map((plan) => (
-                          <SelectItem key={plan.value} value={plan.value}>
-                            {plan.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-
                 <div className="flex items-center space-x-3">
                   <input
                     type="checkbox"
