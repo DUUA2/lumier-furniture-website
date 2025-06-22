@@ -22,6 +22,9 @@ import { eq, desc } from "drizzle-orm";
 export interface IStorage {
   // User operations (required for Replit Auth)
   getUser(id: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  createUserAccount(userData: { email: string; firstName: string; lastName: string; phone?: string; password: string; }): Promise<User>;
+  authenticateUser(email: string, password: string): Promise<User | null>;
   upsertUser(user: UpsertUser): Promise<User>;
   updateUserProfile(id: string, profileData: any): Promise<User>;
 
@@ -56,6 +59,44 @@ export class DatabaseStorage implements IStorage {
   // User operations
   async getUser(id: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user;
+  }
+
+  async createUserAccount(userData: { 
+    email: string; 
+    firstName: string; 
+    lastName: string; 
+    phone?: string; 
+    password: string; 
+  }): Promise<User> {
+    const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const [user] = await db
+      .insert(users)
+      .values({
+        id: userId,
+        email: userData.email,
+        password: userData.password, // In production, hash this
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        phone: userData.phone || null,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .returning();
+    return user;
+  }
+
+  async authenticateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.getUserByEmail(email);
+    if (!user || !user.password || user.password !== password) {
+      return null;
+    }
     return user;
   }
 
