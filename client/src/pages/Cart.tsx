@@ -42,9 +42,20 @@ export default function Cart() {
             />
             <div className="flex-1">
               <h3 className="font-semibold mb-1">{item.name}</h3>
-              <p className="text-sm text-lumiere-gray mb-2 capitalize">
-                {item.type}
-              </p>
+              <div className="flex items-center gap-3 mb-2">
+                <p className="text-sm text-lumiere-gray capitalize">
+                  Color: {item.color}
+                </p>
+                {item.paymentType && (
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    item.paymentType === 'full' 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-blue-100 text-blue-700'
+                  }`}>
+                    {item.paymentType === 'full' ? 'Full Payment' : `${item.installmentDuration}mo Installment`}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center space-x-4">
                 <span className="font-bold">₦{item.price.toLocaleString()}</span>
                 <div className="flex items-center space-x-2">

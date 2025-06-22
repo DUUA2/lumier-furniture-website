@@ -35,14 +35,18 @@ export const addToCart = (item: CartItem, existingCart: CartItem[]): CartItem[] 
   const existingItem = existingCart.find(cartItem => 
     cartItem.id === item.id && 
     cartItem.type === item.type && 
-    cartItem.color === item.color
+    cartItem.color === item.color &&
+    cartItem.paymentType === item.paymentType &&
+    cartItem.installmentDuration === item.installmentDuration
   );
 
   if (existingItem) {
     return existingCart.map(cartItem =>
       cartItem.id === item.id && 
       cartItem.type === item.type && 
-      cartItem.color === item.color
+      cartItem.color === item.color &&
+      cartItem.paymentType === item.paymentType &&
+      cartItem.installmentDuration === item.installmentDuration
         ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
         : cartItem
     );
