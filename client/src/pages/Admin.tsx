@@ -41,7 +41,7 @@ export default function Admin() {
     price: 0,
     category: "",
     image: "",
-    images: [],
+    images: [""],
     colors: [],
     dimensions: "",
     material: "",
@@ -156,7 +156,7 @@ export default function Admin() {
       price: 0,
       category: "",
       image: "",
-      images: [],
+      images: [""],
       colors: [],
       dimensions: "",
       material: "",
@@ -188,14 +188,26 @@ export default function Admin() {
     setShowAddForm(true); // Show the form when editing
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: number) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Create a preview URL for the uploaded file
       const reader = new FileReader();
       reader.onload = (event) => {
         if (event.target?.result) {
-          setFormData(prev => ({ ...prev, image: event.target.result as string }));
+          const newImageUrl = event.target.result as string;
+          setFormData(prev => {
+            const newImages = [...prev.images];
+            if (index !== undefined) {
+              newImages[index] = newImageUrl;
+            } else {
+              newImages.push(newImageUrl);
+            }
+            return { 
+              ...prev, 
+              image: newImages[0] || newImageUrl,
+              images: newImages 
+            };
+          });
         }
       };
       reader.readAsDataURL(file);
@@ -205,6 +217,24 @@ export default function Admin() {
         description: "Preview loaded. For production, use image hosting services like Cloudinary." 
       });
     }
+  };
+
+  const addNewImageSlot = () => {
+    setFormData(prev => ({
+      ...prev,
+      images: [...prev.images, ""]
+    }));
+  };
+
+  const removeImage = (index: number) => {
+    setFormData(prev => {
+      const newImages = prev.images.filter((_, i) => i !== index);
+      return {
+        ...prev,
+        images: newImages,
+        image: newImages[0] || ""
+      };
+    });
   };
 
   const addColor = () => {
@@ -412,47 +442,73 @@ export default function Admin() {
                     </div>
 
                     <div>
-                      <Label htmlFor="image">Product Image</Label>
+                      <Label htmlFor="image">Product Images</Label>
                       <div className="mt-2">
-                        {formData.image ? (
-                          <div className="relative">
-                            <img 
-                              src={formData.image} 
-                              alt="Product preview" 
-                              className="w-32 h-32 object-cover rounded-lg border-2 border-gray-200"
-                            />
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              className="absolute top-2 right-2 bg-white/90 hover:bg-white"
-                              onClick={() => setFormData(prev => ({ ...prev, image: "" }))}
+                        <div className="grid grid-cols-3 gap-4">
+                          {formData.images.map((image, index) => (
+                            <div key={index} className="relative">
+                              {image ? (
+                                <div className="relative">
+                                  <img 
+                                    src={image} 
+                                    alt={`Product preview ${index + 1}`} 
+                                    className="w-32 h-32 object-cover rounded-lg border-2 border-gray-200"
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    className="absolute top-2 right-2 bg-white/90 hover:bg-white"
+                                    onClick={() => removeImage(index)}
+                                  >
+                                    <X className="w-4 h-4" />
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div 
+                                  className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-lumiere-gold hover:bg-gray-50 transition-colors"
+                                  onClick={() => document.getElementById(`image-upload-${index}`)?.click()}
+                                >
+                                  <Plus className="w-8 h-8 text-gray-400 mb-2" />
+                                  <span className="text-sm text-gray-500">Add Photo</span>
+                                </div>
+                              )}
+                              <input
+                                id={`image-upload-${index}`}
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => handleImageUpload(e, index)}
+                              />
+                            </div>
+                          ))}
+                          
+                          {formData.images.length < 6 && (
+                            <div 
+                              className="w-32 h-32 border-2 border-dashed border-lumiere-gold/50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-lumiere-gold hover:bg-lumiere-gold/10 transition-colors"
+                              onClick={addNewImageSlot}
                             >
-                              <X className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        ) : (
-                          <div 
-                            className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-lumiere-gold hover:bg-gray-50 transition-colors"
-                            onClick={() => document.getElementById('image-upload')?.click()}
-                          >
-                            <Plus className="w-8 h-8 text-gray-400 mb-2" />
-                            <span className="text-sm text-gray-500">Add Photo</span>
-                          </div>
-                        )}
-                        <input
-                          id="image-upload"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={handleImageUpload}
-                        />
-                        <Input
-                          className="mt-2"
-                          placeholder="Or enter image URL"
-                          value={formData.image}
-                          onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                        />
+                              <Plus className="w-8 h-8 text-lumiere-gold mb-2" />
+                              <span className="text-sm text-lumiere-gold font-medium">Add Another</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="mt-4">
+                          <Input
+                            placeholder="Or enter image URL for first photo"
+                            value={formData.images[0] || ""}
+                            onChange={(e) => setFormData(prev => {
+                              const newImages = [...prev.images];
+                              newImages[0] = e.target.value;
+                              return { 
+                                ...prev, 
+                                image: e.target.value,
+                                images: newImages.filter(img => img !== "")
+                              };
+                            })}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
