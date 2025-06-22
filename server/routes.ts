@@ -323,6 +323,75 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Create test order for account testing
+  app.post('/api/create-test-order', async (req, res) => {
+    try {
+      const { userEmail } = req.body;
+      
+      if (!userEmail) {
+        return res.status(400).json({ error: 'User email is required' });
+      }
+
+      const user = await storage.getUser(userEmail);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Get a sample product
+      const products = await storage.getProducts();
+      const sampleProduct = products[0];
+      
+      if (!sampleProduct) {
+        return res.status(500).json({ error: 'No products available for test order' });
+      }
+
+      // Create test order
+      const testOrder = await storage.createOrder({
+        userId: user.id,
+        orderType: 'installment',
+        customerEmail: user.email || '',
+        customerName: `${user.firstName} ${user.lastName}`.trim(),
+        customerPhone: user.phone || '+234 123 456 7890',
+        deliveryAddress: {
+          street: '123 Test Street',
+          city: 'Lagos',
+          state: 'Lagos'
+        },
+        nextOfKin: {
+          name: 'Test Next of Kin',
+          phone: '+234 987 654 3210'
+        },
+        bvn: '12345678901',
+        nin: '12345678901234',
+        items: [{
+          productId: sampleProduct.id,
+          name: sampleProduct.name,
+          price: sampleProduct.price,
+          quantity: 1,
+          type: 'buy' as const,
+          color: sampleProduct.colors[0] || 'Brown'
+        }],
+        subtotal: sampleProduct.price,
+        vat: Math.round(sampleProduct.price * 0.075),
+        insurance: 0,
+        rentalFees: 0,
+        deliveryFee: 15000,
+        total: sampleProduct.price + Math.round(sampleProduct.price * 0.075) + 15000,
+        paymentPlan: 6,
+        monthlyPayment: Math.round((sampleProduct.price * 0.3) / 6),
+        paymentStatus: 'pending'
+      });
+
+      res.json({ 
+        message: 'Test order created successfully', 
+        order: testOrder 
+      });
+    } catch (error) {
+      console.error('Error creating test order:', error);
+      res.status(500).json({ error: 'Failed to create test order' });
+    }
+  });
+
   // Pay remaining balance for an order
   app.post('/api/orders/:id/pay-remaining', isAuthenticated, async (req, res) => {
     try {

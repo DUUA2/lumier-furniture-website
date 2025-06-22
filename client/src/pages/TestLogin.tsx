@@ -75,6 +75,34 @@ export default function TestLogin() {
     }
   });
 
+  const createOrderMutation = useMutation({
+    mutationFn: async (email: string) => {
+      const response = await fetch('/api/create-test-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userEmail: email })
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create test order');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Test Order Created",
+        description: "A sample order has been created for your account. Go to /account to view it.",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Order Creation Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  });
+
   const handleCreateUser = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email || !formData.firstName) {
@@ -99,6 +127,18 @@ export default function TestLogin() {
       return;
     }
     loginMutation.mutate(formData.email);
+  };
+
+  const handleCreateOrder = () => {
+    if (!formData.email) {
+      toast({
+        title: "Missing Email",
+        description: "Please enter your email address first.",
+        variant: "destructive",
+      });
+      return;
+    }
+    createOrderMutation.mutate(formData.email);
   };
 
   return (
@@ -193,14 +233,37 @@ export default function TestLogin() {
           </CardContent>
         </Card>
 
+        <Card>
+          <CardHeader>
+            <CardTitle>Create Test Order</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Create a sample order to test the account management features.
+              </p>
+              <Button 
+                onClick={handleCreateOrder}
+                className="w-full bg-green-600 hover:bg-green-700"
+                disabled={createOrderMutation.isPending || !formData.email}
+              >
+                {createOrderMutation.isPending ? 'Creating Order...' : 'Create Test Order'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         <div className="text-center text-sm text-muted-foreground">
           <p>After creating an account and logging in, you can:</p>
           <ul className="mt-2 space-y-1">
-            <li>• Place test orders to see them in your account</li>
+            <li>• Create test orders to see them in your account</li>
             <li>• View order history and payment status</li>
             <li>• Test the "Pay Remaining Balance" feature</li>
             <li>• See your profile information</li>
           </ul>
+          <p className="mt-4 font-medium">
+            Visit <span className="bg-gray-100 px-2 py-1 rounded">/account</span> after logging in to see your customer dashboard
+          </p>
         </div>
       </div>
     </div>
