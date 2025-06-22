@@ -103,12 +103,22 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button 
-                className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
-                onClick={() => window.location.href = '/api/login'}
-              >
-                Sign In
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Link href="/test-auth">
+                  <Button 
+                    variant="outline"
+                    className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
+                  >
+                    Test Login
+                  </Button>
+                </Link>
+                <Button 
+                  className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
+                  onClick={() => window.location.href = '/api/login'}
+                >
+                  Sign In
+                </Button>
+              </div>
             )}
             
             {/* Live Chat Button */}

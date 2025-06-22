@@ -31,6 +31,13 @@ export default function TestAuth() {
   // Check current user
   const { data: currentUser, isLoading } = useQuery({
     queryKey: ['/api/auth/current-user'],
+    queryFn: async () => {
+      const response = await fetch('/api/auth/current-user');
+      if (!response.ok) {
+        throw new Error('Not authenticated');
+      }
+      return await response.json();
+    },
     retry: false,
   });
 
@@ -157,9 +164,9 @@ export default function TestAuth() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center space-y-2">
-              <p><strong>Name:</strong> {currentUser.firstName} {currentUser.lastName}</p>
-              <p><strong>Email:</strong> {currentUser.email}</p>
-              {currentUser.phone && <p><strong>Phone:</strong> {currentUser.phone}</p>}
+              <p><strong>Name:</strong> {(currentUser as any)?.firstName} {(currentUser as any)?.lastName}</p>
+              <p><strong>Email:</strong> {(currentUser as any)?.email}</p>
+              {(currentUser as any)?.phone && <p><strong>Phone:</strong> {(currentUser as any)?.phone}</p>}
             </div>
             
             <div className="space-y-2">

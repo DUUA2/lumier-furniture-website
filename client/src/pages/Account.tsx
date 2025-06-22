@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { CreditCard, Calendar, Package, AlertCircle, CheckCircle, Clock } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useLocalAuth } from "@/hooks/useLocalAuth";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 import type { Order, User } from "@shared/schema";
