@@ -46,6 +46,13 @@ export const products = pgTable("products", {
   availableForPreOrder: boolean("available_for_pre_order").default(false),
   availableForInstallment: boolean("available_for_installment").default(true),
   requiresTruckDelivery: boolean("requires_truck_delivery").default(false),
+  customizationOptions: jsonb("customization_options").$type<{
+    fabric?: { enabled: boolean; options: string[] };
+    color?: { enabled: boolean; options: string[] };
+    finish?: { enabled: boolean; options: string[] };
+    layout?: { enabled: boolean; options: string[] };
+    dimensions?: { enabled: boolean; allowCustom: boolean };
+  }>().default({}),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

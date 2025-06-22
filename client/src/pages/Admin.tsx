@@ -29,6 +29,13 @@ interface ProductFormData {
   availableForPreOrder: boolean;
   availableForInstallment: boolean;
   requiresTruckDelivery: boolean;
+  customizationOptions: {
+    fabric?: { enabled: boolean; options: string[] };
+    color?: { enabled: boolean; options: string[] };
+    finish?: { enabled: boolean; options: string[] };
+    layout?: { enabled: boolean; options: string[] };
+    dimensions?: { enabled: boolean; allowCustom: boolean };
+  };
 }
 
 export default function Admin() {
@@ -50,7 +57,8 @@ export default function Admin() {
     inStock: true,
     availableForPreOrder: false,
     availableForInstallment: true,
-    requiresTruckDelivery: false
+    requiresTruckDelivery: false,
+    customizationOptions: {}
   });
   const [newColor, setNewColor] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -166,7 +174,8 @@ export default function Admin() {
       inStock: true,
       availableForPreOrder: false,
       availableForInstallment: true,
-      requiresTruckDelivery: false
+      requiresTruckDelivery: false,
+      customizationOptions: {}
     });
     setNewColor("");
   };
@@ -187,7 +196,8 @@ export default function Admin() {
       inStock: product.inStock !== false,
       availableForPreOrder: product.availableForPreOrder || false,
       availableForInstallment: product.availableForInstallment !== false,
-      requiresTruckDelivery: product.requiresTruckDelivery || false
+      requiresTruckDelivery: product.requiresTruckDelivery || false,
+      customizationOptions: product.customizationOptions || {}
     });
     setShowAddForm(true); // Show the form when editing
   };
@@ -582,6 +592,196 @@ export default function Admin() {
                           />
                         </Badge>
                       ))}
+                    </div>
+                  </div>
+
+                  {/* Customization Options Configuration */}
+                  <div className="space-y-4 p-4 bg-blue-50 rounded-lg mb-4">
+                    <Label className="font-semibold text-blue-900">Customization Options</Label>
+                    <p className="text-sm text-blue-700">Configure which customization options are available for this product</p>
+                    
+                    {/* Fabric Options */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <Switch
+                          id="fabric-enabled"
+                          checked={formData.customizationOptions.fabric?.enabled || false}
+                          onCheckedChange={(checked) => setFormData(prev => ({
+                            ...prev,
+                            customizationOptions: {
+                              ...prev.customizationOptions,
+                              fabric: { enabled: checked, options: prev.customizationOptions.fabric?.options || [] }
+                            }
+                          }))}
+                        />
+                        <Label htmlFor="fabric-enabled" className="font-medium">Fabric Customization</Label>
+                      </div>
+                      {formData.customizationOptions.fabric?.enabled && (
+                        <div className="ml-6 space-y-2">
+                          <Label className="text-sm">Available Fabric Options (comma-separated)</Label>
+                          <Input
+                            placeholder="Cotton, Leather, Velvet, Microfiber"
+                            value={formData.customizationOptions.fabric?.options.join(', ') || ''}
+                            onChange={(e) => setFormData(prev => ({
+                              ...prev,
+                              customizationOptions: {
+                                ...prev.customizationOptions,
+                                fabric: { 
+                                  enabled: true, 
+                                  options: e.target.value.split(',').map(s => s.trim()).filter(s => s) 
+                                }
+                              }
+                            }))}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Color Options */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <Switch
+                          id="color-enabled"
+                          checked={formData.customizationOptions.color?.enabled || false}
+                          onCheckedChange={(checked) => setFormData(prev => ({
+                            ...prev,
+                            customizationOptions: {
+                              ...prev.customizationOptions,
+                              color: { enabled: checked, options: prev.customizationOptions.color?.options || [] }
+                            }
+                          }))}
+                        />
+                        <Label htmlFor="color-enabled" className="font-medium">Color Customization</Label>
+                      </div>
+                      {formData.customizationOptions.color?.enabled && (
+                        <div className="ml-6 space-y-2">
+                          <Label className="text-sm">Available Color Options (comma-separated)</Label>
+                          <Input
+                            placeholder="Black, White, Brown, Gray, Navy"
+                            value={formData.customizationOptions.color?.options.join(', ') || ''}
+                            onChange={(e) => setFormData(prev => ({
+                              ...prev,
+                              customizationOptions: {
+                                ...prev.customizationOptions,
+                                color: { 
+                                  enabled: true, 
+                                  options: e.target.value.split(',').map(s => s.trim()).filter(s => s) 
+                                }
+                              }
+                            }))}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Finish Options */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <Switch
+                          id="finish-enabled"
+                          checked={formData.customizationOptions.finish?.enabled || false}
+                          onCheckedChange={(checked) => setFormData(prev => ({
+                            ...prev,
+                            customizationOptions: {
+                              ...prev.customizationOptions,
+                              finish: { enabled: checked, options: prev.customizationOptions.finish?.options || [] }
+                            }
+                          }))}
+                        />
+                        <Label htmlFor="finish-enabled" className="font-medium">Finish Customization</Label>
+                      </div>
+                      {formData.customizationOptions.finish?.enabled && (
+                        <div className="ml-6 space-y-2">
+                          <Label className="text-sm">Available Finish Options (comma-separated)</Label>
+                          <Input
+                            placeholder="Matte, Glossy, Satin, Natural"
+                            value={formData.customizationOptions.finish?.options.join(', ') || ''}
+                            onChange={(e) => setFormData(prev => ({
+                              ...prev,
+                              customizationOptions: {
+                                ...prev.customizationOptions,
+                                finish: { 
+                                  enabled: true, 
+                                  options: e.target.value.split(',').map(s => s.trim()).filter(s => s) 
+                                }
+                              }
+                            }))}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Layout Options */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <Switch
+                          id="layout-enabled"
+                          checked={formData.customizationOptions.layout?.enabled || false}
+                          onCheckedChange={(checked) => setFormData(prev => ({
+                            ...prev,
+                            customizationOptions: {
+                              ...prev.customizationOptions,
+                              layout: { enabled: checked, options: prev.customizationOptions.layout?.options || [] }
+                            }
+                          }))}
+                        />
+                        <Label htmlFor="layout-enabled" className="font-medium">Layout Customization</Label>
+                      </div>
+                      {formData.customizationOptions.layout?.enabled && (
+                        <div className="ml-6 space-y-2">
+                          <Label className="text-sm">Available Layout Options (comma-separated)</Label>
+                          <Input
+                            placeholder="L-Shape, U-Shape, Straight, Corner"
+                            value={formData.customizationOptions.layout?.options.join(', ') || ''}
+                            onChange={(e) => setFormData(prev => ({
+                              ...prev,
+                              customizationOptions: {
+                                ...prev.customizationOptions,
+                                layout: { 
+                                  enabled: true, 
+                                  options: e.target.value.split(',').map(s => s.trim()).filter(s => s) 
+                                }
+                              }
+                            }))}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Dimensions Options */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <Switch
+                          id="dimensions-enabled"
+                          checked={formData.customizationOptions.dimensions?.enabled || false}
+                          onCheckedChange={(checked) => setFormData(prev => ({
+                            ...prev,
+                            customizationOptions: {
+                              ...prev.customizationOptions,
+                              dimensions: { enabled: checked, allowCustom: prev.customizationOptions.dimensions?.allowCustom || false }
+                            }
+                          }))}
+                        />
+                        <Label htmlFor="dimensions-enabled" className="font-medium">Dimension Customization</Label>
+                      </div>
+                      {formData.customizationOptions.dimensions?.enabled && (
+                        <div className="ml-6 space-y-2">
+                          <div className="flex items-center space-x-3">
+                            <Switch
+                              id="dimensions-custom"
+                              checked={formData.customizationOptions.dimensions?.allowCustom || false}
+                              onCheckedChange={(checked) => setFormData(prev => ({
+                                ...prev,
+                                customizationOptions: {
+                                  ...prev.customizationOptions,
+                                  dimensions: { enabled: true, allowCustom: checked }
+                                }
+                              }))}
+                            />
+                            <Label htmlFor="dimensions-custom" className="text-sm">Allow Custom Dimensions</Label>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
