@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRoute } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@shared/schema";
@@ -21,8 +21,9 @@ export default function ProductDetail() {
   const [showARShowroom, setShowARShowroom] = useState(false);
   const [showCustomization, setShowCustomization] = useState(false);
   const [customizations, setCustomizations] = useState<any>({});
+  const [isFromCart, setIsFromCart] = useState(false);
 
-  const { addToCart, updateCartItem, findExistingCartItem } = useCart();
+  const { addToCart, updateCartItem, findExistingCartItem, cart } = useCart();
 
   const { data: product } = useQuery<Product>({
     queryKey: [`/api/products/${productId}`],
@@ -48,13 +49,31 @@ export default function ProductDetail() {
     );
   }
 
-  if (!selectedColor && product.colors.length > 0) {
-    setSelectedColor(product.colors[0]);
-  }
-
-  if (!mainImage) {
-    setMainImage(product.image);
-  }
+  // Initialize product settings from cart item if coming from cart
+  useEffect(() => {
+    if (product) {
+      // Check if this product exists in cart
+      const existingCartItem = cart.find(item => item.id === product.id);
+      
+      if (existingCartItem) {
+        setIsFromCart(true);
+        setSelectedColor(existingCartItem.color);
+        setPaymentType(existingCartItem.paymentType || 'full');
+        if (existingCartItem.installmentDuration) {
+          setInstallmentDuration(existingCartItem.installmentDuration);
+        }
+      } else {
+        setIsFromCart(false);
+        if (!selectedColor && product.colors.length > 0) {
+          setSelectedColor(product.colors[0]);
+        }
+      }
+      
+      if (!mainImage) {
+        setMainImage(product.image);
+      }
+    }
+  }, [product, cart, selectedColor, mainImage]);
 
   const handleAddToCart = () => {
     const cartItemType: 'buy' | 'rent' | 'installment' = paymentType === 'full' ? 'buy' : 'installment';
@@ -184,7 +203,14 @@ export default function ProductDetail() {
 
           {/* Payment Options */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-4">Payment Options</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Payment Options</h3>
+              {isFromCart && (
+                <span className="text-sm px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
+                  Editing cart item
+                </span>
+              )}
+            </div>
             <div className="space-y-4">
               <div
                 className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
@@ -333,22 +359,11 @@ export default function ProductDetail() {
               ? 'Out of Stock' 
               : product.availableForPreOrder && !product.inStock
                 ? 'Pre-order Now'
-                : (() => {
-                    const existingIndex = findExistingCartItem(
-                      product.id, 
-                      selectedColor || product.colors[0], 
-                      paymentType, 
-                      paymentType === 'installment' ? installmentDuration : undefined
-                    );
-                    
-                    if (existingIndex !== -1) {
-                      return 'Update Cart Item';
-                    }
-                    
-                    return paymentType === 'installment' 
-                      ? 'Add to Cart (Installment)'
-                      : 'Add to Cart';
-                  })()
+                : isFromCart
+                  ? 'Update Cart Item'
+                  : paymentType === 'installment' 
+                    ? 'Add to Cart (Installment)'
+                    : 'Add to Cart'
             }
           </Button>
 
