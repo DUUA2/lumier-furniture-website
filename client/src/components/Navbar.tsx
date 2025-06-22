@@ -85,6 +85,12 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>
+                    <Link href="/account" className="flex items-center w-full">
+                      <User className="mr-2 h-4 w-4" />
+                      My Account
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
                     <Link href="/profile" className="flex items-center w-full">
                       <User className="mr-2 h-4 w-4" />
                       My Profile

@@ -18,7 +18,7 @@ export default function Account() {
   const { toast } = useToast();
 
   // Fetch user orders
-  const { data: orders = [], isLoading: ordersLoading } = useQuery({
+  const { data: orders = [], isLoading: ordersLoading } = useQuery<Order[]>({
     queryKey: ['/api/orders/user'],
     enabled: !!user,
   });
@@ -153,7 +153,7 @@ export default function Account() {
             </Card>
           ) : (
             <div className="grid gap-6">
-              {(orders as Order[]).map((order: Order) => {
+              {orders.map((order: Order) => {
                 const progress = calculateOrderProgress(order);
                 const remaining = getRemainingBalance(order);
                 
@@ -259,7 +259,7 @@ export default function Account() {
                 </div>
                 <div>
                   <Label className="text-sm font-medium">Member Since</Label>
-                  <p className="text-sm">{(user as User).createdAt ? new Date((user as User).createdAt).toLocaleDateString() : 'Unknown'}</p>
+                  <p className="text-sm">{(user as User).createdAt ? new Date((user as User).createdAt as Date).toLocaleDateString() : 'Unknown'}</p>
                 </div>
               </div>
               <Separator />
