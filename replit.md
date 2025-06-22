@@ -135,6 +135,7 @@ The application uses three main entities:
 - June 19, 2025. Corrected brand spelling from "Lumiere" to "Lumiere" throughout entire project including CSS variables, Tailwind classes, component names, and all references to maintain proper French spelling of company name
 - June 19, 2025. Enhanced Terms page (Learn More) to include comprehensive subscription service information alongside installment payment details, featuring all three subscription plans (Basic, Premium, Elite), Seasonal Refresh program details, subscription benefits, terms and conditions, and direct links to subscription and checkout pages
 - June 19, 2025. Implemented comprehensive admin management system with full website control capabilities, including product management (add/edit/delete furniture items), pricing configuration (VAT, service fees, rental rates, delivery fees), subscription plan management, order tracking, and website settings control - accessible via /admin/manage for complete backend management of the furniture business
+- June 22, 2025. Enhanced payment system: customers can now select payment options (Full Payment vs Down Payment + Installments) directly on individual product pages before adding to cart, cart displays payment method badges for each item, items in cart are clickable to return to product pages for adjustments, and payment options display independent breakdowns without cross-contamination between Full Payment and Installment views
 
 ## User Preferences
 

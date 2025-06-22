@@ -83,33 +83,33 @@ export default function ProductDetail() {
   const availability = getAvailabilityStatus();
   const canAddToCart = product.inStock || product.availableForPreOrder;
 
-  const getPaymentBreakdown = () => {
+  const getFullPaymentBreakdown = () => {
     const subtotal = product.price;
     const vat = Math.round(subtotal * 0.075);
     const totalWithVat = subtotal + vat;
     
-    if (paymentType === 'full') {
-      return {
-        totalAmount: totalWithVat,
-        displayText: `₦${totalWithVat.toLocaleString()}`,
-        subtitle: "Pay full amount upfront"
-      };
-    } else {
-      const downPayment = Math.round(totalWithVat * 0.7);
-      const remainingBalance = totalWithVat - downPayment;
-      const monthlyServiceFee = Math.round(remainingBalance * 0.05);
-      const monthlyPayment = Math.round(remainingBalance / installmentDuration) + monthlyServiceFee;
-      
-      return {
-        totalAmount: totalWithVat,
-        downPayment,
-        remainingBalance,
-        monthlyPayment,
-        installmentDuration,
-        displayText: `₦${downPayment.toLocaleString()} down`,
-        subtitle: `Then ₦${monthlyPayment.toLocaleString()}/month for ${installmentDuration} months`
-      };
-    }
+    return {
+      displayText: `₦${totalWithVat.toLocaleString()}`,
+      subtitle: "Pay full amount upfront - No additional fees"
+    };
+  };
+
+  const getInstallmentBreakdown = () => {
+    const subtotal = product.price;
+    const vat = Math.round(subtotal * 0.075);
+    const totalWithVat = subtotal + vat;
+    const downPayment = Math.round(totalWithVat * 0.7);
+    const remainingBalance = totalWithVat - downPayment;
+    const monthlyServiceFee = Math.round(remainingBalance * 0.05);
+    const monthlyPayment = Math.round(remainingBalance / installmentDuration) + monthlyServiceFee;
+    
+    return {
+      displayText: `₦${downPayment.toLocaleString()} down`,
+      subtitle: `Then ₦${monthlyPayment.toLocaleString()}/month for ${installmentDuration} months`,
+      downPayment,
+      remainingBalance,
+      monthlyPayment
+    };
   };
 
   return (
@@ -189,10 +189,10 @@ export default function ProductDetail() {
                   </div>
                   <div className="text-right">
                     <div className="text-xl font-bold text-lumiere-gold">
-                      {getPaymentBreakdown().displayText}
+                      {getFullPaymentBreakdown().displayText}
                     </div>
                     <div className="text-sm text-gray-600">
-                      {getPaymentBreakdown().subtitle}
+                      {getFullPaymentBreakdown().subtitle}
                     </div>
                   </div>
                 </div>
@@ -219,10 +219,10 @@ export default function ProductDetail() {
                   </div>
                   <div className="text-right">
                     <div className="text-xl font-bold text-lumiere-gold">
-                      {getPaymentBreakdown().displayText}
+                      {getInstallmentBreakdown().displayText}
                     </div>
                     <div className="text-sm text-gray-600">
-                      {getPaymentBreakdown().subtitle}
+                      {getInstallmentBreakdown().subtitle}
                     </div>
                   </div>
                 </div>
@@ -236,14 +236,16 @@ export default function ProductDetail() {
                     onChange={(e) => setInstallmentDuration(Number(e.target.value))}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   >
-                    <option value={2}>2 months</option>
+                    <option value={2}>2 months - ₦{getInstallmentBreakdown().monthlyPayment.toLocaleString()}/month</option>
                     <option value={3}>3 months</option>
                     <option value={4}>4 months</option>
                     <option value={5}>5 months</option>
                     <option value={6}>6 months</option>
                   </select>
-                  <div className="text-sm text-blue-700 mt-2">
-                    Monthly payment includes 5% service fee on remaining balance
+                  <div className="text-sm text-blue-700 mt-2 space-y-1">
+                    <p>• Down payment today: ₦{getInstallmentBreakdown().downPayment.toLocaleString()}</p>
+                    <p>• Remaining balance: ₦{getInstallmentBreakdown().remainingBalance.toLocaleString()}</p>
+                    <p>• Monthly payment: ₦{getInstallmentBreakdown().monthlyPayment.toLocaleString()} (includes 5% service fee)</p>
                   </div>
                 </div>
               )}
