@@ -246,6 +246,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get user's orders
+  app.get('/api/orders/user', isAuthenticated, async (req, res) => {
+    try {
+      const userId = (req.user as any)?.claims?.sub;
+      if (!userId) {
+        return res.status(401).json({ error: 'Not authenticated' });
+      }
+      
+      const orders = await storage.getOrdersByUser(userId);
+      res.json(orders);
+    } catch (error) {
+      console.error('Error fetching user orders:', error);
+      res.status(500).json({ error: 'Failed to fetch orders' });
+    }
+  });
+
+  // Pay remaining balance for an order
+  app.post('/api/orders/:id/pay-remaining', isAuthenticated, async (req, res) => {
+    try {
+      const userId = (req.user as any)?.claims?.sub;
+      if (!userId) {
+        return res.status(401).json({ error: 'Not authenticated' });
+      }
+
+      const orderId = parseInt(req.params.id);
+      const order = await storage.getOrder(orderId);
+      
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      if (order.userId !== userId) {
+        return res.status(403).json({ error: 'Not authorized to access this order' });
+      }
+
+      // Update payment status to completed
+      const updatedOrder = await storage.updateOrderPaymentStatus(orderId, 'completed');
+      
+      if (!updatedOrder) {
+        return res.status(500).json({ error: 'Failed to update payment status' });
+      }
+
+      res.json({ 
+        message: 'Payment successful', 
+        order: updatedOrder 
+      });
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      res.status(500).json({ error: 'Failed to process payment' });
+    }
+  });
+
   // Schedule subscription refresh
   app.post("/api/subscription/schedule-refresh", isAuthenticated, async (req, res) => {
     try {

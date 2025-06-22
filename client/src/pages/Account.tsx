@@ -10,42 +10,28 @@ import { Label } from "@/components/ui/label";
 import { CreditCard, Calendar, Package, AlertCircle, CheckCircle, Clock } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import type { Order } from "@shared/schema";
-
-interface PaymentSchedule {
-  id: number;
-  orderId: number;
-  installmentNumber: number;
-  amount: number;
-  dueDate: string;
-  status: 'pending' | 'paid' | 'overdue';
-  paidDate?: string;
-}
+import { queryClient } from "@/lib/queryClient";
+import type { Order, User } from "@shared/schema";
 
 export default function Account() {
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
   const { toast } = useToast();
-  const [selectedOrder, setSelectedOrder] = useState<number | null>(null);
 
   // Fetch user orders
   const { data: orders = [], isLoading: ordersLoading } = useQuery({
-    queryKey: ['/api/orders/user', user?.id],
-    enabled: !!user?.id,
-  });
-
-  // Fetch payment schedules for selected order
-  const { data: paymentSchedule = [], isLoading: scheduleLoading } = useQuery({
-    queryKey: ['/api/orders', selectedOrder, 'payments'],
-    enabled: !!selectedOrder,
+    queryKey: ['/api/orders/user'],
+    enabled: !!user,
   });
 
   // Pay remaining balance mutation
   const payRemainingMutation = useMutation({
     mutationFn: async (orderId: number) => {
-      return apiRequest(`/api/orders/${orderId}/pay-remaining`, {
-        method: 'POST'
+      const response = await fetch(`/api/orders/${orderId}/pay-remaining`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
       });
+      if (!response.ok) throw new Error('Payment failed');
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -63,30 +49,7 @@ export default function Account() {
     }
   });
 
-  // Pay single installment mutation
-  const payInstallmentMutation = useMutation({
-    mutationFn: async ({ orderId, installmentId }: { orderId: number; installmentId: number }) => {
-      return apiRequest(`/api/orders/${orderId}/installments/${installmentId}/pay`, {
-        method: 'POST'
-      });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Payment Successful",
-        description: "Installment payment processed successfully.",
-      });
-      queryClient.invalidateQueries({ queryKey: ['/api/orders'] });
-    },
-    onError: () => {
-      toast({
-        title: "Payment Failed",
-        description: "Unable to process installment payment. Please try again.",
-        variant: "destructive",
-      });
-    }
-  });
-
-  if (loading || ordersLoading) {
+  if (isLoading || ordersLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center h-64">
@@ -120,12 +83,11 @@ export default function Account() {
 
   const calculateOrderProgress = (order: Order) => {
     if (order.paymentStatus === 'completed') return 100;
-    if (order.paymentType === 'full') return order.paymentStatus === 'completed' ? 100 : 0;
+    if (order.orderType === 'purchase') return order.paymentStatus === 'completed' ? 100 : 0;
     
     // For installment orders, calculate based on payments made
-    const totalAmount = order.totalAmount;
+    const totalAmount = order.total;
     const downPayment = totalAmount * 0.7; // 70% down payment
-    const remainingAmount = totalAmount - downPayment;
     
     // This would need to be calculated based on actual payment records
     // For now, showing based on payment status
@@ -135,9 +97,9 @@ export default function Account() {
 
   const getRemainingBalance = (order: Order) => {
     if (order.paymentStatus === 'completed') return 0;
-    if (order.paymentType === 'full') return order.totalAmount;
+    if (order.orderType === 'purchase') return order.total;
     
-    const totalAmount = order.totalAmount;
+    const totalAmount = order.total;
     const downPayment = totalAmount * 0.7;
     return totalAmount - downPayment;
   };
@@ -165,14 +127,13 @@ export default function Account() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-lumiere-dark">My Account</h1>
         <p className="text-muted-foreground">
-          Welcome back, {user.name}! Manage your orders and payments.
+          Welcome back, {(user as User).firstName || (user as User).email}! Manage your orders and payments.
         </p>
       </div>
 
       <Tabs defaultValue="orders" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="orders">My Orders</TabsTrigger>
-          <TabsTrigger value="payments">Payment Schedule</TabsTrigger>
           <TabsTrigger value="profile">Profile</TabsTrigger>
         </TabsList>
 
@@ -192,7 +153,7 @@ export default function Account() {
             </Card>
           ) : (
             <div className="grid gap-6">
-              {orders.map((order: Order) => {
+              {(orders as Order[]).map((order: Order) => {
                 const progress = calculateOrderProgress(order);
                 const remaining = getRemainingBalance(order);
                 
@@ -202,12 +163,12 @@ export default function Account() {
                       <div>
                         <h3 className="text-lg font-semibold">Order #{order.id}</h3>
                         <p className="text-sm text-muted-foreground">
-                          Placed on {new Date(order.createdAt).toLocaleDateString()}
+                          Placed on {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'Unknown date'}
                         </p>
                       </div>
-                      <Badge className={`${getStatusColor(order.paymentStatus)} text-white`}>
-                        {getStatusIcon(order.paymentStatus)}
-                        <span className="ml-1 capitalize">{order.paymentStatus}</span>
+                      <Badge className={`${getStatusColor(order.paymentStatus || 'pending')} text-white`}>
+                        {getStatusIcon(order.paymentStatus || 'pending')}
+                        <span className="ml-1 capitalize">{order.paymentStatus || 'pending'}</span>
                       </Badge>
                     </div>
 
@@ -223,19 +184,31 @@ export default function Account() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div>
                           <p className="text-muted-foreground">Total Amount</p>
-                          <p className="font-semibold">₦{order.totalAmount.toLocaleString()}</p>
+                          <p className="font-semibold">₦{order.total.toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-muted-foreground">Payment Type</p>
-                          <p className="font-semibold capitalize">{order.paymentType}</p>
+                          <p className="text-muted-foreground">Order Type</p>
+                          <p className="font-semibold capitalize">{order.orderType}</p>
                         </div>
                         <div>
                           <p className="text-muted-foreground">Remaining Balance</p>
                           <p className="font-semibold text-lumiere-gold">₦{remaining.toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-muted-foreground">Delivery Status</p>
-                          <p className="font-semibold capitalize">{order.deliveryStatus || 'Processing'}</p>
+                          <p className="text-muted-foreground">Payment Plan</p>
+                          <p className="font-semibold">{order.paymentPlan} months</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h4 className="font-semibold mb-2">Order Items</h4>
+                        <div className="space-y-2">
+                          {order.items.map((item, index) => (
+                            <div key={index} className="flex justify-between text-sm">
+                              <span>{item.name} ({item.color}) x{item.quantity}</span>
+                              <span>₦{(item.price * item.quantity).toLocaleString()}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
@@ -249,14 +222,11 @@ export default function Account() {
                             <CreditCard className="h-4 w-4 mr-2" />
                             Pay Remaining ₦{remaining.toLocaleString()}
                           </Button>
-                          {order.paymentType === 'installment' && (
-                            <Button
-                              variant="outline"
-                              onClick={() => setSelectedOrder(order.id)}
-                            >
-                              <Calendar className="h-4 w-4 mr-2" />
-                              View Payment Schedule
-                            </Button>
+                          {order.orderType === 'installment' && (
+                            <div className="text-sm text-muted-foreground flex items-center">
+                              <Calendar className="h-4 w-4 mr-1" />
+                              Monthly: ₦{order.monthlyPayment.toLocaleString()}
+                            </div>
                           )}
                         </div>
                       )}
@@ -265,69 +235,6 @@ export default function Account() {
                 );
               })}
             </div>
-          )}
-        </TabsContent>
-
-        <TabsContent value="payments" className="space-y-6">
-          {!selectedOrder ? (
-            <Card>
-              <CardContent className="p-8 text-center">
-                <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Select an Order</h3>
-                <p className="text-muted-foreground">
-                  Choose an order from the Orders tab to view its payment schedule.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle>Payment Schedule - Order #{selectedOrder}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {scheduleLoading ? (
-                  <div className="text-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-lumiere-gold mx-auto"></div>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {paymentSchedule.map((payment: PaymentSchedule) => (
-                      <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex items-center gap-4">
-                          <div className={`w-3 h-3 rounded-full ${getStatusColor(payment.status)}`} />
-                          <div>
-                            <p className="font-medium">Installment #{payment.installmentNumber}</p>
-                            <p className="text-sm text-muted-foreground">
-                              Due: {new Date(payment.dueDate).toLocaleDateString()}
-                              {payment.paidDate && (
-                                <span className="ml-2 text-green-600">
-                                  (Paid: {new Date(payment.paidDate).toLocaleDateString()})
-                                </span>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <span className="font-semibold">₦{payment.amount.toLocaleString()}</span>
-                          {payment.status === 'pending' && (
-                            <Button
-                              size="sm"
-                              onClick={() => payInstallmentMutation.mutate({
-                                orderId: selectedOrder,
-                                installmentId: payment.id
-                              })}
-                              disabled={payInstallmentMutation.isPending}
-                            >
-                              Pay Now
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
           )}
         </TabsContent>
 
@@ -340,19 +247,19 @@ export default function Account() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label className="text-sm font-medium">Name</Label>
-                  <p className="text-sm">{user.name}</p>
+                  <p className="text-sm">{`${(user as User).firstName || ''} ${(user as User).lastName || ''}`.trim() || 'Not provided'}</p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium">Email</Label>
-                  <p className="text-sm">{user.email}</p>
+                  <p className="text-sm">{(user as User).email || 'Not provided'}</p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium">Phone</Label>
-                  <p className="text-sm">{user.phone || 'Not provided'}</p>
+                  <p className="text-sm">{(user as User).phone || 'Not provided'}</p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium">Member Since</Label>
-                  <p className="text-sm">{new Date(user.createdAt).toLocaleDateString()}</p>
+                  <p className="text-sm">{(user as User).createdAt ? new Date((user as User).createdAt).toLocaleDateString() : 'Unknown'}</p>
                 </div>
               </div>
               <Separator />
