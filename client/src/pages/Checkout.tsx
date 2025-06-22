@@ -52,7 +52,7 @@ export default function Checkout() {
     city: "",
     state: "",
     zipCode: "",
-    purchaseType: "buy",
+    purchaseType: "full",
     paymentPlan: "2",
     subscriptionPlan: "basic",
     insurance: false,
@@ -134,7 +134,7 @@ export default function Checkout() {
       return;
     }
 
-    const { subtotal, vat, deliveryFee, insuranceFee, total } = calculateTotal();
+    const breakdown = getPaymentBreakdown();
     
     const orderData = {
       customerInfo: {
@@ -157,7 +157,7 @@ export default function Checkout() {
         zipCode: formData.zipCode,
       },
       items: cart,
-      pricing: { subtotal, vat, deliveryFee, insuranceFee, total },
+      pricing: breakdown,
       purchaseType: formData.purchaseType,
       paymentPlan: parseInt(formData.paymentPlan),
       subscriptionPlan: formData.subscriptionPlan,
