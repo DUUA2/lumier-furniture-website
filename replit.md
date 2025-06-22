@@ -136,6 +136,7 @@ The application uses three main entities:
 - June 19, 2025. Enhanced Terms page (Learn More) to include comprehensive subscription service information alongside installment payment details, featuring all three subscription plans (Basic, Premium, Elite), Seasonal Refresh program details, subscription benefits, terms and conditions, and direct links to subscription and checkout pages
 - June 19, 2025. Implemented comprehensive admin management system with full website control capabilities, including product management (add/edit/delete furniture items), pricing configuration (VAT, service fees, rental rates, delivery fees), subscription plan management, order tracking, and website settings control - accessible via /admin/manage for complete backend management of the furniture business
 - June 22, 2025. Enhanced payment system: customers can now select payment options (Full Payment vs Down Payment + Installments) directly on individual product pages before adding to cart, cart displays payment method badges for each item, items in cart are clickable to return to product pages for adjustments, and payment options display independent breakdowns without cross-contamination between Full Payment and Installment views
+- June 22, 2025. Removed color selection options from product pages and made CustomizationPanel permanently open on all product pages, providing customers with immediate access to furniture customization tools including fabric, color, finish, layout, and dimension options for enhanced personalization experience
 
 ## User Preferences
 

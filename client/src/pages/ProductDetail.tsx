@@ -14,12 +14,10 @@ export default function ProductDetail() {
   const [, params] = useRoute("/product/:id");
   const productId = parseInt(params?.id || "0");
   
-  const [selectedColor, setSelectedColor] = useState<string>("");
   const [paymentType, setPaymentType] = useState<'full' | 'installment'>('full');
   const [installmentDuration, setInstallmentDuration] = useState<number>(2);
   const [mainImage, setMainImage] = useState<string>("");
   const [showARShowroom, setShowARShowroom] = useState(false);
-  const [showCustomization, setShowCustomization] = useState(false);
   const [customizations, setCustomizations] = useState<any>({});
   const [isFromCart, setIsFromCart] = useState(false);
 
@@ -42,23 +40,19 @@ export default function ProductDetail() {
       
       if (existingCartItem) {
         setIsFromCart(true);
-        setSelectedColor(existingCartItem.color);
         setPaymentType(existingCartItem.paymentType || 'full');
         if (existingCartItem.installmentDuration) {
           setInstallmentDuration(existingCartItem.installmentDuration);
         }
       } else {
         setIsFromCart(false);
-        if (!selectedColor && product.colors.length > 0) {
-          setSelectedColor(product.colors[0]);
-        }
       }
       
       if (!mainImage) {
         setMainImage(product.image);
       }
     }
-  }, [product, cart, selectedColor, mainImage]);
+  }, [product, cart, mainImage]);
 
   const relatedProducts = allProducts
     .filter(p => p.id !== productId && p.category === product?.category)
@@ -85,7 +79,7 @@ export default function ProductDetail() {
       image: product.image,
       quantity: 1,
       type: cartItemType,
-      color: selectedColor || product.colors[0],
+      color: product.colors[0] || 'default',
       paymentType,
       installmentDuration: paymentType === 'installment' ? installmentDuration : undefined
     };
@@ -93,7 +87,7 @@ export default function ProductDetail() {
     // Check if this exact configuration already exists in cart
     const existingIndex = findExistingCartItem(
       product.id, 
-      selectedColor || product.colors[0], 
+      product.colors[0] || 'default', 
       paymentType, 
       paymentType === 'installment' ? installmentDuration : undefined
     );
@@ -296,21 +290,13 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          {/* Color Selection */}
+          {/* Customization Panel - Always Open */}
           <div className="mb-6">
-            <h3 className="font-semibold mb-3">Color Options</h3>
-            <div className="flex space-x-3">
-              {product.colors.map((color) => (
-                <div
-                  key={color}
-                  className={`color-option w-10 h-10 rounded-lg cursor-pointer ${
-                    selectedColor === color ? 'selected' : ''
-                  }`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => setSelectedColor(color)}
-                />
-              ))}
-            </div>
+            <CustomizationPanel 
+              product={product} 
+              onCustomizationChange={setCustomizations}
+              availableFor="both"
+            />
           </div>
 
           {/* Product Description */}
@@ -367,23 +353,15 @@ export default function ProductDetail() {
             }
           </Button>
 
-          {/* AR & Customization */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          {/* AR Button */}
+          <div className="mb-4">
             <Button 
               variant="outline" 
               onClick={() => setShowARShowroom(true)}
-              className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
+              className="w-full border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
             >
               <Camera className="h-4 w-4 mr-2" />
               Try in AR
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={() => setShowCustomization(!showCustomization)}
-              className="border-lumiere-gold text-lumiere-gold hover:bg-lumiere-gold hover:text-lumiere-black"
-            >
-              <Palette className="h-4 w-4 mr-2" />
-              Customize
             </Button>
           </div>
 
@@ -400,17 +378,6 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-
-      {/* Customization Panel */}
-      {showCustomization && (
-        <div className="mt-8">
-          <CustomizationPanel 
-            product={product}
-            onCustomizationChange={setCustomizations}
-            availableFor="both"
-          />
-        </div>
-      )}
 
       {/* AR Showroom Modal */}
       <ARShowroom 
