@@ -8,8 +8,10 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import { sendOrderConfirmationEmail, sendAdminNotificationEmail } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Setup authentication
-  await setupAuth(app);
+  // Setup authentication (disabled when AUTH_DISABLED=true)
+  if (process.env.AUTH_DISABLED !== 'true') {
+    await setupAuth(app);
+  }
 
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
@@ -96,6 +98,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get('/api/auth/current-user', (req, res) => {
+    // Bypass authentication if disabled
+    if (process.env.AUTH_DISABLED === 'true') {
+      return res.json({
+        id: 'test-user-id',
+        email: 'test@example.com',
+        firstName: 'Test',
+        lastName: 'User',
+        phone: '+234 123 456 7890'
+      });
+    }
+
     const userId = (req.session as any)?.userId;
     const user = (req.session as any)?.user;
     
@@ -429,7 +442,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get user's orders
   app.get('/api/orders/user', isAuthenticated, async (req, res) => {
     try {
-      const userId = (req.user as any)?.claims?.sub;
+      let userId = (req.user as any)?.claims?.sub;
+      
+      // When auth is disabled, use test user ID
+      if (process.env.AUTH_DISABLED === 'true') {
+        userId = 'test-user-id';
+      }
+      
       if (!userId) {
         return res.status(401).json({ error: 'Not authenticated' });
       }

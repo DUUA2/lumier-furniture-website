@@ -7,8 +7,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Add session middleware for authentication
-app.use(getSession());
+// Add session middleware for authentication (disabled when AUTH_DISABLED=true)
+if (process.env.AUTH_DISABLED !== 'true') {
+  app.use(getSession());
+}
 
 app.use((req, res, next) => {
   const start = Date.now();

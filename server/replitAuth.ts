@@ -120,6 +120,18 @@ export async function setupAuth(app: Express) {
 }
 
 export const isAuthenticated: RequestHandler = async (req, res, next) => {
+  // Bypass authentication if disabled
+  if (process.env.AUTH_DISABLED === 'true') {
+    // Mock authenticated user for testing
+    (req as any).user = {
+      claims: {
+        sub: 'test-user-id',
+        email: 'test@example.com'
+      }
+    };
+    return next();
+  }
+
   const user = req.user as any;
 
   if (!req.isAuthenticated() || !user.expires_at) {
