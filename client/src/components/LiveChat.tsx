@@ -221,7 +221,7 @@ export default function LiveChat({ className }: LiveChatProps) {
           <div className="flex items-center space-x-2">
             <MessageCircle className="h-5 w-5" />
             <span className="font-semibold">Live Chat</span>
-            <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+            <div className="w-2 h-2 rounded-full bg-orange-500" />
           </div>
           <div className="flex space-x-1">
             <Button
