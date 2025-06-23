@@ -8,11 +8,15 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 import { CreditCard, Truck, Award, Recycle, Leaf, Users } from "lucide-react";
 
 export default function Home() {
-  const { data: products = [] } = useQuery<Product[]>({
+  const { data: products = [], error, isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
 
-  const featuredProducts = products.slice(0, 4);
+  if (error) {
+    console.warn('Products query error handled:', error);
+  }
+
+  const featuredProducts = (products || []).slice(0, 4);
 
   return (
     <div>
