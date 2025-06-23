@@ -143,10 +143,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
   app.get("/api/products", async (req, res) => {
     try {
+      console.log('Fetching products from storage...');
       const products = await storage.getProducts();
+      console.log(`Successfully fetched ${products.length} products`);
       res.json(products);
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch products" });
+    } catch (error: any) {
+      console.error("Error fetching products:", error);
+      const errorMessage = error?.message || 'Unknown error';
+      res.status(500).json({ error: "Failed to fetch products", details: errorMessage });
     }
   });
 
