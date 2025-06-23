@@ -35,73 +35,75 @@ export default function LiveChat({ className }: LiveChatProps) {
 
   useEffect(scrollToBottom, [messages]);
 
-  useEffect(() => {
-    if (isOpen && !wsRef.current) {
-      connectWebSocket();
-    }
+  // Temporarily disabled WebSocket functionality for deployment
+  // useEffect(() => {
+  //   if (isOpen && !wsRef.current) {
+  //     connectWebSocket();
+  //   }
 
-    return () => {
-      if (wsRef.current) {
-        wsRef.current.close();
-      }
-    };
-  }, [isOpen]);
+  //   return () => {
+  //     if (wsRef.current) {
+  //       wsRef.current.close();
+  //     }
+  //   };
+  // }, [isOpen]);
 
-  const connectWebSocket = () => {
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${protocol}//${window.location.host}/ws`;
-    
-    try {
-      wsRef.current = new WebSocket(wsUrl);
+  // Temporarily disabled WebSocket functionality for deployment
+  // const connectWebSocket = () => {
+  //   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  //   const wsUrl = `${protocol}//${window.location.host}/ws`;
+  //   
+  //   try {
+  //     wsRef.current = new WebSocket(wsUrl);
 
-      wsRef.current.onopen = () => {
-        setIsConnected(true);
-        // Send initial greeting
-        setMessages([{
-          id: Date.now().toString(),
-          text: "Hello! Welcome to Lumiere Furniture. How can I assist you today?",
-          sender: 'support',
-          timestamp: new Date(),
-          senderName: 'Support Team'
-        }]);
-      };
+  //     wsRef.current.onopen = () => {
+  //       setIsConnected(true);
+  //       // Send initial greeting
+  //       setMessages([{
+  //         id: Date.now().toString(),
+  //         text: "Hello! Welcome to Lumiere Furniture. How can I assist you today?",
+  //         sender: 'support',
+  //         timestamp: new Date(),
+  //         senderName: 'Support Team'
+  //       }]);
+  //     };
 
-      wsRef.current.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === 'message') {
-          const newMsg: Message = {
-            id: data.id || Date.now().toString(),
-            text: data.text,
-            sender: data.sender || 'support',
-            timestamp: new Date(data.timestamp || Date.now()),
-            senderName: data.senderName || 'Support Team'
-          };
-          
-          setMessages(prev => [...prev, newMsg]);
-          
-          // Increment unread count if chat is minimized or closed
-          if (isMinimized || !isOpen) {
-            setUnreadCount(prev => prev + 1);
-          }
-        }
-      };
+  //     wsRef.current.onmessage = (event) => {
+  //       const data = JSON.parse(event.data);
+  //       if (data.type === 'message') {
+  //         const newMsg: Message = {
+  //           id: data.id || Date.now().toString(),
+  //           text: data.text,
+  //           sender: data.sender || 'support',
+  //           timestamp: new Date(data.timestamp || Date.now()),
+  //           senderName: data.senderName || 'Support Team'
+  //         };
+  //         
+  //         setMessages(prev => [...prev, newMsg]);
+  //         
+  //         // Increment unread count if chat is minimized or closed
+  //         if (isMinimized || !isOpen) {
+  //           setUnreadCount(prev => prev + 1);
+  //         }
+  //       }
+  //     };
 
-      wsRef.current.onclose = () => {
-        setIsConnected(false);
-      };
+  //     wsRef.current.onclose = () => {
+  //       setIsConnected(false);
+  //     };
 
-      wsRef.current.onerror = (error) => {
-        console.error('WebSocket error:', error);
-        setIsConnected(false);
-      };
-    } catch (error) {
-      console.error('Failed to connect WebSocket:', error);
-      setIsConnected(false);
-    }
-  };
+  //     wsRef.current.onerror = (error) => {
+  //       console.error('WebSocket error:', error);
+  //       setIsConnected(false);
+  //     };
+  //   } catch (error) {
+  //     console.error('Failed to connect WebSocket:', error);
+  //     setIsConnected(false);
+  //   }
+  // };
 
   const sendMessage = () => {
-    if (!newMessage.trim() || !wsRef.current) return;
+    if (!newMessage.trim()) return;
 
     const message: Message = {
       id: Date.now().toString(),
@@ -113,14 +115,14 @@ export default function LiveChat({ className }: LiveChatProps) {
 
     setMessages(prev => [...prev, message]);
 
-    // Send to WebSocket
-    if (wsRef.current.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify({
-        type: 'message',
-        ...message,
-        userId: (user as any)?.id || 'guest'
-      }));
-    }
+    // Temporarily disabled WebSocket sending for deployment
+    // if (wsRef.current?.readyState === WebSocket.OPEN) {
+    //   wsRef.current.send(JSON.stringify({
+    //     type: 'message',
+    //     ...message,
+    //     userId: (user as any)?.id || 'guest'
+    //   }));
+    // }
 
     setNewMessage("");
   };
@@ -146,10 +148,11 @@ export default function LiveChat({ className }: LiveChatProps) {
   const closeChat = () => {
     setIsOpen(false);
     setIsMinimized(false);
-    if (wsRef.current) {
-      wsRef.current.close();
-      wsRef.current = null;
-    }
+    // Temporarily disabled WebSocket cleanup for deployment
+    // if (wsRef.current) {
+    //   wsRef.current.close();
+    //   wsRef.current = null;
+    // }
   };
 
   // Chat button when closed
@@ -179,7 +182,7 @@ export default function LiveChat({ className }: LiveChatProps) {
             <div className="flex items-center space-x-2">
               <MessageCircle className="h-5 w-5" />
               <span className="font-semibold">Live Chat</span>
-              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+              <div className="w-2 h-2 rounded-full bg-orange-500" />
             </div>
             <div className="flex space-x-1">
               <Button
@@ -272,22 +275,20 @@ export default function LiveChat({ className }: LiveChatProps) {
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={isConnected ? "Type your message..." : "Connecting..."}
-                disabled={!isConnected}
+                placeholder="Live chat is temporarily disabled"
+                disabled={true}
                 className="flex-1"
               />
               <Button
                 onClick={sendMessage}
-                disabled={!newMessage.trim() || !isConnected}
+                disabled={true}
                 size="sm"
                 className="bg-lumiere-gold text-lumiere-black hover:bg-lumiere-gold/90"
               >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
-            {!isConnected && (
-              <p className="text-xs text-red-500 mt-1">Connection lost. Retrying...</p>
-            )}
+            <p className="text-xs text-orange-500 mt-1">Live chat is temporarily disabled for deployment.</p>
           </div>
         </CardContent>
       </Card>
