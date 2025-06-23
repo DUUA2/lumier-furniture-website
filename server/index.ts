@@ -3,6 +3,9 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { getSession } from "./replitAuth";
 
+// Temporarily disable authentication for testing
+process.env.AUTH_DISABLED = 'true';
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
