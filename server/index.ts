@@ -2,6 +2,9 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { getSession } from "./replitAuth";
+import path from "path";
+import { fileURLToPath } from "url";
+import productsRoute from "./products";
 
 // Temporarily disable authentication for testing
 process.env.AUTH_DISABLED = 'true';
@@ -15,6 +18,7 @@ if (process.env.AUTH_DISABLED !== 'true') {
   app.use(getSession());
 }
 
+// API logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -45,9 +49,24 @@ app.use((req, res, next) => {
   next();
 });
 
+// API routes
+app.use("/api/products", productsRoute);
+
+// Serve frontend build in production
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, "../dist/public");
+
+app.use(express.static(distPath));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
+
+// Async app setup
 (async () => {
   const server = await registerRoutes(app);
 
+  // Global error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -55,7 +74,7 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // Setup Vite only in development
+  // Vite dev server (only in development)
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
@@ -74,5 +93,4 @@ app.use((req, res, next) => {
     }
   );
 })();
-import productsRoute from "./products";
-app.use("/api/products", productsRoute);
+

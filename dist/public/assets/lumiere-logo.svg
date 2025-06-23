@@ -1,0 +1,30 @@
+<svg width="400" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shopping bag with bulb -->
+  <g transform="translate(20, 10)">
+    <!-- Bag outline -->
+    <path d="M15 25 L5 95 L45 95 L35 25 Z" stroke="#000" stroke-width="3" fill="#FFD700"/>
+    
+    <!-- Bag handle -->
+    <path d="M15 25 C15 15, 35 15, 35 25" stroke="#000" stroke-width="3" fill="none"/>
+    
+    <!-- Light bulb inside bag -->
+    <g transform="translate(25, 35)">
+      <!-- Bulb body -->
+      <circle cx="0" cy="5" r="8" stroke="#000" stroke-width="2" fill="none"/>
+      <!-- Bulb base -->
+      <rect x="-4" y="12" width="8" height="4" stroke="#000" stroke-width="2" fill="none"/>
+      <!-- Filament -->
+      <path d="M-4 3 L4 7 M-4 7 L4 3" stroke="#000" stroke-width="1.5"/>
+    </g>
+  </g>
+  
+  <!-- Company name -->
+  <g transform="translate(90, 30)">
+    <!-- LUMIERE -->
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">LUMIERE</text>
+    <!-- FURNITURE -->
+    <text x="0" y="55" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">FURNITURE</text>
+    <!-- RC Number -->
+    <text x="0" y="75" font-family="Arial, sans-serif" font-size="14" fill="#666">RC 3662809</text>
+  </g>
+</svg>
