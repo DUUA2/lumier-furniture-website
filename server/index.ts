@@ -74,3 +74,5 @@ app.use((req, res, next) => {
     }
   );
 })();
+import productsRoute from "./products";
+app.use("/api/products", productsRoute);
